@@ -2292,6 +2292,53 @@
                 box-shadow: 0 18px 32px rgba(66, 133, 244, 0.26);
             }
 
+            /* Flight prompt overlay (Task 3): scoped premium styling, no logic changes */
+            #online-flight-mobile-stepper-prompt-overlay-body .online-flight-mobile-stepper__prompt--overlay {
+                border: 1px solid rgba(226, 232, 240, 1);
+                border-radius: 1.5rem;
+                background: #fff;
+                box-shadow: 0 28px 60px rgba(15, 23, 42, 0.18);
+                padding: 1.25rem 1.25rem 1.35rem;
+                position: relative;
+            }
+            #online-flight-mobile-stepper-prompt-overlay-body .online-flight-prompt-handle {
+                width: 64px;
+                height: 6px;
+                border-radius: 9999px;
+                background: rgba(148, 163, 184, 0.45);
+                margin: 0 auto 1rem;
+            }
+            #online-flight-mobile-stepper-prompt-overlay-body .online-flight-mobile-stepper__prompt-illustration {
+                width: 88px;
+                height: 88px;
+                border-radius: 9999px;
+                background: radial-gradient(circle at 30% 30%, rgba(66, 133, 244, 0.28), rgba(66, 133, 244, 0.06));
+                border: 1px solid rgba(66, 133, 244, 0.22);
+                box-shadow: 0 18px 40px rgba(66, 133, 244, 0.22);
+                color: #2563eb;
+                margin-bottom: 1.1rem;
+            }
+            #online-flight-mobile-stepper-prompt-overlay-body .online-flight-mobile-stepper__prompt-title {
+                font-size: 1.125rem;
+                font-weight: 800;
+                color: #0f172a;
+            }
+            #online-flight-mobile-stepper-prompt-overlay-body .online-flight-mobile-stepper__prompt-subtitle {
+                font-size: 0.875rem;
+                color: #64748b;
+            }
+            #online-flight-mobile-stepper-prompt-overlay-body .online-flight-mobile-stepper__prompt-cta {
+                background: #4F46E5;
+                box-shadow: 0 20px 44px rgba(79, 70, 229, 0.24);
+                font-size: 0.875rem;
+                letter-spacing: 0.02em;
+            }
+            #online-flight-mobile-stepper-prompt-overlay-body .online-flight-mobile-stepper__prompt-cta::after {
+                content: ' \u203A';
+                font-weight: 900;
+                margin-left: 0.35rem;
+            }
+
             .online-flight-mobile-review {
                 padding: 1.25rem 1rem 1rem;
             }
@@ -6535,6 +6582,10 @@
                 overflow: hidden;
             }
 
+            body.ts-overlay-open {
+                overflow: hidden;
+            }
+
             .obt-filter-drawer-panel {
                 transform: translateY(100%);
                 transition: transform 0.3s ease-in-out;
@@ -9388,20 +9439,23 @@
                                                         <input type="text" id="online-hotel-destination" class="w-full rounded-lg border border-slate-200 px-3 py-2 text-sm"
                                                             placeholder="City or area" value="Tokyo" autocomplete="off">
                                                     </div>
-                                                    <div class="form-group !mb-0 booking-mobile-date-card">
-                                                        <label for="online-hotel-checkin">Check-in</label>
-                                                        <div class="booking-mobile-date-field">
-                                                            <span id="online-hotel-checkin-display" class="booking-mobile-date-display" aria-hidden="true"></span>
-                                                            <input type="date" id="online-hotel-checkin" class="w-full rounded-lg border border-slate-200 px-3 py-2 text-sm booking-mobile-native-date-input"
-                                                                value="2026-03-25" aria-label="Check-in date">
+                                                    <!-- Task: Mobile horizontal row for Check-in / Check-out (md+ keeps 3-col grid) -->
+                                                    <div class="grid grid-cols-2 gap-3 w-full md:contents">
+                                                        <div class="form-group !mb-0 booking-mobile-date-card flex-1 min-w-0">
+                                                            <label for="online-hotel-checkin">Check-in</label>
+                                                            <div class="booking-mobile-date-field">
+                                                                <span id="online-hotel-checkin-display" class="booking-mobile-date-display" aria-hidden="true"></span>
+                                                                <input type="date" id="online-hotel-checkin" class="w-full rounded-lg border border-slate-200 px-3 py-2 text-sm booking-mobile-native-date-input"
+                                                                    value="2026-03-25" aria-label="Check-in date">
+                                                            </div>
                                                         </div>
-                                                    </div>
-                                                    <div class="form-group !mb-0 booking-mobile-date-card">
-                                                        <label for="online-hotel-checkout">Check-out</label>
-                                                        <div class="booking-mobile-date-field">
-                                                            <span id="online-hotel-checkout-display" class="booking-mobile-date-display" aria-hidden="true"></span>
-                                                            <input type="date" id="online-hotel-checkout" class="w-full rounded-lg border border-slate-200 px-3 py-2 text-sm booking-mobile-native-date-input"
-                                                                value="2026-03-27" aria-label="Check-out date">
+                                                        <div class="form-group !mb-0 booking-mobile-date-card flex-1 min-w-0">
+                                                            <label for="online-hotel-checkout">Check-out</label>
+                                                            <div class="booking-mobile-date-field">
+                                                                <span id="online-hotel-checkout-display" class="booking-mobile-date-display" aria-hidden="true"></span>
+                                                                <input type="date" id="online-hotel-checkout" class="w-full rounded-lg border border-slate-200 px-3 py-2 text-sm booking-mobile-native-date-input"
+                                                                    value="2026-03-27" aria-label="Check-out date">
+                                                            </div>
                                                         </div>
                                                     </div>
                                                 </div>
@@ -11575,6 +11629,67 @@
             </div>
             <div class="px-4 py-3 border-t border-slate-200 flex justify-end shrink-0 bg-slate-50">
                 <button type="button" onclick="window.closeHotelMapModal()" class="px-5 py-2.5 rounded-xl text-xs font-black tracking-widest text-slate-600 border-2 border-slate-200 bg-white hover:bg-slate-100 transition-colors">Close</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Hotel Selection Review Modal (native-feeling, scroll-locked, a11y) -->
+    <div id="hotel-selection-review-modal" class="hidden fixed inset-0 z-50 items-center justify-center bg-black/50 backdrop-blur-sm p-4"
+        role="dialog" aria-modal="true" aria-labelledby="hotel-selection-review-title" aria-describedby="hotel-selection-review-subtitle"
+        onclick="if(event.target===this)window.closeHotelSelectionReviewModal?.()">
+        <div id="hotel-selection-review-panel"
+            class="bg-white rounded-2xl w-[min(100%,94vw)] sm:w-full max-w-md max-h-[90vh] shadow-2xl border border-slate-200 flex flex-col overflow-hidden opacity-0 scale-95 transition duration-200 ease-out"
+            style="padding-bottom: calc(env(safe-area-inset-bottom, 0px) + 0px);" onclick="event.stopPropagation()">
+            <div class="px-5 py-4 border-b border-slate-200 flex justify-between items-start gap-4 shrink-0">
+                <div class="min-w-0 text-left">
+                    <h3 id="hotel-selection-review-title" class="text-base font-black tracking-tight text-slate-900" style="font-family: var(--font-heading);">Review Your Selected Hotel</h3>
+                    <p id="hotel-selection-review-subtitle" class="text-xs font-medium text-slate-500 mt-1">1 hotel selected</p>
+                </div>
+                <button type="button" onclick="window.closeHotelSelectionReviewModal?.()"
+                    class="inline-flex items-center justify-center w-10 h-10 rounded-xl border border-slate-200 text-slate-500 hover:bg-slate-50 hover:text-slate-800 transition-colors shrink-0"
+                    aria-label="Close hotel review">
+                    <i data-lucide="x" class="w-5 h-5"></i>
+                </button>
+            </div>
+
+            <div id="hotel-selection-review-body" class="flex-1 min-h-0 overflow-y-auto p-4 sm:p-5 bg-slate-50/60">
+                <div id="hotel-selection-review-card" class="bg-white rounded-2xl border border-slate-200 shadow-sm overflow-hidden"></div>
+            </div>
+
+            <div class="px-4 sm:px-5 pt-3 pb-4 border-t border-slate-200 bg-white shrink-0"
+                style="padding-bottom: calc(env(safe-area-inset-bottom, 0px) + 1rem);">
+                <div class="flex flex-col gap-2">
+                    <div id="hotel-selection-review-next-slot" class="w-full"></div>
+                    <button type="button" onclick="window.closeHotelSelectionReviewModal?.()"
+                        class="w-full min-h-[44px] px-6 py-3 rounded-xl border-2 border-slate-200 bg-white text-slate-800 text-xs font-black tracking-widest hover:bg-slate-50 transition-colors">
+                        Back
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Online Flight Mobile Stepper Prompt Overlay (Task 3: fixed overlay, not inline) -->
+    <div id="online-flight-mobile-stepper-prompt-overlay"
+        class="hidden fixed inset-0 z-50 bg-black/50 backdrop-blur-sm"
+        role="dialog" aria-modal="true" aria-labelledby="online-flight-prompt-title"
+        onclick="if(event.target===this)window.closeOnlineFlightMobilePromptOverlay?.()">
+        <div class="absolute inset-0 flex items-end md:items-center justify-center p-3 md:p-6">
+            <div id="online-flight-mobile-stepper-prompt-panel"
+                class="w-full md:max-w-lg bg-white rounded-t-2xl md:rounded-2xl shadow-2xl border border-slate-200 overflow-hidden max-h-[85vh] md:max-h-[90vh] flex flex-col opacity-0 translate-y-3 md:translate-y-0 md:scale-95 transition duration-200 ease-out"
+                style="padding-bottom: env(safe-area-inset-bottom);" onclick="event.stopPropagation()">
+                <div class="px-5 py-4 border-b border-slate-200 flex items-center justify-between gap-3 shrink-0">
+                    <div class="min-w-0 text-left">
+                        <p id="online-flight-prompt-title" class="text-sm font-black tracking-tight text-slate-900" style="font-family: var(--font-heading);">Review Selected Flights</p>
+                        <p class="text-[11px] font-medium text-slate-500 mt-0.5">All trips completed</p>
+                    </div>
+                    <button type="button" onclick="window.closeOnlineFlightMobilePromptOverlay?.()"
+                        class="inline-flex items-center justify-center w-10 h-10 rounded-xl border border-slate-200 text-slate-500 hover:bg-slate-50 hover:text-slate-800 transition-colors"
+                        aria-label="Close flight prompt">
+                        <i data-lucide="x" class="w-5 h-5"></i>
+                    </button>
+                </div>
+                <div id="online-flight-mobile-stepper-prompt-overlay-body" class="flex-1 min-h-0 overflow-y-auto"></div>
             </div>
         </div>
     </div>
@@ -17904,6 +18019,8 @@
         };
         window.openOnlineFlightMobileReview = () => {
             if (!window._onlineFlightMobileAllDone()) return;
+            // Defensive: ensure the success/prompt overlay unmounts before switching view.
+            window.closeOnlineFlightMobilePromptOverlay?.();
             const isFlightDrawerOpen = window.isOnlineFlightMobileStepperActive?.() && window._obtFilterDrawer?.vertical === 'flight';
             if (isFlightDrawerOpen) {
                 window.closeObtFilterDrawer?.();
@@ -17941,6 +18058,84 @@
         window.completeOnlineFlightMobileReview = () => {
             window.bookOnlineProvider();
         };
+
+        // Task 3: Online Flight mobile stepper prompt as a true fixed overlay layer (not inline).
+        window._onlineFlightPromptOverlayLastActiveEl = null;
+        window._onlineFlightPromptOverlayKeydown = null;
+
+        window.openOnlineFlightMobilePromptOverlay = (innerHtml) => {
+            const overlay = document.getElementById('online-flight-mobile-stepper-prompt-overlay');
+            const panel = document.getElementById('online-flight-mobile-stepper-prompt-panel');
+            const body = document.getElementById('online-flight-mobile-stepper-prompt-overlay-body');
+            if (!overlay || !panel || !body) return;
+
+            window._onlineFlightPromptOverlayLastActiveEl = document.activeElement;
+            overlay.classList.remove('hidden');
+            document.body.classList.add('ts-overlay-open');
+
+            body.innerHTML = innerHtml || '';
+            lucide.createIcons?.();
+
+            requestAnimationFrame(() => {
+                panel.classList.remove('opacity-0', 'translate-y-3', 'md:scale-95');
+                panel.classList.add('opacity-100', 'translate-y-0', 'md:scale-100');
+            });
+
+            const focusable = panel.querySelector('button, [href], input, select, textarea, [tabindex]:not([tabindex="-1"])');
+            focusable?.focus?.();
+
+            if (window._onlineFlightPromptOverlayKeydown) {
+                document.removeEventListener('keydown', window._onlineFlightPromptOverlayKeydown, true);
+                window._onlineFlightPromptOverlayKeydown = null;
+            }
+
+            window._onlineFlightPromptOverlayKeydown = (e) => {
+                if (e.key === 'Escape') {
+                    e.preventDefault();
+                    window.closeOnlineFlightMobilePromptOverlay?.();
+                    return;
+                }
+                if (e.key !== 'Tab') return;
+                const list = Array.from(panel.querySelectorAll('button, [href], input, select, textarea, [tabindex]:not([tabindex="-1"])'))
+                    .filter((el) => !el.hasAttribute('disabled') && el.getAttribute('aria-hidden') !== 'true' && el.offsetParent !== null);
+                if (!list.length) return;
+                const first = list[0];
+                const last = list[list.length - 1];
+                if (e.shiftKey && document.activeElement === first) {
+                    e.preventDefault();
+                    last.focus();
+                } else if (!e.shiftKey && document.activeElement === last) {
+                    e.preventDefault();
+                    first.focus();
+                }
+            };
+            document.addEventListener('keydown', window._onlineFlightPromptOverlayKeydown, true);
+        };
+
+        window.closeOnlineFlightMobilePromptOverlay = () => {
+            const overlay = document.getElementById('online-flight-mobile-stepper-prompt-overlay');
+            const panel = document.getElementById('online-flight-mobile-stepper-prompt-panel');
+            const body = document.getElementById('online-flight-mobile-stepper-prompt-overlay-body');
+            if (!overlay || !panel || !body) return;
+
+            panel.classList.add('opacity-0', 'translate-y-3', 'md:scale-95');
+            panel.classList.remove('opacity-100', 'translate-y-0', 'md:scale-100');
+
+            if (window._onlineFlightPromptOverlayKeydown) {
+                document.removeEventListener('keydown', window._onlineFlightPromptOverlayKeydown, true);
+                window._onlineFlightPromptOverlayKeydown = null;
+            }
+
+            document.body.classList.remove('ts-overlay-open');
+
+            setTimeout(() => {
+                overlay.classList.add('hidden');
+                body.innerHTML = '';
+            }, 200);
+
+            try { window._onlineFlightPromptOverlayLastActiveEl?.focus?.(); } catch (e) { /* ignore */ }
+            window._onlineFlightPromptOverlayLastActiveEl = null;
+        };
         window._syncOnlineFlightResultsCompleteUi = (allDone) => {
             const resultsRoot = document.getElementById('online-flight-results');
             const shell = document.getElementById('online-flight-results-shell');
@@ -17977,6 +18172,7 @@
                 sticky.classList.remove('hidden');
                 prompt.classList.add('hidden');
                 review.classList.add('hidden');
+                window.closeOnlineFlightMobilePromptOverlay?.();
                 shell.classList.remove('hidden');
                 resultsRoot?.classList.remove('online-results-complete');
                 legTabs?.classList.toggle('hidden', showMultiTabs);
@@ -18037,17 +18233,23 @@
             const showReview = allDone && window._onlineFlightMobileReviewOpen;
             const showPrompt = allDone && !showReview;
             sticky.classList.toggle('hidden', showReview);
-            prompt.classList.toggle('hidden', !showPrompt);
+            // Task 3: prompt is no longer an inline/flow element; keep it hidden always.
+            prompt.classList.add('hidden');
             review.classList.toggle('hidden', !showReview);
 
             if (showPrompt) {
-                prompt.innerHTML = `
-                    <div class="online-flight-mobile-stepper__prompt-illustration"><i data-lucide="badge-check" class="w-8 h-8"></i></div>
-                    <p class="online-flight-mobile-stepper__prompt-title">All trips completed!</p>
-                    <p class="online-flight-mobile-stepper__prompt-subtitle">Every selected leg has been collapsed into a compact summary card. Review your chosen flights before you continue.</p>
-                    <button type="button" class="online-flight-mobile-stepper__prompt-cta" onclick="window.openOnlineFlightMobileReview()">Review Selected Flights</button>`;
+                const html = `
+                    <div class="online-flight-mobile-stepper__prompt online-flight-mobile-stepper__prompt--overlay">
+                        <div class="online-flight-prompt-handle" aria-hidden="true"></div>
+                        <div class="online-flight-mobile-stepper__prompt-illustration"><i data-lucide="check" class="w-8 h-8"></i></div>
+                        <p class="online-flight-mobile-stepper__prompt-title">All trips completed!</p>
+                        <p class="online-flight-mobile-stepper__prompt-subtitle">Every selected leg has been collapsed into a compact summary card. Review your chosen flights before you continue.</p>
+                        <button type="button" class="online-flight-mobile-stepper__prompt-cta" onclick="window.openOnlineFlightMobileReview()">Review Selected Flights</button>
+                    </div>`;
+                window.openOnlineFlightMobilePromptOverlay?.(html);
             } else {
                 prompt.innerHTML = '';
+                window.closeOnlineFlightMobilePromptOverlay?.();
             }
 
             if (showReview) {
@@ -19131,6 +19333,7 @@
             window._onlineHotelSelectedNightPrice = typeof linePrice === 'number' ? linePrice : null;
             window.closeHotelMapModal();
             window.selectOnlineHotelRow(idx, true);
+            window.openHotelSelectionReviewModal?.();
         };
 
         window.closeHotelMapModal = () => {
@@ -19139,36 +19342,274 @@
             document.getElementById('hotel-map-modal')?.classList.add('hidden');
         };
 
-        window._buildHotelCardImageUrl = (row) => {
+        // --- Hotel Selection Review Modal (native-feeling) ---
+        window._hotelSelectionReviewLastActiveEl = null;
+        window._hotelSelectionReviewKeydown = null;
+        window._hotelSelectionReviewRestoreNextBtn = null;
+
+        window._hotelReviewNightsBetween = (ci, co) => {
+            try {
+                if (!ci || !co) return 0;
+                const a = new Date(ci);
+                const b = new Date(co);
+                if (Number.isNaN(a.getTime()) || Number.isNaN(b.getTime())) return 0;
+                a.setHours(0, 0, 0, 0);
+                b.setHours(0, 0, 0, 0);
+                const diff = Math.round((b.getTime() - a.getTime()) / (24 * 60 * 60 * 1000));
+                return Math.max(0, diff);
+            } catch (e) {
+                return 0;
+            }
+        };
+
+        window._hotelSelectionReviewBuildHtml = () => {
+            const dest = document.getElementById('online-hotel-destination')?.value?.trim() || '';
+            const ci = document.getElementById('online-hotel-checkin')?.value || '';
+            const co = document.getElementById('online-hotel-checkout')?.value || '';
+            const ciDisp = (ci && window.formatAppDateDisplay) ? window.formatAppDateDisplay(ci) : (ci || '—');
+            const coDisp = (co && window.formatAppDateDisplay) ? window.formatAppDateDisplay(co) : (co || '—');
+            const nights = window._hotelReviewNightsBetween(ci, co) || 0;
+
+            const idx = window._onlineHotelSelectedIndex;
+            const h = (idx != null && (window._onlineHotelRows || [])[idx]) ? window._onlineHotelRows[idx] : { name: 'Hotel', area: dest, price: 0, rating: '', starRank: 0 };
+            const roomEl = document.getElementById('online-hotel-room-type');
+            const roomLabel = window._onlineHotelModalRoomLabel || roomEl?.selectedOptions?.[0]?.textContent?.trim() || 'Standard Room';
+            const nightPrice = window._onlineHotelSelectedNightPrice != null ? window._onlineHotelSelectedNightPrice : (h.price || 0);
+            const roomCharges = Math.max(0, Number(nightPrice || 0)) * Math.max(1, nights || 1);
+            const taxes = Math.round(roomCharges * 0.12);
+            const total = roomCharges + taxes;
+
+            const mediaSrc = window._buildHotelCardImageUrl ? window._buildHotelCardImageUrl(h) : '';
+            const safeName = window._mobileSummaryEsc ? window._mobileSummaryEsc(h.name) : String(h.name || 'Hotel');
+            const safeArea = window._mobileSummaryEsc ? window._mobileSummaryEsc(h.area || dest) : String(h.area || dest || '');
+            const starRank = Number(h.starRank || 0) || 0;
+
+            const badge = (icon, text) => `
+                <span class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full border border-slate-200 bg-white text-[10px] font-black tracking-wide text-slate-700">
+                    <i data-lucide="${icon}" class="w-3.5 h-3.5 text-slate-500"></i>${window._mobileSummaryEsc ? window._mobileSummaryEsc(text) : text}
+                </span>`;
+
+            return `
+                <div class="p-4">
+                    <div class="flex items-start gap-3">
+                        <div class="w-20 h-16 rounded-xl overflow-hidden border border-slate-200 bg-slate-100 shrink-0">
+                            ${mediaSrc ? `<img src="${mediaSrc}" alt="${safeName}" class="w-full h-full object-cover" loading="lazy" decoding="async">` : ''}
+                        </div>
+                        <div class="min-w-0 flex-1 text-left">
+                            <p class="text-[10px] font-black text-slate-400 tracking-widest uppercase">Hotel</p>
+                            <p class="text-sm font-black text-slate-900 mt-1 truncate">${safeName}</p>
+                            <p class="text-xs font-medium text-slate-500 mt-1">${safeArea}${starRank ? ` · ${starRank} Star` : ''}</p>
+                            <div class="flex flex-wrap gap-2 mt-2">
+                                ${h.rating ? badge('star', String(h.rating).replace('★', '').trim()) : ''}
+                                ${badge('bed-double', roomLabel)}
+                                ${h.includeBreakfast ? badge('coffee', 'Breakfast included') : badge('utensils-crossed', 'Room only')}
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="mt-4 rounded-2xl border border-slate-200 overflow-hidden">
+                        <div class="divide-y divide-slate-100 bg-white">
+                            <!-- Task 2: Check-in / Check-out side-by-side row -->
+                            <div class="px-4 py-3">
+                                <div class="flex flex-row items-center gap-3">
+                                    <div class="flex-1 min-w-0">
+                                        <div class="flex items-center gap-2 text-[11px] font-bold text-slate-600">
+                                            <i data-lucide="calendar" class="w-4 h-4 text-slate-400"></i>Check-in
+                                        </div>
+                                        <div class="text-xs font-black text-slate-800 mt-1 truncate">${ciDisp || '—'}</div>
+                                    </div>
+                                    <div class="shrink-0 flex items-center gap-2 text-slate-300">
+                                        <div class="h-8 w-px bg-slate-200"></div>
+                                        <i data-lucide="arrow-right" class="w-4 h-4 text-slate-400"></i>
+                                        <div class="h-8 w-px bg-slate-200"></div>
+                                    </div>
+                                    <div class="flex-1 min-w-0 text-right">
+                                        <div class="flex items-center justify-end gap-2 text-[11px] font-bold text-slate-600">
+                                            Check-out<i data-lucide="calendar" class="w-4 h-4 text-slate-400"></i>
+                                        </div>
+                                        <div class="text-xs font-black text-slate-800 mt-1 truncate">${coDisp || '—'}</div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="flex items-center justify-between gap-3 px-4 py-3">
+                                <div class="flex items-center gap-2 text-xs font-bold text-slate-600"><i data-lucide="moon" class="w-4 h-4 text-slate-400"></i>Duration</div>
+                                <div class="text-xs font-black text-slate-800">${Math.max(1, nights || 1)} Nights</div>
+                            </div>
+                            <div class="flex items-center justify-between gap-3 px-4 py-3">
+                                <div class="flex items-center gap-2 text-xs font-bold text-slate-600"><i data-lucide="users" class="w-4 h-4 text-slate-400"></i>Guests</div>
+                                <div class="text-xs font-black text-slate-800">2 Adults, 1 Room</div>
+                            </div>
+                            <div class="flex items-center justify-between gap-3 px-4 py-3">
+                                <div class="flex items-center gap-2 text-xs font-bold text-slate-600"><i data-lucide="utensils" class="w-4 h-4 text-slate-400"></i>Meal Plan</div>
+                                <div class="text-xs font-black text-slate-800">${h.includeBreakfast ? 'Breakfast included' : 'Room only'}</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="mt-4 rounded-2xl border border-slate-200 bg-white overflow-hidden">
+                        <div class="px-4 py-3 border-b border-slate-100 bg-slate-50">
+                            <p class="text-[10px] font-black text-slate-400 tracking-widest uppercase">Price Summary</p>
+                        </div>
+                        <div class="px-4 py-3 space-y-2">
+                            <div class="flex items-center justify-between gap-3 text-xs">
+                                <span class="font-bold text-slate-600">Room Charges (${Math.max(1, nights || 1)} Nights)</span>
+                                <span class="font-black text-slate-800">¥${roomCharges.toLocaleString()}</span>
+                            </div>
+                            <div class="flex items-center justify-between gap-3 text-xs">
+                                <span class="font-bold text-slate-600">Taxes &amp; Fees</span>
+                                <span class="font-black text-slate-800">¥${taxes.toLocaleString()}</span>
+                            </div>
+                        </div>
+                        <div class="px-4 py-4 border-t border-slate-100 bg-white text-center">
+                            <p class="text-[10px] font-black text-slate-400 tracking-widest uppercase">Total Price</p>
+                            <p class="text-2xl font-black text-slate-900 mt-1">¥${total.toLocaleString()}</p>
+                            <p class="text-[11px] font-medium text-slate-500 mt-1">Includes taxes and fees</p>
+                        </div>
+                    </div>
+                </div>
+            `;
+        };
+
+        window._hotelSelectionReviewMoveNextButtonIntoModal = () => {
+            const nextBtn = document.getElementById('booking-step-next-btn');
+            const slot = document.getElementById('hotel-selection-review-next-slot');
+            if (!nextBtn || !slot) return;
+            if (slot.contains(nextBtn)) return;
+
+            const originalParent = nextBtn.parentElement;
+            const originalNextSibling = nextBtn.nextSibling;
+            const originalOnclick = nextBtn.getAttribute('onclick');
+            const originalClass = nextBtn.className;
+            const originalType = nextBtn.getAttribute('type');
+
+            window._hotelSelectionReviewRestoreNextBtn = () => {
+                try {
+                    if (originalParent) {
+                        if (originalNextSibling) originalParent.insertBefore(nextBtn, originalNextSibling);
+                        else originalParent.appendChild(nextBtn);
+                    }
+                    if (originalOnclick != null) nextBtn.setAttribute('onclick', originalOnclick);
+                    else nextBtn.removeAttribute('onclick');
+                    if (originalType != null) nextBtn.setAttribute('type', originalType);
+                    nextBtn.className = originalClass;
+                } catch (e) { /* ignore */ }
+            };
+
+            slot.appendChild(nextBtn);
+            nextBtn.disabled = false;
+            nextBtn.setAttribute('type', 'button');
+            nextBtn.setAttribute('onclick', 'window.proceedOnlineHotelFromReview?.()');
+            // Extracted styling from Step-1 Next (full width, sizing) but kept design tokens
+            nextBtn.className = 'w-full max-md:w-full sm:w-auto px-12 max-md:px-6 py-3 max-md:min-h-[48px] rounded-xl bg-[#4285F4] text-white font-black tracking-widest transition-all hover:bg-[#3367D6] cursor-pointer';
+        };
+
+        window.proceedOnlineHotelFromReview = () => {
+            window.closeHotelSelectionReviewModal?.();
+            window.setBookingStep?.(2);
+        };
+
+        window.openHotelSelectionReviewModal = () => {
+            const modal = document.getElementById('hotel-selection-review-modal');
+            const panel = document.getElementById('hotel-selection-review-panel');
+            const card = document.getElementById('hotel-selection-review-card');
+            if (!modal || !panel || !card) return;
+            if (window._onlineHotelSelectedIndex == null) return;
+
+            window._hotelSelectionReviewLastActiveEl = document.activeElement;
+            modal.classList.remove('hidden');
+            modal.classList.add('flex');
+            document.body.classList.add('ts-overlay-open');
+
+            card.innerHTML = window._hotelSelectionReviewBuildHtml();
+            window._hotelSelectionReviewMoveNextButtonIntoModal();
+            lucide.createIcons?.();
+
+            requestAnimationFrame(() => {
+                panel.classList.remove('opacity-0', 'scale-95');
+                panel.classList.add('opacity-100', 'scale-100');
+            });
+
+            const focusable = panel.querySelector('button, [href], input, select, textarea, [tabindex]:not([tabindex="-1"])');
+            focusable?.focus?.();
+
+            window._hotelSelectionReviewKeydown = (e) => {
+                if (e.key === 'Escape') {
+                    e.preventDefault();
+                    window.closeHotelSelectionReviewModal?.();
+                    return;
+                }
+                if (e.key !== 'Tab') return;
+                const list = Array.from(panel.querySelectorAll('button, [href], input, select, textarea, [tabindex]:not([tabindex="-1"])'))
+                    .filter((el) => !el.hasAttribute('disabled') && el.getAttribute('aria-hidden') !== 'true' && el.offsetParent !== null);
+                if (!list.length) return;
+                const first = list[0];
+                const last = list[list.length - 1];
+                if (e.shiftKey && document.activeElement === first) {
+                    e.preventDefault();
+                    last.focus();
+                } else if (!e.shiftKey && document.activeElement === last) {
+                    e.preventDefault();
+                    first.focus();
+                }
+            };
+            document.addEventListener('keydown', window._hotelSelectionReviewKeydown, true);
+        };
+
+        window.closeHotelSelectionReviewModal = () => {
+            const modal = document.getElementById('hotel-selection-review-modal');
+            const panel = document.getElementById('hotel-selection-review-panel');
+            if (!modal || !panel) return;
+
+            panel.classList.add('opacity-0', 'scale-95');
+            panel.classList.remove('opacity-100', 'scale-100');
+
+            window._hotelSelectionReviewRestoreNextBtn?.();
+            window._hotelSelectionReviewRestoreNextBtn = null;
+
+            document.body.classList.remove('ts-overlay-open');
+
+            if (window._hotelSelectionReviewKeydown) {
+                document.removeEventListener('keydown', window._hotelSelectionReviewKeydown, true);
+                window._hotelSelectionReviewKeydown = null;
+            }
+
+            setTimeout(() => {
+                modal.classList.add('hidden');
+                modal.classList.remove('flex');
+            }, 200);
+
+            try { window._hotelSelectionReviewLastActiveEl?.focus?.(); } catch (e) { /* ignore */ }
+            window._hotelSelectionReviewLastActiveEl = null;
+        };
+
+        window._buildHotelCardImageUrl = (row, listIndex) => {
+            // Task 1: strict 5-image sequence (cycling) for hotel results.
+            const urls = [
+                'https://images.unsplash.com/photo-1566073771259-6a8506099945?q=80&w=600&auto=format&fit=crop',
+                'https://images.unsplash.com/photo-1540555700478-4be289fbecef?q=80&w=600&auto=format&fit=crop',
+                'https://images.unsplash.com/photo-1520250497591-112f2f40a3f4?q=80&w=600&auto=format&fit=crop',
+                'https://images.unsplash.com/photo-1571896349842-33c89424de2d?q=80&w=600&auto=format&fit=crop',
+                'https://images.unsplash.com/photo-1596394516093-501ba68a0ba6?q=80&w=600&auto=format&fit=crop'
+            ];
+
+            if (typeof listIndex === 'number' && Number.isFinite(listIndex)) {
+                return urls[Math.abs(listIndex) % urls.length];
+            }
+
+            // Fallback (e.g., review modal): stable pick based on hotel name/area.
             const name = String(row?.name || 'Hotel');
-            const area = String(row?.area || 'City stay');
-            const stars = Number(row?.starRank || 4);
-            const palette = ['#0A3266', '#4285F4', '#2563EB', '#0F766E', '#7C3AED'];
-            const accent = palette[stars % palette.length];
-            const svg = `
-                <svg xmlns="http://www.w3.org/2000/svg" width="320" height="220" viewBox="0 0 320 220">
-                    <defs>
-                        <linearGradient id="hotelCardBg" x1="0" y1="0" x2="1" y2="1">
-                            <stop offset="0%" stop-color="${accent}" />
-                            <stop offset="100%" stop-color="#E0F2FE" />
-                        </linearGradient>
-                    </defs>
-                    <rect width="320" height="220" rx="24" fill="url(#hotelCardBg)" />
-                    <rect x="22" y="28" width="130" height="78" rx="16" fill="rgba(255,255,255,0.22)" />
-                    <rect x="166" y="44" width="126" height="18" rx="9" fill="rgba(255,255,255,0.28)" />
-                    <rect x="166" y="72" width="94" height="14" rx="7" fill="rgba(255,255,255,0.2)" />
-                    <rect x="22" y="134" width="276" height="56" rx="18" fill="rgba(255,255,255,0.88)" />
-                    <text x="36" y="162" font-family="Arial, sans-serif" font-size="22" font-weight="700" fill="#0F172A">${window._mobileSummaryEsc(name)}</text>
-                    <text x="36" y="184" font-family="Arial, sans-serif" font-size="13" font-weight="600" fill="#64748B">${window._mobileSummaryEsc(area)} · ${'★'.repeat(Math.max(1, Math.min(stars, 5)))}</text>
-                </svg>`;
-            return `data:image/svg+xml;charset=UTF-8,${encodeURIComponent(svg)}`;
+            const area = String(row?.area || '');
+            const s = `${name}|${area}`;
+            let h = 0;
+            for (let i = 0; i < s.length; i++) h = ((h << 5) - h + s.charCodeAt(i)) | 0;
+            return urls[Math.abs(h) % urls.length];
         };
 
         window._renderOnlineHotelCardRowsHtml = (rows, selectedIndex) => {
             return rows.map((r, idx) => {
                 const sel = selectedIndex === idx ? ' ring-2 ring-[#4285F4] bg-[#E8F4FC]/70' : '';
                 const starLabel = r.starRank ? `${r.starRank} Star` : 'Hotel';
-                const mediaSrc = window._buildHotelCardImageUrl(r);
+                const mediaSrc = window._buildHotelCardImageUrl(r, idx);
                 const safeName = window._mobileSummaryEsc(r.name);
                 const tags = [];
                 if (r.includeBreakfast) tags.push('<span class="online-hotel-card-tag"><i data-lucide="coffee" class="w-3 h-3 shrink-0"></i>Breakfast included</span>');
@@ -20702,12 +21143,14 @@
                 return;
             }
             try {
+                const step1Nav = document.getElementById('booking-step1-nav');
                 const interactiveBookingVisible = window._isInteractiveBookingTabVisible?.() === true;
                 const flightActive = document.querySelector('.online-subtab-card[data-online-mode="flight"].ring-2');
                 const resultsEl = document.getElementById('online-flight-results');
                 const resultsVisible = resultsEl && !resultsEl.classList.contains('hidden');
                 const onlineTrip = document.querySelector('input[name="online-flight-trip-type"]:checked')?.value || 'round';
                 if (interactiveBookingVisible && flightActive && resultsVisible && onlineTrip === 'multiple') {
+                    step1Nav?.classList.remove('hidden');
                     const n = window._multiCitySegments.length;
                     const sel = window._onlineFlightMultiSelections || [];
                     const allDone = n > 0 && sel.length === n && sel.every((s) => s != null);
@@ -20716,6 +21159,7 @@
                     return;
                 }
                 if (interactiveBookingVisible && flightActive && resultsVisible && onlineTrip === 'round') {
+                    step1Nav?.classList.remove('hidden');
                     const both = window._onlineFlightSelectedGoing !== null && window._onlineFlightSelectedReturn !== null;
                     if (both) window.enableBookingStepNextButton();
                     else window.disableBookingStepNextButton();
@@ -20726,6 +21170,7 @@
                 const railResultsVisible = railResultsEl && !railResultsEl.classList.contains('hidden');
                 const onlineRailTrip = document.querySelector('input[name="online-rail-trip-type"]:checked')?.value || 'round';
                 if (interactiveBookingVisible && railActive && railResultsVisible && onlineRailTrip === 'multiple') {
+                    step1Nav?.classList.remove('hidden');
                     const n = window._multiCitySegments.length;
                     const sel = window._onlineRailMultiSelections || [];
                     const allDone = n > 0 && sel.length === n && sel.every((s) => s != null);
@@ -20734,6 +21179,7 @@
                     return;
                 }
                 if (interactiveBookingVisible && railActive && railResultsVisible && onlineRailTrip === 'round') {
+                    step1Nav?.classList.remove('hidden');
                     const bothRail = window._onlineRailSelectedGoing !== null && window._onlineRailSelectedReturn !== null;
                     if (bothRail) window.enableBookingStepNextButton();
                     else window.disableBookingStepNextButton();
@@ -20743,6 +21189,8 @@
                 const hotelResultsEl = document.getElementById('online-hotel-results');
                 const hotelResultsVisible = hotelResultsEl && !hotelResultsEl.classList.contains('hidden');
                 if (interactiveBookingVisible && hotelActive && hotelResultsVisible) {
+                    // Hotel flow: remove page-level Next block until review modal opens.
+                    step1Nav?.classList.add('hidden');
                     if (window._onlineHotelSelectedIndex !== null) window.enableBookingStepNextButton();
                     else window.disableBookingStepNextButton();
                     return;
@@ -20751,10 +21199,12 @@
                 const carResultsEl = document.getElementById('online-car-results');
                 const carResultsVisible = carResultsEl && !carResultsEl.classList.contains('hidden');
                 if (interactiveBookingVisible && carActive && carResultsVisible) {
+                    step1Nav?.classList.remove('hidden');
                     if (window._onlineCarSelectedIndex !== null) window.enableBookingStepNextButton();
                     else window.disableBookingStepNextButton();
                     return;
                 }
+                step1Nav?.classList.remove('hidden');
                 const visibleSubtab = [...document.querySelectorAll('.subtab-content')].find(el => !el.classList.contains('hidden'));
                 const subId = visibleSubtab ? (visibleSubtab.id || '').replace('subtab-', '') : '';
                 const isAirlinesReturn = subId === 'airlines' && document.querySelector('input[name="air-trip-type"]:checked')?.value === 'return';
