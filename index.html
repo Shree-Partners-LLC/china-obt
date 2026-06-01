@@ -2514,6 +2514,199 @@
                 margin-top: 0.35rem;
             }
 
+            /* One-way flight: selection prompt + review specification overlays */
+            #online-oneway-flight-prompt-overlay,
+            #online-oneway-flight-review-overlay {
+                position: fixed;
+                inset: 0;
+                z-index: 9999;
+            }
+
+            #online-oneway-flight-prompt-panel,
+            #online-oneway-flight-review-panel {
+                width: min(90vw, 520px);
+                max-height: calc(100vh - 32px);
+                overflow-y: auto;
+                background: #ffffff;
+                border-radius: 24px;
+                box-shadow: 0 28px 60px rgba(15, 23, 42, 0.18);
+            }
+
+            .online-oneway-flight-prompt__card {
+                padding: 1.75rem 1.5rem 1.5rem;
+                text-align: center;
+            }
+
+            .online-oneway-flight-prompt__badge {
+                width: 4.75rem;
+                height: 4.75rem;
+                margin: 0 auto 1.125rem;
+                border-radius: 9999px;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                background: #dcfce7;
+                color: #15803d;
+                box-shadow: 0 12px 28px rgba(22, 163, 74, 0.18);
+            }
+
+            .online-oneway-flight-prompt__title {
+                font-size: 1.125rem;
+                font-weight: 800;
+                color: #0f172a;
+            }
+
+            .online-oneway-flight-prompt__subtitle {
+                margin-top: 0.5rem;
+                font-size: 0.8125rem;
+                line-height: 1.5;
+                color: #64748b;
+            }
+
+            .online-oneway-flight-prompt__cta {
+                margin-top: 1.25rem;
+                width: 100%;
+                min-height: 48px;
+                border: none;
+                border-radius: 0.95rem;
+                background: #4285F4;
+                color: #fff;
+                font-size: 0.8125rem;
+                font-weight: 800;
+                box-shadow: 0 18px 32px rgba(66, 133, 244, 0.26);
+                cursor: pointer;
+            }
+
+            .online-oneway-flight-prompt__back {
+                display: block;
+                margin-top: 1rem;
+                width: 100%;
+                border: none;
+                background: transparent;
+                color: #2563eb;
+                font-size: 0.8125rem;
+                font-weight: 700;
+                cursor: pointer;
+            }
+
+            .online-oneway-flight-review__carrier-row {
+                display: flex;
+                align-items: center;
+                gap: 0.75rem;
+            }
+
+            .online-oneway-flight-review__carrier-logo {
+                width: 2.5rem;
+                height: 2.5rem;
+                border-radius: 0.75rem;
+                background: #eff6ff;
+                color: #2563eb;
+                font-size: 0.6875rem;
+                font-weight: 800;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                flex-shrink: 0;
+            }
+
+            .online-oneway-flight-review__route-row {
+                display: flex;
+                align-items: center;
+                justify-content: space-between;
+                gap: 0.75rem;
+                margin-top: 1rem;
+            }
+
+            .online-oneway-flight-review__route-point {
+                flex: 1;
+                min-width: 0;
+                text-align: left;
+            }
+
+            .online-oneway-flight-review__route-point--end {
+                text-align: right;
+            }
+
+            .online-oneway-flight-review__city {
+                font-size: 0.9375rem;
+                font-weight: 800;
+                color: #0f172a;
+                line-height: 1.25;
+            }
+
+            .online-oneway-flight-review__timeline-mid {
+                flex-shrink: 0;
+                width: 3rem;
+                height: 2px;
+                background: linear-gradient(90deg, #cbd5e1 0%, #94a3b8 50%, #cbd5e1 100%);
+                border-radius: 9999px;
+            }
+
+            .online-oneway-flight-review__times {
+                display: flex;
+                justify-content: space-between;
+                gap: 0.75rem;
+                margin-top: 0.625rem;
+                font-size: 0.75rem;
+                font-weight: 600;
+                color: #475569;
+            }
+
+            .online-oneway-flight-review__meta-tags {
+                display: flex;
+                flex-wrap: wrap;
+                gap: 0.5rem;
+                margin-top: 0.875rem;
+            }
+
+            .online-oneway-flight-review__meta-tag {
+                display: inline-flex;
+                align-items: center;
+                padding: 0.25rem 0.625rem;
+                border-radius: 9999px;
+                background: #f1f5f9;
+                font-size: 0.6875rem;
+                font-weight: 700;
+                color: #475569;
+            }
+
+            .online-oneway-flight-review__subdeck {
+                margin-top: 0.875rem;
+                display: grid;
+                grid-template-columns: repeat(3, minmax(0, 1fr));
+                gap: 0.625rem;
+            }
+
+            .online-oneway-flight-review__subdeck-item {
+                border: 1px solid #e2e8f0;
+                border-radius: 0.75rem;
+                background: #f8fafc;
+                padding: 0.625rem 0.5rem;
+                text-align: center;
+            }
+
+            .online-oneway-flight-review__subdeck-label {
+                font-size: 0.5625rem;
+                font-weight: 800;
+                text-transform: uppercase;
+                letter-spacing: 0.06em;
+                color: #94a3b8;
+            }
+
+            .online-oneway-flight-review__subdeck-value {
+                margin-top: 0.25rem;
+                font-size: 0.6875rem;
+                font-weight: 700;
+                color: #0f172a;
+                line-height: 1.3;
+            }
+
+            @media (max-width: 420px) {
+                .online-oneway-flight-review__subdeck {
+                    grid-template-columns: 1fr;
+                }
+            }
+
             #online-car-selection-prompt-overlay-body .online-car-prompt-cta {
                 display: block;
                 width: 100%;
@@ -12031,6 +12224,34 @@
         </div>
     </div>
 
+    <!-- One-Way Flight Selection Prompt Overlay -->
+    <div id="online-oneway-flight-prompt-overlay"
+        class="hidden fixed inset-0 z-[9999] bg-black/50 backdrop-blur-sm"
+        role="dialog" aria-modal="true" aria-labelledby="online-oneway-flight-prompt-title"
+        onclick="if(event.target===this)window.closeOnlineOnewayFlightSelectionPrompt?.()">
+        <div class="absolute inset-0 flex items-center justify-center p-4" style="padding: max(1rem, env(safe-area-inset-top)) max(1rem, env(safe-area-inset-right)) max(1rem, env(safe-area-inset-bottom)) max(1rem, env(safe-area-inset-left));">
+            <div id="online-oneway-flight-prompt-panel"
+                class="opacity-0 scale-95 transition duration-200 ease-out"
+                onclick="event.stopPropagation()">
+                <div id="online-oneway-flight-prompt-body"></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- One-Way Flight Review Specification Overlay -->
+    <div id="online-oneway-flight-review-overlay"
+        class="hidden fixed inset-0 z-[9999] bg-black/50 backdrop-blur-sm"
+        role="dialog" aria-modal="true" aria-labelledby="online-oneway-flight-review-title"
+        onclick="if(event.target===this)window.closeOnlineOnewayFlightReviewModals?.()">
+        <div class="absolute inset-0 flex items-center justify-center p-4" style="padding: max(1rem, env(safe-area-inset-top)) max(1rem, env(safe-area-inset-right)) max(1rem, env(safe-area-inset-bottom)) max(1rem, env(safe-area-inset-left));">
+            <div id="online-oneway-flight-review-panel"
+                class="flex flex-col opacity-0 scale-95 transition duration-200 ease-out"
+                onclick="event.stopPropagation()">
+                <div id="online-oneway-flight-review-body" class="online-flight-mobile-review flex-1 min-h-0 overflow-y-auto"></div>
+            </div>
+        </div>
+    </div>
+
     <!-- Car Selection Completion Prompt Overlay (Car rental only) -->
     <div id="online-car-selection-prompt-overlay"
         class="hidden fixed inset-0 z-50 bg-black/50 backdrop-blur-sm"
@@ -16887,6 +17108,7 @@
             const barLbl = document.getElementById('online-flight-return-bar-label');
             const datesRow = document.getElementById('online-flight-dates-row');
             window.closeOnlineFlightMobileReview();
+            window.closeOnlineOnewayFlightReviewModals?.();
             if (datesRow) {
                 datesRow.classList.toggle('online-flight-dates-row--oneway', v === 'oneway');
             }
@@ -17790,6 +18012,14 @@
                         window.switchOnlineFlightMultiLegTab(k + 1);
                         return;
                     }
+                }
+                const trip = document.querySelector('input[name="online-flight-trip-type"]:checked')?.value || 'round';
+                if (trip === 'oneway' && !window._onlineFlightIsSequentialRound) {
+                    window.updateOnlineBookingFooterButtons?.();
+                    window.updateBookingStepNextButtonState?.();
+                    window.renderOnlineFlightMobileStepper?.();
+                    window.setIsOneWayPromptCardOpen?.(true);
+                    return;
                 }
             } else {
                 window._onlineRailMobileReviewOpen = false;
@@ -20676,6 +20906,299 @@
             window._onlineCarPromptOverlayLastActiveEl = null;
         };
 
+        /* One-way flight: selection prompt + review specification modals (encapsulated local state) */
+        window._onlineOnewayFlightPromptOpen = false;
+        window._onlineOnewayFlightReviewOpen = false;
+        window._onlineOnewayFlightOverlayLastActiveEl = null;
+        window._onlineOnewayFlightOverlayKeydown = null;
+
+        window._isOnlineOnewayFlightReviewContext = () => {
+            const trip = document.querySelector('input[name="online-flight-trip-type"]:checked')?.value || 'round';
+            const flightActive = document.querySelector('.online-subtab-card[data-online-mode="flight"].ring-2');
+            const results = document.getElementById('online-flight-results');
+            return trip === 'oneway'
+                && !window._onlineFlightIsSequentialRound
+                && !!flightActive
+                && !!results
+                && !results.classList.contains('hidden');
+        };
+
+        window.setIsOneWayPromptCardOpen = (open) => {
+            if (open) {
+                window.openOnlineOnewayFlightSelectionPrompt?.();
+            } else {
+                window.closeOnlineOnewayFlightSelectionPrompt?.();
+            }
+        };
+
+        window._getOnlineOnewayFlightReviewData = () => {
+            const idx = window._onlineFlightSelectedGoing;
+            const row = window._onlineFlightGoingRows?.[idx];
+            if (idx == null || !row) return null;
+            const esc = window._onlineUiEsc || ((s) => String(s ?? ''));
+            const routeTokens = String(row.route || '').split(/[–—-]/).map((t) => t.trim()).filter(Boolean);
+            const fromCode = window.getFlightLocIata?.('online-flight-from') || routeTokens[0] || '---';
+            const toCode = window.getFlightLocIata?.('online-flight-to') || routeTokens[1] || routeTokens[0] || '---';
+            const cities = window._getOnlineFlightFareCities?.({ leg: 'going' }, fromCode, toCode) || { fromCity: fromCode, toCity: toCode };
+            const timeBits = String(row.time || '').split(/\s*[–—-]\s*/);
+            const depTime = (timeBits[0] || '').trim();
+            const arrTime = (timeBits[1] || timeBits[0] || '').trim();
+            const dd = document.getElementById('online-flight-depart-date')?.value || '';
+            const dateDisp = window.formatOnlineFlightDateDisplay ? window.formatOnlineFlightDateDisplay(dd) : dd;
+            const clsEl = document.getElementById('online-flight-class');
+            const cabin = clsEl?.selectedOptions?.[0]?.textContent?.trim() || 'Economy';
+            const fareKey = `going-${idx}`;
+            const farePick = window._onlineFareSelection?.flight?.[fareKey];
+            const fares = row.fares && row.fares.length ? row.fares : [{ name: 'Economy Light', price: row.price }];
+            let baseFare = fares[0];
+            if (farePick) {
+                baseFare = fares.find((f) => farePick.name === f.name || farePick.name.startsWith(`${f.name} `)) || fares[0];
+            }
+            const offers = window._buildOnlineFareOffers?.('flight', row, baseFare) || [];
+            const matchedOffer = farePick ? (offers.find((o) => o.name === farePick.name) || offers[0]) : (offers[0] || {});
+            const bagFeature = matchedOffer.features?.find((f) => /bag/i.test(f.label || ''));
+            const cancelFeature = matchedOffer.features?.find((f) => /cancel/i.test(f.label || ''));
+            const fareType = farePick?.name || baseFare.name || 'Standard';
+            const baggage = bagFeature?.value || row.luggageLabel || '—';
+            const refundStatus = cancelFeature?.value || 'See fare rules';
+            const carrierBadge = window._getOnlineFlightFareCarrierBadge?.(row.airline) || 'FL';
+            const flightNo = window._buildOnlineFareServiceNumber?.('flight', row, idx) || '';
+            return {
+                esc,
+                row,
+                fromCode,
+                toCode,
+                fromCity: cities.fromCity,
+                toCity: cities.toCity,
+                depTime,
+                arrTime,
+                dateDisp,
+                cabin,
+                fareType,
+                baggage,
+                refundStatus,
+                carrierBadge,
+                flightNo,
+                duration: row.dur || '—'
+            };
+        };
+
+        window._buildOnlineOnewayFlightReviewHtml = () => {
+            const d = window._getOnlineOnewayFlightReviewData?.();
+            if (!d) return '';
+            const esc = d.esc;
+            const refundCls = /non-refund|credit voucher/i.test(d.refundStatus) ? 'text-amber-700 bg-amber-50' : 'text-emerald-700 bg-emerald-50';
+            return `
+                <div class="online-flight-mobile-review__header">
+                    <p id="online-oneway-flight-review-title" class="online-flight-mobile-review__title">Review Your Selected Flight</p>
+                    <p class="online-flight-mobile-review__subtitle">Please review your selected itinerary before proceeding.</p>
+                </div>
+                <div class="online-flight-mobile-review__list">
+                    <div class="online-flight-mobile-review__card">
+                        <div class="online-oneway-flight-review__carrier-row">
+                            <span class="online-oneway-flight-review__carrier-logo">${esc(d.carrierBadge)}</span>
+                            <div class="min-w-0">
+                                <p class="font-bold text-sm text-slate-900">${esc(d.row.airline)} <span class="text-slate-400 font-semibold">·</span> ${esc(d.flightNo)}</p>
+                            </div>
+                        </div>
+                        <div class="online-oneway-flight-review__route-row">
+                            <div class="online-oneway-flight-review__route-point">
+                                <p class="online-oneway-flight-review__city">${esc(d.fromCity)} (${esc(d.fromCode)})</p>
+                            </div>
+                            <span class="online-oneway-flight-review__timeline-mid" aria-hidden="true"></span>
+                            <div class="online-oneway-flight-review__route-point online-oneway-flight-review__route-point--end">
+                                <p class="online-oneway-flight-review__city">${esc(d.toCity)} (${esc(d.toCode)})</p>
+                            </div>
+                        </div>
+                        <div class="online-oneway-flight-review__times">
+                            <span>${esc(d.dateDisp)} · ${esc(d.depTime)}</span>
+                            <span>${esc(d.dateDisp)} · ${esc(d.arrTime)}</span>
+                        </div>
+                        <div class="online-oneway-flight-review__meta-tags">
+                            <span class="online-oneway-flight-review__meta-tag">${esc(d.duration)}</span>
+                            <span class="online-oneway-flight-review__meta-tag">${esc(d.cabin)}</span>
+                        </div>
+                        <div class="online-oneway-flight-review__subdeck">
+                            <div class="online-oneway-flight-review__subdeck-item">
+                                <p class="online-oneway-flight-review__subdeck-label">Fare Type</p>
+                                <p class="online-oneway-flight-review__subdeck-value">${esc(d.fareType)}</p>
+                            </div>
+                            <div class="online-oneway-flight-review__subdeck-item">
+                                <p class="online-oneway-flight-review__subdeck-label">Baggage</p>
+                                <p class="online-oneway-flight-review__subdeck-value">${esc(d.baggage)}</p>
+                            </div>
+                            <div class="online-oneway-flight-review__subdeck-item">
+                                <p class="online-oneway-flight-review__subdeck-label">Refundability</p>
+                                <p class="online-oneway-flight-review__subdeck-value"><span class="inline-flex px-1.5 py-0.5 rounded-md text-[10px] font-bold ${refundCls}">${esc(d.refundStatus)}</span></p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="online-flight-mobile-review__actions">
+                    <button type="button" class="online-flight-mobile-review__done" onclick="window.proceedOnlineOnewayFlightFromReview?.()">Continue Booking</button>
+                    <button type="button" class="online-flight-mobile-review__reset" onclick="window.closeOnlineOnewayFlightReviewModals?.()">Modify Selection</button>
+                </div>`;
+        };
+
+        window._onlineOnewayFlightPromptHtml = () => `
+            <div class="online-oneway-flight-prompt__card">
+                <div class="online-oneway-flight-prompt__badge"><i data-lucide="check" class="w-8 h-8"></i></div>
+                <p id="online-oneway-flight-prompt-title" class="online-oneway-flight-prompt__title">Flight selected!</p>
+                <p class="online-oneway-flight-prompt__subtitle">Review your selected flight before continuing.</p>
+                <button type="button" id="online-oneway-flight-review-btn" class="online-oneway-flight-prompt__cta" onclick="window.openOnlineOnewayFlightReviewSheet?.()">Review Your Selected Flight</button>
+                <button type="button" class="online-oneway-flight-prompt__back" onclick="window.closeOnlineOnewayFlightSelectionPrompt?.()">Back to Results</button>
+            </div>`;
+
+        window._bindOnlineOnewayFlightOverlayKeydown = (panel) => {
+            if (window._onlineOnewayFlightOverlayKeydown) {
+                document.removeEventListener('keydown', window._onlineOnewayFlightOverlayKeydown, true);
+                window._onlineOnewayFlightOverlayKeydown = null;
+            }
+            window._onlineOnewayFlightOverlayKeydown = (e) => {
+                if (e.key === 'Escape') {
+                    e.preventDefault();
+                    if (window._onlineOnewayFlightReviewOpen) {
+                        window.closeOnlineOnewayFlightReviewModals?.();
+                    } else {
+                        window.closeOnlineOnewayFlightSelectionPrompt?.();
+                    }
+                    return;
+                }
+                if (e.key !== 'Tab' || !panel) return;
+                const list = Array.from(panel.querySelectorAll('button, [href], input, select, textarea, [tabindex]:not([tabindex="-1"])'))
+                    .filter((el) => !el.hasAttribute('disabled') && el.getAttribute('aria-hidden') !== 'true' && el.offsetParent !== null);
+                if (!list.length) return;
+                const first = list[0];
+                const last = list[list.length - 1];
+                if (e.shiftKey && document.activeElement === first) {
+                    e.preventDefault();
+                    last.focus();
+                } else if (!e.shiftKey && document.activeElement === last) {
+                    e.preventDefault();
+                    first.focus();
+                }
+            };
+            document.addEventListener('keydown', window._onlineOnewayFlightOverlayKeydown, true);
+        };
+
+        window._teardownOnlineOnewayFlightOverlayKeydown = () => {
+            if (window._onlineOnewayFlightOverlayKeydown) {
+                document.removeEventListener('keydown', window._onlineOnewayFlightOverlayKeydown, true);
+                window._onlineOnewayFlightOverlayKeydown = null;
+            }
+        };
+
+        window.openOnlineOnewayFlightSelectionPrompt = () => {
+            if (!window._isOnlineOnewayFlightReviewContext?.()) return;
+            if (window._onlineFlightSelectedGoing == null) return;
+            const overlay = document.getElementById('online-oneway-flight-prompt-overlay');
+            const panel = document.getElementById('online-oneway-flight-prompt-panel');
+            const body = document.getElementById('online-oneway-flight-prompt-body');
+            if (!overlay || !panel || !body) return;
+
+            window._onlineOnewayFlightOverlayLastActiveEl = document.activeElement;
+            window._onlineOnewayFlightPromptOpen = true;
+            body.innerHTML = window._onlineOnewayFlightPromptHtml();
+            overlay.classList.remove('hidden');
+            document.body.classList.add('ts-overlay-open');
+            lucide.createIcons?.();
+
+            requestAnimationFrame(() => {
+                panel.classList.remove('opacity-0', 'scale-95');
+                panel.classList.add('opacity-100', 'scale-100');
+            });
+
+            window._bindOnlineOnewayFlightOverlayKeydown(panel);
+            panel.querySelector('button')?.focus?.();
+        };
+
+        window.closeOnlineOnewayFlightSelectionPrompt = () => {
+            const overlay = document.getElementById('online-oneway-flight-prompt-overlay');
+            const panel = document.getElementById('online-oneway-flight-prompt-panel');
+            const body = document.getElementById('online-oneway-flight-prompt-body');
+            if (!overlay || !panel || !body) return;
+
+            window._onlineOnewayFlightPromptOpen = false;
+            panel.classList.add('opacity-0', 'scale-95');
+            panel.classList.remove('opacity-100', 'scale-100');
+
+            if (!window._onlineOnewayFlightReviewOpen) {
+                window._teardownOnlineOnewayFlightOverlayKeydown();
+                document.body.classList.remove('ts-overlay-open');
+            }
+
+            setTimeout(() => {
+                if (!window._onlineOnewayFlightPromptOpen) {
+                    overlay.classList.add('hidden');
+                    body.innerHTML = '';
+                }
+            }, 200);
+
+            if (!window._onlineOnewayFlightReviewOpen) {
+                try { window._onlineOnewayFlightOverlayLastActiveEl?.focus?.(); } catch (e) { /* ignore */ }
+                window._onlineOnewayFlightOverlayLastActiveEl = null;
+            }
+        };
+
+        window.openOnlineOnewayFlightReviewSheet = () => {
+            if (!window._isOnlineOnewayFlightReviewContext?.()) return;
+            if (window._onlineFlightSelectedGoing == null) return;
+            const overlay = document.getElementById('online-oneway-flight-review-overlay');
+            const panel = document.getElementById('online-oneway-flight-review-panel');
+            const body = document.getElementById('online-oneway-flight-review-body');
+            if (!overlay || !panel || !body) return;
+
+            window._onlineOnewayFlightReviewOpen = true;
+            window.closeOnlineOnewayFlightSelectionPrompt?.();
+            body.innerHTML = window._buildOnlineOnewayFlightReviewHtml();
+            overlay.classList.remove('hidden');
+            document.body.classList.add('ts-overlay-open');
+            lucide.createIcons?.();
+
+            requestAnimationFrame(() => {
+                panel.classList.remove('opacity-0', 'scale-95');
+                panel.classList.add('opacity-100', 'scale-100');
+            });
+
+            window._bindOnlineOnewayFlightOverlayKeydown(panel);
+            panel.querySelector('button')?.focus?.();
+        };
+
+        window.closeOnlineOnewayFlightReviewModals = () => {
+            const promptOverlay = document.getElementById('online-oneway-flight-prompt-overlay');
+            const promptPanel = document.getElementById('online-oneway-flight-prompt-panel');
+            const promptBody = document.getElementById('online-oneway-flight-prompt-body');
+            const reviewOverlay = document.getElementById('online-oneway-flight-review-overlay');
+            const reviewPanel = document.getElementById('online-oneway-flight-review-panel');
+            const reviewBody = document.getElementById('online-oneway-flight-review-body');
+
+            window._onlineOnewayFlightPromptOpen = false;
+            window._onlineOnewayFlightReviewOpen = false;
+            window._teardownOnlineOnewayFlightOverlayKeydown();
+            document.body.classList.remove('ts-overlay-open');
+
+            [promptPanel, reviewPanel].forEach((panel) => {
+                if (!panel) return;
+                panel.classList.add('opacity-0', 'scale-95');
+                panel.classList.remove('opacity-100', 'scale-100');
+            });
+
+            setTimeout(() => {
+                promptOverlay?.classList.add('hidden');
+                reviewOverlay?.classList.add('hidden');
+                if (promptBody) promptBody.innerHTML = '';
+                if (reviewBody) reviewBody.innerHTML = '';
+            }, 200);
+
+            try { window._onlineOnewayFlightOverlayLastActiveEl?.focus?.(); } catch (e) { /* ignore */ }
+            window._onlineOnewayFlightOverlayLastActiveEl = null;
+        };
+
+        window.proceedOnlineOnewayFlightFromReview = () => {
+            window.closeOnlineOnewayFlightReviewModals?.();
+            window.bookOnlineProvider?.();
+        };
+
         window.openOnlineCarReviewDetail = () => {
             const reviewRoot = document.getElementById('online-car-review-detail');
             const card = document.getElementById('online-car-review-card');
@@ -20859,7 +21382,9 @@
             const hotelHasSelection = hotelResultsVisible && window._onlineHotelSelectedIndex !== null;
             const carHasSelection = carResultsVisible && window._onlineCarSelectedIndex !== null;
 
-            const flightShowFooter = !!(flightActive && flightResultsVisible && (flightIsMultiLeg || flightPlainSelected));
+            const flightShowFooter = !!(flightActive && flightResultsVisible && (
+                flightIsMultiLeg || (flightTrip !== 'oneway' && flightPlainSelected)
+            ));
             const railShowFooter = !!(railActive && railResultsVisible && (railIsMultiLeg || railPlainSelected));
 
             const showFooter = !!(
@@ -21005,6 +21530,11 @@
             const railResultsEl = document.getElementById('online-rail-results');
             const flightResultsVisible = flightResultsEl && !flightResultsEl.classList.contains('hidden');
             const railResultsVisible = railResultsEl && !railResultsEl.classList.contains('hidden');
+            if (flightActive && flightResultsVisible && flightTrip === 'oneway' && !flightIsMultiLeg) {
+                addBtn.disabled = false;
+                addBtn.className = 'hidden ' + activeCls;
+                return;
+            }
             if (flightActive && flightResultsVisible && flightIsMultiLeg) {
                 const n = (window._multiCitySegments || []).length;
                 const k = window._onlineFlightMultiProgressLeg;
@@ -21256,6 +21786,7 @@
         };
 
         window.searchOnlineFlight = () => {
+            window.closeOnlineOnewayFlightReviewModals?.();
             const trip = document.querySelector('input[name="online-flight-trip-type"]:checked')?.value || 'round';
             if (trip === 'multiple') {
                 window.ensureOnlineFlightMultiSegmentsRendered();
@@ -21565,6 +22096,7 @@
                 if (mode !== 'car') document.getElementById('online-car-results')?.classList.add('hidden');
             }
             if (mode !== 'flight') window.closeOnlineFlightMobileReview();
+            if (mode !== 'flight') window.closeOnlineOnewayFlightReviewModals?.();
             if (mode !== 'rail') window._onlineRailMobileReviewOpen = false;
             window.wireOnlineSearchDateDisplays?.();
             window.setOnlineSearchCollapsed?.(mode, window._onlineSearchAccordionState?.[mode] === true);
@@ -21629,6 +22161,7 @@
             window._onlineFlightMultiSelections = [];
             window._onlineFlightIsSequentialRound = false;
             window.closeOnlineFlightMobileReview();
+            window.closeOnlineOnewayFlightReviewModals?.();
             window._onlineRailMultiProgressLeg = 0;
             window._onlineRailMultiSelections = [];
             window._onlineRailIsSequentialRound = false;
