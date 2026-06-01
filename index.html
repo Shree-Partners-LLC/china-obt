@@ -3310,14 +3310,11 @@
 
             .header-mobile-logo {
                 display: block;
-                height: 3.25rem;
-                max-height: 4.25rem;
-                min-height: 0;
-                width: auto;
-                max-width: min(400px, 52vw);
+                width: 138px !important;
+                height: 60px !important;
                 object-fit: contain;
                 object-position: center;
-                flex-shrink: 1;
+                flex-shrink: 0;
             }
 
             .mobile-app-header-bar .header-profile-dropdown-wrap button[data-profile-dropdown-trigger] {
@@ -4937,35 +4934,7 @@
                 background: #002855;
             }
 
-            /* Approvals — mobile Action modal */
-            .approvals-action-modal {
-                position: fixed;
-                inset: 0;
-                z-index: 120;
-                display: flex;
-                align-items: center;
-                justify-content: center;
-                padding: 1.25rem;
-            }
-
-            .approvals-action-modal.hidden {
-                display: none !important;
-            }
-
-            .approvals-action-modal__backdrop {
-                position: absolute;
-                inset: 0;
-                background: rgba(15, 23, 42, 0.55);
-                backdrop-filter: blur(4px);
-                -webkit-backdrop-filter: blur(4px);
-            }
-
-            .approvals-action-modal__dialog {
-                position: relative;
-                z-index: 1;
-                width: min(100%, 28rem);
-            }
-
+            /* Approvals — mobile Action modal (note field; overlay layout is global below) */
             .approvals-action-modal__actions {
                 padding-top: 0.875rem;
             }
@@ -5019,6 +4988,60 @@
             #approvals-mobile-pending .approvals-mobile-card--pending-action:active {
                 background: #f8fafc;
             }
+        }
+
+        /* Approvals action modal — viewport-locked flex overlay (body-level; escapes page transform contexts) */
+        .approvals-action-modal.hidden {
+            display: none !important;
+        }
+
+        .approvals-action-modal:not(.hidden) {
+            position: fixed;
+            inset: 0;
+            z-index: 210;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: max(1rem, env(safe-area-inset-top, 0px)) max(1rem, env(safe-area-inset-right, 0px)) max(1rem, env(safe-area-inset-bottom, 0px)) max(1rem, env(safe-area-inset-left, 0px));
+            overflow-x: hidden;
+            overflow-y: auto;
+            overscroll-behavior: contain;
+            box-sizing: border-box;
+        }
+
+        .approvals-action-modal__backdrop {
+            position: fixed;
+            inset: 0;
+            z-index: 0;
+            background: rgba(15, 23, 42, 0.55);
+            backdrop-filter: blur(4px);
+            -webkit-backdrop-filter: blur(4px);
+        }
+
+        .warning-modal__dialog.approvals-action-modal__dialog {
+            position: relative;
+            z-index: 1;
+            flex: 0 1 auto;
+            align-self: center;
+            width: min(100%, 28rem);
+            max-width: calc(100vw - 2rem);
+            max-height: calc(100vh - 2rem);
+            max-height: calc(100dvh - 2rem - env(safe-area-inset-top, 0px) - env(safe-area-inset-bottom, 0px));
+            margin: auto;
+            display: flex;
+            flex-direction: column;
+            overflow: hidden;
+        }
+
+        .warning-modal__dialog.approvals-action-modal__dialog .warning-modal__body {
+            overflow-y: auto;
+            -webkit-overflow-scrolling: touch;
+            flex: 1 1 auto;
+            min-height: 0;
+        }
+
+        .warning-modal__dialog.approvals-action-modal__dialog .warning-modal__actions {
+            flex-shrink: 0;
         }
 
         @media (min-width: 768px) {
@@ -7304,7 +7327,7 @@
                             class="inline-flex items-center justify-center max-w-full rounded-lg hover:opacity-90 transition-opacity"
                             aria-label="Go to home">
                             <img src="blue.png" alt="tripsource by BCD travel"
-                                class="header-mobile-logo" width="160" height="150" decoding="async" />
+                                class="header-mobile-logo" width="138" height="60" decoding="async" />
                         </button>
                     </div>
                     <div class="mobile-app-header-bar__side mobile-app-header-bar__side--end">
@@ -7808,30 +7831,6 @@
                         </div>
                     </div>
 
-                    <!-- Mobile: Action confirmation modal (Pending tab only) -->
-                    <div id="approvals-action-modal" class="approvals-action-modal hidden md:hidden" role="dialog" aria-modal="true" aria-labelledby="approvals-action-modal-title" aria-hidden="true">
-                        <div class="approvals-action-modal__backdrop" onclick="window.closeApprovalsActionModal()" aria-hidden="true"></div>
-                        <div class="warning-modal__dialog approvals-action-modal__dialog" role="document">
-                            <div class="warning-modal__body">
-                                <div class="warning-modal__icon" aria-hidden="true">
-                                    <i data-lucide="alert-triangle" class="w-8 h-8 text-[#dc5b1b]"></i>
-                                </div>
-                                <h3 id="approvals-action-modal-title" class="warning-modal__title">Approve Request</h3>
-                                <p id="approvals-action-modal-lead" class="warning-modal__lead">You are about to approve request:</p>
-                                <p id="approvals-action-modal-order" class="warning-modal__order">—</p>
-                                <p id="approvals-action-modal-traveler" class="warning-modal__meta">Traveler: —</p>
-                                <p id="approvals-action-modal-warning" class="warning-modal__warning">This action cannot be undone. The request will be moved to the approved history.</p>
-                                <div class="approvals-action-modal__note">
-                                    <label for="approvals-action-modal-note" class="approvals-action-modal__note-label">Add a note (Optional)</label>
-                                    <textarea id="approvals-action-modal-note" class="approvals-action-modal__note-textarea" rows="4" placeholder="Add approval remarks or context for this request"></textarea>
-                                </div>
-                            </div>
-                            <div class="warning-modal__actions approvals-action-modal__actions">
-                                <button type="button" onclick="window.closeApprovalsActionModal()" class="warning-modal__btn warning-modal__btn--reject profile-inline-action">REJECT</button>
-                                <button type="button" onclick="window.approveApprovalsRequest()" class="warning-modal__btn warning-modal__btn--accept profile-inline-action">APPROVE</button>
-                            </div>
-                        </div>
-                    </div>
                 </main>
 
                 <!-- MY PROFILE SCREEN (BRD-aligned) -->
@@ -11582,6 +11581,31 @@
                 <button type="button" id="td-btn-cancel" onclick="window.showCancelTripConfirm()" class="px-5 py-2 rounded-xl text-sm font-bold text-white bg-red-600 shadow-md hover:bg-red-700 transition-colors">
                     <i data-lucide="x-circle" class="w-3.5 h-3.5 inline-block mr-1 align-text-bottom"></i>Cancel Trip
                 </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Mobile: Approvals pending action modal (body-level for viewport-fixed centering) -->
+    <div id="approvals-action-modal" class="approvals-action-modal hidden md:hidden" role="dialog" aria-modal="true" aria-labelledby="approvals-action-modal-title" aria-hidden="true">
+        <div class="approvals-action-modal__backdrop" onclick="window.closeApprovalsActionModal()" aria-hidden="true"></div>
+        <div class="warning-modal__dialog approvals-action-modal__dialog" role="document">
+            <div class="warning-modal__body">
+                <div class="warning-modal__icon" aria-hidden="true">
+                    <i data-lucide="alert-triangle" class="w-8 h-8 text-[#dc5b1b]"></i>
+                </div>
+                <h3 id="approvals-action-modal-title" class="warning-modal__title">Approve Request</h3>
+                <p id="approvals-action-modal-lead" class="warning-modal__lead">You are about to approve request:</p>
+                <p id="approvals-action-modal-order" class="warning-modal__order">—</p>
+                <p id="approvals-action-modal-traveler" class="warning-modal__meta">Traveler: —</p>
+                <p id="approvals-action-modal-warning" class="warning-modal__warning">This action cannot be undone. The request will be moved to the approved history.</p>
+                <div class="approvals-action-modal__note">
+                    <label for="approvals-action-modal-note" class="approvals-action-modal__note-label">Add a note (Optional)</label>
+                    <textarea id="approvals-action-modal-note" class="approvals-action-modal__note-textarea" rows="4" placeholder="Add approval remarks or context for this request"></textarea>
+                </div>
+            </div>
+            <div class="warning-modal__actions approvals-action-modal__actions">
+                <button type="button" onclick="window.closeApprovalsActionModal()" class="warning-modal__btn warning-modal__btn--reject profile-inline-action">REJECT</button>
+                <button type="button" onclick="window.approveApprovalsRequest()" class="warning-modal__btn warning-modal__btn--accept profile-inline-action">APPROVE</button>
             </div>
         </div>
     </div>
