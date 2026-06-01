@@ -1147,6 +1147,124 @@
             }
         }
 
+        #page-booking .flight-airport-combo-wrap {
+            position: relative;
+        }
+
+        #page-booking .flight-airport-combo {
+            position: relative;
+            width: 100%;
+            min-width: 0;
+        }
+
+        #page-booking .flight-airport-combo__closed {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            min-height: 2.5rem;
+            cursor: pointer;
+            outline: none;
+        }
+
+        #page-booking .flight-airport-combo__city {
+            font-weight: 700;
+            color: #0B2545;
+            font-size: 0.875rem;
+            line-height: 1.25rem;
+        }
+
+        #page-booking .flight-airport-combo__airport {
+            color: #64748b;
+            font-size: 0.75rem;
+            line-height: 1rem;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        #page-booking .flight-airport-combo__placeholder {
+            font-weight: 500;
+            color: #94a3b8;
+        }
+
+        #page-booking .flight-airport-combo__open {
+            position: relative;
+            width: 100%;
+        }
+
+        #page-booking .flight-airport-combo__list {
+            position: absolute;
+            left: 0;
+            right: 0;
+            top: 100%;
+            z-index: 99;
+            max-height: 280px;
+            overflow-y: auto;
+            margin-top: 0.25rem;
+            width: 100%;
+            background: #fff;
+            border: 1px solid #e2e8f0;
+            border-radius: 0.5rem;
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+        }
+
+        #page-booking .flight-airport-combo__option {
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+            width: 100%;
+            text-align: left;
+            padding: 0.625rem 0.75rem;
+            border: none;
+            border-bottom: 1px solid #f1f5f9;
+            background: transparent;
+            cursor: pointer;
+        }
+
+        #page-booking .flight-airport-combo__option:last-child {
+            border-bottom: none;
+        }
+
+        #page-booking .flight-airport-combo__option:hover,
+        #page-booking .flight-airport-combo__option--active {
+            background: #eff6ff;
+        }
+
+        #page-booking .flight-airport-combo__option-top {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            width: 100%;
+        }
+
+        #page-booking .flight-airport-combo__option-city {
+            font-weight: 700;
+            color: #0B2545;
+            font-size: 0.8125rem;
+        }
+
+        #page-booking .flight-airport-combo__option-iata-pill {
+            font-size: 0.625rem;
+            font-weight: 600;
+            color: #64748b;
+            background: #f1f5f9;
+            border-radius: 9999px;
+            padding: 0.125rem 0.375rem;
+            letter-spacing: 0.02em;
+        }
+
+        #page-booking .flight-airport-combo__option-airport {
+            color: #64748b;
+            font-size: 0.6875rem;
+            line-height: 1.2;
+            margin-top: 0.125rem;
+        }
+
+        #page-booking .online-flight-locations-row > .online-flight-searchbar-seg,
+        #page-booking .online-flight-searchbar--multicity-row .online-flight-searchbar-seg:has(.flight-airport-combo-wrap) {
+            overflow: visible;
+        }
+
         /* Mobile (<768px): flight/rail search — borderless stacked card with dividers (sample layout) */
         @media (max-width: 767px) {
             #page-booking #online-flight-searchbar.online-flight-searchbar,
@@ -9154,8 +9272,10 @@
                                                                 <div class="online-flight-searchbar-label">From</div>
                                                                 <div class="flex items-center gap-2 min-w-0">
                                                                     <i data-lucide="map-pin" class="w-4 h-4 text-slate-400 shrink-0"></i>
-                                                                    <input type="text" id="online-flight-from" class="online-flight-loc-input"
-                                                                        placeholder="From city or airport" value="Beijing Capital Airport" autocomplete="off">
+                                                                    <div class="flight-airport-combo-wrap flex-1 min-w-0 relative">
+                                                                        <div class="flight-airport-combo" role="combobox" aria-expanded="false"></div>
+                                                                        <input type="hidden" id="online-flight-from" value="PEK">
+                                                                    </div>
                                                                 </div>
                                                             </div>
                                                             <button type="button" onclick="window.swapOnlineFlightLocations()"
@@ -9170,8 +9290,10 @@
                                                                 <div class="online-flight-searchbar-label">To</div>
                                                                 <div class="flex items-center gap-2 min-w-0">
                                                                     <i data-lucide="map-pin" class="w-4 h-4 text-slate-400 shrink-0"></i>
-                                                                    <input type="text" id="online-flight-to" class="online-flight-loc-input w-full"
-                                                                        placeholder="To city or airport" value="Shanghai (PVG)" autocomplete="off">
+                                                                    <div class="flight-airport-combo-wrap flex-1 min-w-0 relative">
+                                                                        <div class="flight-airport-combo" role="combobox" aria-expanded="false"></div>
+                                                                        <input type="hidden" id="online-flight-to" value="PVG">
+                                                                    </div>
                                                                 </div>
                                                             </div>
                                                             </div>
@@ -13766,8 +13888,8 @@
                         d.destination = d.destination || r.destination;
                     }
                     if (!d.date) d.date = window._parseDmYToIso(item.secondary);
-                    if (d.origin) { const el = document.getElementById('online-flight-from'); if (el) el.value = d.origin; }
-                    if (d.destination) { const el = document.getElementById('online-flight-to'); if (el) el.value = d.destination; }
+                    if (d.origin) window.setFlightLocIata?.('online-flight-from', d.origin);
+                    if (d.destination) window.setFlightLocIata?.('online-flight-to', d.destination);
                     if (d.date) { const el = document.getElementById('online-flight-depart-date'); if (el) el.value = d.date; }
                     const rdEl = document.getElementById('online-flight-return-date');
                     const wantRound = (item.detail && item.detail.indexOf('Return ¥') >= 0) || (item.title && String(item.title).indexOf('Return') >= 0) || d.legIndex === 1 || !!pairedReturnDate || !!outboundFromPaired;
@@ -14285,7 +14407,10 @@
                 const clean = String(text || '').replace(/[^A-Za-z]/g, '').toUpperCase();
                 return (clean || '---').slice(0, 3);
             };
-            const part = (text) => `<span class="booking-mobile-summary-code">${window._mobileSummaryEsc(codeFor(text))}</span><span class="booking-mobile-summary-name">${window._mobileSummaryEsc(text || 'Select location')}</span>`;
+            const part = (text) => {
+                const label = typeof window._flightCityLabel === 'function' ? window._flightCityLabel(text) : (text || 'Select location');
+                return `<span class="booking-mobile-summary-code">${window._mobileSummaryEsc(codeFor(text))}</span><span class="booking-mobile-summary-name">${window._mobileSummaryEsc(label)}</span>`;
+            };
             return `<div class="booking-mobile-summary-route">${part(from)}<span class="booking-mobile-summary-sep">→</span>${part(to)}</div>`;
         };
         window._mobileSummaryDateText = (iso) => {
@@ -14306,11 +14431,11 @@
                         <div class="booking-mobile-summary-banner__body">
                             <p class="booking-mobile-summary-banner__eyebrow">Flight search</p>
                             <p class="booking-mobile-summary-banner__title">${count || 0} segments ready</p>
-                            <p class="booking-mobile-summary-banner__meta">${window._mobileSummaryEsc(first.from || 'Origin')} to ${window._mobileSummaryEsc(last.to || 'Destination')} · Multi-trip</p>
+                            <p class="booking-mobile-summary-banner__meta">${window._mobileSummaryEsc(window._flightCityLabel?.(first.from) || 'Origin')} to ${window._mobileSummaryEsc(window._flightCityLabel?.(last.to) || 'Destination')} · Multi-trip</p>
                         </div>`;
                 }
-                const from = document.getElementById('online-flight-from')?.value?.trim() || '';
-                const to = document.getElementById('online-flight-to')?.value?.trim() || '';
+                const from = window.getFlightLocIata?.('online-flight-from') || '';
+                const to = window.getFlightLocIata?.('online-flight-to') || '';
                 const dd = document.getElementById('online-flight-depart-date')?.value || '';
                 const rd = document.getElementById('online-flight-return-date')?.value || '';
                 return `
@@ -16076,11 +16201,9 @@
             const ow = document.querySelector('input[name="online-flight-trip-type"][value="oneway"]');
             if (ow) ow.checked = true;
             window.updateOnlineFlightTripTypeUI?.();
-            const fromEl = document.getElementById('online-flight-from');
-            const toEl = document.getElementById('online-flight-to');
             const dateEl = document.getElementById('online-flight-depart-date');
-            if (fromEl) fromEl.value = pending.fromLabel;
-            if (toEl) toEl.value = pending.toLabel;
+            if (pending.fromLabel) window.setFlightLocIata?.('online-flight-from', pending.fromLabel);
+            if (pending.toLabel) window.setFlightLocIata?.('online-flight-to', pending.toLabel);
             if (dateEl && pending.date) dateEl.value = pending.date;
             window.clearFlightFilters?.();
             window._onlineFareSelection = { flight: {}, rail: {} };
@@ -16638,6 +16761,8 @@
             const t = a.value;
             a.value = b.value;
             b.value = t;
+            window.refreshFlightAirportCombo?.(a);
+            window.refreshFlightAirportCombo?.(b);
             lucide.createIcons();
         };
 
@@ -16965,16 +17090,16 @@
             if (trip === 'multiple' || window._onlineFlightIsSequentialRound) {
                 const seg = (window._multiCitySegments || [])[window._onlineFlightMultiProgressLeg] || {};
                 return {
-                    fromCity: seg.from || fromCode,
-                    toCity: seg.to || toCode
+                    fromCity: window._flightCityLabel(seg.from) || seg.from || fromCode,
+                    toCity: window._flightCityLabel(seg.to) || seg.to || toCode
                 };
             }
-            const fromInput = document.getElementById('online-flight-from')?.value?.trim() || fromCode;
-            const toInput = document.getElementById('online-flight-to')?.value?.trim() || toCode;
+            const fromInput = window.getFlightLocIata?.('online-flight-from') || fromCode;
+            const toInput = window.getFlightLocIata?.('online-flight-to') || toCode;
             if (ctx.leg === 'return') {
-                return { fromCity: toInput, toCity: fromInput };
+                return { fromCity: window._flightCityLabel(toInput), toCity: window._flightCityLabel(fromInput) };
             }
-            return { fromCity: fromInput, toCity: toInput };
+            return { fromCity: window._flightCityLabel(fromInput), toCity: window._flightCityLabel(toInput) };
         };
 
         window._getOnlineFlightFareLegTabs = (ctx) => {
@@ -17693,9 +17818,277 @@
         window._onlineMcMaxSegments = 5;
         window._onlineMcMinSegments = 2;
 
+        window.FLIGHT_AIRPORTS = [
+            { iata: 'PEK', city: 'Beijing', airport: 'Beijing Capital International Airport' },
+            { iata: 'PVG', city: 'Shanghai', airport: 'Shanghai Pudong International Airport' },
+            { iata: 'CAN', city: 'Guangzhou', airport: 'Guangzhou Baiyun International Airport' },
+            { iata: 'SZX', city: 'Shenzhen', airport: "Shenzhen Bao'an International Airport" },
+            { iata: 'TFU', city: 'Chengdu', airport: 'Chengdu Tianfu International Airport' }
+        ];
+
+        window._flightAirportByIata = (iata) => {
+            const c = String(iata || '').trim().toUpperCase();
+            if (!c) return null;
+            return window.FLIGHT_AIRPORTS.find((a) => a.iata === c) || null;
+        };
+
+        window._flightAirportFromText = (text) => {
+            const q = String(text || '').trim().toLowerCase();
+            if (!q) return null;
+            const byIata = window._flightAirportByIata(q);
+            if (byIata) return byIata;
+            return window.FLIGHT_AIRPORTS.find((a) =>
+                a.city.toLowerCase().includes(q) ||
+                a.airport.toLowerCase().includes(q) ||
+                q.includes(a.city.toLowerCase())
+            ) || null;
+        };
+
+        window._resolveFlightIata = (value) => {
+            const v = String(value || '').trim();
+            if (!v) return '';
+            if (/^[A-Za-z]{3}$/.test(v)) {
+                const apt = window._flightAirportByIata(v);
+                return apt ? apt.iata : v.toUpperCase();
+            }
+            const apt = window._flightAirportFromText(v);
+            return apt ? apt.iata : '';
+        };
+
+        window._flightAirportMatchQuery = (q) => {
+            const t = String(q || '').trim().toLowerCase();
+            if (!t) return [...window.FLIGHT_AIRPORTS];
+            return window.FLIGHT_AIRPORTS.filter((a) =>
+                a.iata.toLowerCase().includes(t) ||
+                a.city.toLowerCase().includes(t) ||
+                a.airport.toLowerCase().includes(t)
+            );
+        };
+
+        window._flightCityLabel = (iataOrText) => {
+            const apt = window._flightAirportByIata(window._resolveFlightIata(iataOrText)) || window._flightAirportFromText(iataOrText);
+            return apt ? apt.city : (String(iataOrText || '').trim() || 'Select location');
+        };
+
+        window._flightComboEsc = (s) => String(s ?? '').replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
+
+        window.getFlightLocIata = (elOrId) => {
+            let el = typeof elOrId === 'string' ? document.getElementById(elOrId) : elOrId;
+            if (!el) return '';
+            if (el.classList?.contains('flight-airport-combo-wrap')) {
+                el = el.querySelector('input[type="hidden"]');
+            } else if (el.classList?.contains('flight-airport-combo')) {
+                el = el.closest('.flight-airport-combo-wrap')?.querySelector('input[type="hidden"]');
+            }
+            return el?.value?.trim() || '';
+        };
+
+        window.setFlightLocIata = (elOrId, iata) => {
+            let hidden = typeof elOrId === 'string' ? document.getElementById(elOrId) : elOrId;
+            if (!hidden) return;
+            if (hidden.classList?.contains('flight-airport-combo-wrap')) {
+                hidden = hidden.querySelector('input[type="hidden"]');
+            }
+            if (!hidden) return;
+            const resolved = window._resolveFlightIata(iata) || String(iata || '').trim().toUpperCase();
+            hidden.value = resolved;
+            window.refreshFlightAirportCombo?.(hidden);
+            if (hidden.dataset.mcField === 'to') {
+                const row = hidden.closest('[data-mc-flight-idx]');
+                if (row) {
+                    const idx = parseInt(row.getAttribute('data-mc-flight-idx'), 10);
+                    if (!Number.isNaN(idx)) window._chainOnlineMcNextOrigin('flight', idx);
+                }
+            }
+        };
+
+        window.refreshFlightAirportCombo = (hiddenOrId) => {
+            const hidden = typeof hiddenOrId === 'string' ? document.getElementById(hiddenOrId) : hiddenOrId;
+            if (!hidden) return;
+            const wrap = hidden.closest('.flight-airport-combo-wrap');
+            const combo = wrap?.querySelector('.flight-airport-combo');
+            const closed = combo?.querySelector('.flight-airport-combo__closed');
+            if (!closed) return;
+            const iata = hidden.value?.trim().toUpperCase() || '';
+            const airport = window._flightAirportByIata(iata);
+            if (!airport) {
+                closed.innerHTML = '<span class="flight-airport-combo__city flight-airport-combo__placeholder">Select airport</span>';
+                return;
+            }
+            closed.innerHTML = `<span class="flight-airport-combo__city">${window._flightComboEsc(airport.city)}</span><span class="flight-airport-combo__airport">${window._flightComboEsc(airport.airport)}</span>`;
+        };
+
+        window._closeFlightAirportCombo = (wrap) => {
+            if (!wrap) return;
+            const combo = wrap.querySelector('.flight-airport-combo');
+            const openEl = wrap.querySelector('.flight-airport-combo__open');
+            const closedEl = wrap.querySelector('.flight-airport-combo__closed');
+            if (!combo) return;
+            combo.classList.remove('is-open');
+            combo.setAttribute('aria-expanded', 'false');
+            openEl?.classList.add('hidden');
+            closedEl?.classList.remove('hidden');
+        };
+
+        window._closeAllFlightAirportCombos = (exceptWrap) => {
+            document.querySelectorAll('.flight-airport-combo.is-open').forEach((combo) => {
+                const wrap = combo.closest('.flight-airport-combo-wrap');
+                if (exceptWrap && wrap === exceptWrap) return;
+                window._closeFlightAirportCombo(wrap);
+            });
+        };
+
+        window._renderFlightAirportComboList = (wrap, q) => {
+            const list = wrap.querySelector('.flight-airport-combo__list');
+            const hidden = wrap.querySelector('input[type="hidden"]');
+            if (!list) return;
+            const current = hidden?.value?.trim().toUpperCase() || '';
+            const items = window._flightAirportMatchQuery(q);
+            list.innerHTML = items.map((a) => {
+                const active = a.iata === current ? ' flight-airport-combo__option--active' : '';
+                return `<button type="button" class="flight-airport-combo__option${active}" data-iata="${a.iata}">
+                    <div class="flight-airport-combo__option-top">
+                        <span class="flight-airport-combo__option-city">${window._flightComboEsc(a.city)}</span>
+                        <span class="flight-airport-combo__option-iata-pill">${a.iata}</span>
+                    </div>
+                    <span class="flight-airport-combo__option-airport">${window._flightComboEsc(a.airport)}</span>
+                </button>`;
+            }).join('');
+            list.querySelectorAll('.flight-airport-combo__option').forEach((btn) => {
+                btn.addEventListener('click', (e) => {
+                    e.preventDefault();
+                    e.stopPropagation();
+                    const iata = btn.getAttribute('data-iata');
+                    if (hidden) hidden.value = iata || '';
+                    window.refreshFlightAirportCombo(hidden);
+                    window._closeFlightAirportCombo(wrap);
+                    if (hidden?.dataset.mcField === 'to') {
+                        const row = wrap.closest('[data-mc-flight-idx]');
+                        if (row) {
+                            const idx = parseInt(row.getAttribute('data-mc-flight-idx'), 10);
+                            if (!Number.isNaN(idx)) window._chainOnlineMcNextOrigin('flight', idx);
+                        }
+                    }
+                    window._syncMultiCitySegmentsFromDom?.('flight');
+                });
+            });
+        };
+
+        window._openFlightAirportCombo = (wrap) => {
+            window._closeAllFlightAirportCombos(wrap);
+            const combo = wrap.querySelector('.flight-airport-combo');
+            const openEl = wrap.querySelector('.flight-airport-combo__open');
+            const closedEl = wrap.querySelector('.flight-airport-combo__closed');
+            const query = wrap.querySelector('.flight-airport-combo__query');
+            if (!combo || !openEl || !closedEl) return;
+            combo.classList.add('is-open');
+            combo.setAttribute('aria-expanded', 'true');
+            closedEl.classList.add('hidden');
+            openEl.classList.remove('hidden');
+            if (query) query.value = '';
+            window._renderFlightAirportComboList(wrap, '');
+            if (query) {
+                requestAnimationFrame(() => {
+                    query.focus();
+                });
+            }
+        };
+
+        window._flightMcComboMountHtml = (field, initial) => {
+            const iata = window._resolveFlightIata(initial) || '';
+            return `<div class="flight-airport-combo-wrap flex-1 min-w-0 relative">
+                <div class="flight-airport-combo" role="combobox" aria-expanded="false"></div>
+                <input type="hidden" data-mc-field="${field}" value="${window._flightComboEsc(iata)}">
+            </div>`;
+        };
+
+        window.initFlightAirportCombo = (elOrId) => {
+            let hidden = typeof elOrId === 'string' ? document.getElementById(elOrId) : elOrId;
+            if (!hidden) return;
+            if (hidden.classList?.contains('flight-airport-combo-wrap')) {
+                hidden = hidden.querySelector('input[type="hidden"]');
+            } else if (hidden.classList?.contains('flight-airport-combo')) {
+                hidden = hidden.closest('.flight-airport-combo-wrap')?.querySelector('input[type="hidden"]');
+            }
+            if (!hidden) return;
+            const wrap = hidden.closest('.flight-airport-combo-wrap');
+            if (!wrap) return;
+            const combo = wrap.querySelector('.flight-airport-combo');
+            if (!combo) return;
+            if (hidden.dataset.flightComboBound === '1') {
+                window.refreshFlightAirportCombo(hidden);
+                return;
+            }
+            hidden.dataset.flightComboBound = '1';
+            let initialIata = window._resolveFlightIata(hidden.value);
+            if (!initialIata && hidden.id === 'online-flight-from') initialIata = 'PEK';
+            if (!initialIata && hidden.id === 'online-flight-to') initialIata = 'PVG';
+            if (initialIata) hidden.value = initialIata;
+
+            combo.innerHTML = `
+                <div class="flight-airport-combo__closed" tabindex="0" role="button" aria-label="Select airport"></div>
+                <div class="flight-airport-combo__open hidden">
+                    <input type="text" class="flight-airport-combo__query online-flight-loc-input w-full" placeholder="City or airport" autocomplete="off" aria-label="Search airports">
+                    <div class="flight-airport-combo__list" role="listbox"></div>
+                </div>`;
+
+            const closed = combo.querySelector('.flight-airport-combo__closed');
+            const query = combo.querySelector('.flight-airport-combo__query');
+
+            closed?.addEventListener('click', (e) => {
+                e.stopPropagation();
+                window._openFlightAirportCombo(wrap);
+            });
+            closed?.addEventListener('keydown', (e) => {
+                if (e.key === 'Enter' || e.key === ' ') {
+                    e.preventDefault();
+                    window._openFlightAirportCombo(wrap);
+                }
+            });
+            wrap.addEventListener('focusin', (e) => {
+                if (e.target.closest('.flight-airport-combo__option')) return;
+                if (!combo.classList.contains('is-open')) {
+                    window._openFlightAirportCombo(wrap);
+                }
+            });
+            query?.addEventListener('input', () => window._renderFlightAirportComboList(wrap, query.value));
+            query?.addEventListener('keydown', (e) => {
+                if (e.key === 'Escape') {
+                    e.preventDefault();
+                    window._closeFlightAirportCombo(wrap);
+                    closed?.focus();
+                }
+            });
+
+            window.refreshFlightAirportCombo(hidden);
+
+            if (!window._flightAirportComboDocBound) {
+                window._flightAirportComboDocBound = true;
+                document.addEventListener('click', (e) => {
+                    if (e.target.closest('.flight-airport-combo-wrap')) return;
+                    window._closeAllFlightAirportCombos();
+                });
+                document.addEventListener('keydown', (e) => {
+                    if (e.key === 'Escape') window._closeAllFlightAirportCombos();
+                });
+            }
+        };
+
+        window.initAllFlightAirportCombos = (root) => {
+            const scope = root || document;
+            scope.querySelectorAll('#online-flight-from, #online-flight-to').forEach((el) => window.initFlightAirportCombo(el));
+            scope.querySelectorAll('#online-flight-multi-segments [data-mc-field="from"], #online-flight-multi-segments [data-mc-field="to"]').forEach((el) => {
+                window.initFlightAirportCombo(el);
+            });
+        };
+
         window._onlineLocCode = (s) => {
-            const t = (s || '').replace(/[^\w]/g, '').toUpperCase();
-            return (t.slice(0, 3) || 'XXX');
+            const raw = String(s || '').trim();
+            if (/^[A-Za-z]{3}$/.test(raw)) return raw.toUpperCase();
+            const apt = window._flightAirportByIata(raw) || window._flightAirportFromText(raw);
+            if (apt) return apt.iata;
+            const t = raw.replace(/[^\w]/g, '').toUpperCase();
+            return t.slice(0, 3) || 'XXX';
         };
 
         window._readOnlineFlightMcFromDom = () => {
@@ -17736,7 +18129,15 @@
             if (!row || !next) return;
             const toVal = row.querySelector('[data-mc-field="to"]')?.value?.trim() || '';
             const nextFrom = next.querySelector('[data-mc-field="from"]');
-            if (nextFrom && document.activeElement !== nextFrom) {
+            if (!nextFrom) return;
+            if (mode === 'flight') {
+                const nextQuery = nextFrom.closest('.flight-airport-combo-wrap')?.querySelector('.flight-airport-combo__query');
+                if (document.activeElement !== nextQuery) {
+                    window.setFlightLocIata(nextFrom, toVal);
+                }
+                return;
+            }
+            if (document.activeElement !== nextFrom) {
                 nextFrom.value = toVal;
             }
         };
@@ -17755,7 +18156,7 @@
                         <div class="online-flight-searchbar-label">Origin</div>
                         <div class="flex items-center gap-2 min-w-0">
                             <i data-lucide="map-pin" class="w-4 h-4 text-slate-400 shrink-0"></i>
-                            <input type="text" data-mc-field="from" class="online-flight-loc-input" placeholder="Origin" value="${(seg.from || '').replace(/"/g, '&quot;')}" autocomplete="off">
+                            ${window._flightMcComboMountHtml('from', seg.from || '')}
                         </div>
                     </div>
                     <button type="button" onclick="window.swapOnlineMcRowLocations('flight', ${idx})" class="online-flight-searchbar-swap max-md:flex max-md:items-center max-md:justify-center" title="Swap Origin and Destination" aria-label="Swap Origin and Destination">
@@ -17769,8 +18170,7 @@
                         <div class="online-flight-searchbar-label">Destination</div>
                         <div class="flex items-center gap-2 min-w-0">
                             <i data-lucide="map-pin" class="w-4 h-4 text-slate-400 shrink-0"></i>
-                            <input type="text" data-mc-field="to" class="online-flight-loc-input" placeholder="Destination" value="${(seg.to || '').replace(/"/g, '&quot;')}" autocomplete="off"
-                                oninput="window._chainOnlineMcNextOrigin('flight', ${idx})">
+                            ${window._flightMcComboMountHtml('to', seg.to || '')}
                         </div>
                     </div>
                     <div class="online-flight-searchbar-seg${lastCls}">
@@ -17843,6 +18243,7 @@
             for (let j = 0; j < segs.length - 1; j++) window._chainOnlineMcNextOrigin('flight', j);
             window._syncMultiCitySegmentsFromDom('flight');
             window.syncOnlineMcDateDisplays?.('flight');
+            window.initAllFlightAirportCombos?.(host);
             lucide.createIcons();
         };
 
@@ -17866,8 +18267,8 @@
         window.ensureOnlineFlightMultiSegmentsRendered = () => {
             const host = document.getElementById('online-flight-multi-segments');
             if (!host || host.children.length) return;
-            const from = document.getElementById('online-flight-from')?.value?.trim() || '';
-            const to = document.getElementById('online-flight-to')?.value?.trim() || '';
+            const from = window.getFlightLocIata?.('online-flight-from') || '';
+            const to = window.getFlightLocIata?.('online-flight-to') || '';
             const d1 = document.getElementById('online-flight-depart-date')?.value || '';
             const d2 = document.getElementById('online-flight-return-date')?.value || '';
             window.renderOnlineFlightMultiSegments([
@@ -17944,6 +18345,10 @@
             const t = a.value;
             a.value = b.value;
             b.value = t;
+            if (mode === 'flight') {
+                window.refreshFlightAirportCombo?.(a);
+                window.refreshFlightAirportCombo?.(b);
+            }
             window._chainOnlineMcNextOrigin(mode, idx);
             lucide.createIcons();
         };
@@ -20734,8 +21139,8 @@
                 return;
             }
 
-            const from = document.getElementById('online-flight-from')?.value?.trim();
-            const to = document.getElementById('online-flight-to')?.value?.trim();
+            const from = window.getFlightLocIata?.('online-flight-from');
+            const to = window.getFlightLocIata?.('online-flight-to');
             const dd = document.getElementById('online-flight-depart-date')?.value;
             const rd = document.getElementById('online-flight-return-date')?.value;
             if (!from || !to) {
@@ -20750,10 +21155,12 @@
                 alert('Please select a return date.');
                 return;
             }
+            const fromCity = window._flightCityLabel(from);
+            const toCity = window._flightCityLabel(to);
             const dDisp = window.formatOnlineFlightDateDisplay(dd);
             const rDisp = rd ? window.formatOnlineFlightDateDisplay(rd) : '—';
-            const goingText = `${from} → ${to} | ${dDisp} | …`;
-            const returnText = `${to} → ${from} | ${rDisp} | …`;
+            const goingText = `${fromCity} → ${toCity} | ${dDisp} | …`;
+            const returnText = `${toCity} → ${fromCity} | ${rDisp} | …`;
             const gt = document.getElementById('online-flight-tab-going-text');
             const rt = document.getElementById('online-flight-tab-return-text');
             if (gt) { gt.textContent = goingText; gt.setAttribute('title', goingText); }
@@ -20799,9 +21206,9 @@
             document.getElementById('online-flight-tbody-return')?.classList.add('hidden');
 
             /* AI-ADDED: Use search From/To for mock route codes; Prompt: one-way results match cities / library edit */
-            const _ofFrom = document.getElementById('online-flight-from')?.value?.trim() || '';
-            const _ofTo = document.getElementById('online-flight-to')?.value?.trim() || '';
-            const _oCode = window._onlineLocCode ? window._onlineLocCode(_ofFrom) : 'BEI';
+            const _ofFrom = window.getFlightLocIata?.('online-flight-from') || '';
+            const _ofTo = window.getFlightLocIata?.('online-flight-to') || '';
+            const _oCode = window._onlineLocCode ? window._onlineLocCode(_ofFrom) : 'PEK';
             const _dCode = window._onlineLocCode ? window._onlineLocCode(_ofTo) : 'PVG';
             window._onlineFlightGoingRows = window._buildMockOnlineFlights(_oCode, _dCode, false);
             window._onlineFlightReturnRows = [];
@@ -20850,8 +21257,8 @@
                 return;
             }
 
-            const from = document.getElementById('online-flight-from')?.value?.trim();
-            const to = document.getElementById('online-flight-to')?.value?.trim();
+            const from = window.getFlightLocIata?.('online-flight-from');
+            const to = window.getFlightLocIata?.('online-flight-to');
             const dd = document.getElementById('online-flight-depart-date')?.value;
             const rd = document.getElementById('online-flight-return-date')?.value;
             if (!from || !to) {
@@ -21114,7 +21521,10 @@
             const carPanel = document.getElementById('online-car-search-panel');
             if (flightPanel) {
                 flightPanel.classList.toggle('hidden', mode !== 'flight');
-                if (mode === 'flight') window.updateOnlineFlightTripTypeUI();
+                if (mode === 'flight') {
+                    window.updateOnlineFlightTripTypeUI();
+                    window.initAllFlightAirportCombos?.();
+                }
                 if (mode !== 'flight') document.getElementById('online-flight-results')?.classList.add('hidden');
             }
             if (railPanel) {
@@ -21292,8 +21702,8 @@
     };
 
     if (type === 'air') {
-        const from = document.getElementById('online-flight-from')?.value?.trim();
-        const to = document.getElementById('online-flight-to')?.value?.trim();
+        const from = window.getFlightLocIata?.('online-flight-from');
+        const to = window.getFlightLocIata?.('online-flight-to');
         const dd = document.getElementById('online-flight-depart-date')?.value || '';
         const rd = document.getElementById('online-flight-return-date')?.value || '';
         const trip = document.querySelector('input[name="online-flight-trip-type"]:checked')?.value || 'round';
@@ -23933,6 +24343,7 @@
 
         requestAnimationFrame(() => {
             window.normalizeAppDatesInSubtree?.(document.body);
+            window.initAllFlightAirportCombos?.();
         });
     </script>
 </body>
