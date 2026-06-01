@@ -2514,79 +2514,33 @@
                 margin-top: 0.35rem;
             }
 
-            /* One-way flight: selection prompt + review specification overlays */
-            #online-oneway-flight-prompt-overlay,
+            /* One-way flight: review specification overlay (direct on fare select) */
             #online-oneway-flight-review-overlay {
                 position: fixed;
                 inset: 0;
                 z-index: 9999;
-            }
-
-            #online-oneway-flight-prompt-panel,
-            #online-oneway-flight-review-panel {
-                width: min(90vw, 520px);
-                max-height: calc(100vh - 32px);
-                overflow-y: auto;
-                background: #ffffff;
-                border-radius: 24px;
-                box-shadow: 0 28px 60px rgba(15, 23, 42, 0.18);
-            }
-
-            .online-oneway-flight-prompt__card {
-                padding: 1.75rem 1.5rem 1.5rem;
-                text-align: center;
-            }
-
-            .online-oneway-flight-prompt__badge {
-                width: 4.75rem;
-                height: 4.75rem;
-                margin: 0 auto 1.125rem;
-                border-radius: 9999px;
                 display: flex;
                 align-items: center;
                 justify-content: center;
-                background: #dcfce7;
-                color: #15803d;
-                box-shadow: 0 12px 28px rgba(22, 163, 74, 0.18);
             }
 
-            .online-oneway-flight-prompt__title {
-                font-size: 1.125rem;
-                font-weight: 800;
-                color: #0f172a;
+            #online-oneway-flight-review-overlay.hidden {
+                display: none;
             }
 
-            .online-oneway-flight-prompt__subtitle {
-                margin-top: 0.5rem;
-                font-size: 0.8125rem;
-                line-height: 1.5;
-                color: #64748b;
+            #online-oneway-flight-review-panel {
+                width: min(90vw, 520px);
+                max-height: calc(100vh - 32px);
+                background: #ffffff;
+                border-radius: 24px;
+                border: 1px solid #e2e8f0;
+                box-shadow: 0 28px 60px rgba(15, 23, 42, 0.18);
+                overflow: hidden;
             }
 
-            .online-oneway-flight-prompt__cta {
-                margin-top: 1.25rem;
-                width: 100%;
-                min-height: 48px;
-                border: none;
-                border-radius: 0.95rem;
-                background: #4285F4;
-                color: #fff;
-                font-size: 0.8125rem;
-                font-weight: 800;
-                box-shadow: 0 18px 32px rgba(66, 133, 244, 0.26);
-                cursor: pointer;
-            }
-
-            .online-oneway-flight-prompt__back {
-                display: block;
-                margin-top: 1rem;
-                width: 100%;
-                border: none;
-                background: transparent;
-                color: #2563eb;
-                font-size: 0.8125rem;
-                font-weight: 700;
-                cursor: pointer;
+            #online-oneway-flight-review-body {
+                max-height: calc(100vh - 32px);
+                overflow-y: auto;
             }
 
             .online-oneway-flight-review__carrier-row {
@@ -3469,27 +3423,13 @@
             }
             .mobile-app-header-bar {
                 display: grid;
-                grid-template-columns: 44px 1fr auto;
+                grid-template-columns: var(--left-controls-width, 60px) 1fr var(--right-controls-width, auto);
                 align-items: center;
                 column-gap: 0.5rem;
                 width: 100%;
                 min-height: 4rem;
                 height: 4rem;
                 padding: 0 0.375rem;
-            }
-
-            .mobile-app-header-bar__side {
-                display: flex;
-                align-items: center;
-                min-height: 44px;
-            }
-
-            .mobile-app-header-bar__side--start {
-                justify-content: flex-start;
-            }
-
-            .mobile-app-header-bar__side--end {
-                justify-content: flex-end;
             }
 
             .mobile-app-header-bar__brand {
@@ -3499,6 +3439,31 @@
                 min-width: 0;
                 min-height: 44px;
                 padding: 0 0.25rem;
+                grid-column: 2;
+                justify-self: center;
+                width: 100%;
+                pointer-events: none;
+            }
+
+            .mobile-app-header-bar__brand > button {
+                pointer-events: auto;
+            }
+
+            .mobile-app-header-bar__side {
+                display: flex;
+                align-items: center;
+                min-height: 44px;
+            }
+
+            .mobile-app-header-bar__side--start {
+                grid-column: 1;
+                justify-content: flex-start;
+            }
+
+            .mobile-app-header-bar__side--end {
+                grid-column: 3;
+                justify-self: end;
+                justify-content: flex-end;
             }
 
             .header-mobile-logo {
@@ -3522,13 +3487,38 @@
                 font-size: 0.625rem;
             }
 
-            .global-search-wrap,
-            .global-search-wrap #global-search {
-                transition: all 0.2s ease-in-out;
+            .global-header-search-rail {
+                display: flex;
+                align-items: center;
+                gap: 0.375rem;
+                flex-shrink: 0;
+                min-height: 44px;
+            }
+
+            .global-header-search-tray {
+                width: 100%;
+                position: relative;
+                max-height: 0;
+                opacity: 0;
+                overflow: hidden;
+                pointer-events: none;
+                transition: max-height 0.25s cubic-bezier(0.4, 0, 0.2, 1), opacity 0.2s ease-in-out;
+            }
+
+            .global-header-search-tray .global-header-search-bar {
+                width: 100%;
+                position: relative;
+                opacity: 1;
+                overflow: visible;
+                pointer-events: auto;
+            }
+
+            .global-header-search-tray .global-header-search-bar #global-search {
+                transition: opacity 0.2s ease-in-out;
             }
 
             .mobile-profile-search-toggle {
-                display: none;
+                display: inline-flex;
                 align-items: center;
                 justify-content: center;
                 width: 2.75rem;
@@ -3538,7 +3528,8 @@
                 background: transparent;
                 border: 1px solid #e2e8f0;
                 color: #64748b;
-                transition: all 0.2s ease-in-out;
+                transition: background 0.2s ease-in-out, color 0.2s ease-in-out, border-color 0.2s ease-in-out;
+                flex-shrink: 0;
             }
 
             .mobile-profile-search-toggle:hover {
@@ -3548,73 +3539,38 @@
             }
 
             #app-header.is-search-minimized {
-                display: flex;
-                flex-direction: column;
-                gap: 0;
                 min-height: 4rem;
+                height: auto;
                 padding-top: 0;
                 padding-bottom: 0;
                 padding-left: 0.375rem;
                 padding-right: 0.375rem;
-                transition: all 0.2s ease-in-out;
+                overflow: visible;
             }
 
-            #app-header.is-search-minimized .mobile-app-header-bar {
-                display: flex;
-                justify-content: space-between;
-                align-items: center;
-                width: 100%;
-                min-height: 4rem;
+            #app-header.is-search-minimized:not(.is-search-expanded) {
                 height: 4rem;
-                padding: 0 0.375rem;
-                column-gap: 0.5rem;
             }
 
-            #app-header.is-search-minimized .mobile-app-header-bar__side--start {
-                flex: 0 0 auto;
+            #app-header.is-search-expanded .global-header-search-tray {
+                max-height: 4.75rem;
+                opacity: 1;
+                pointer-events: auto;
+                padding: 0.375rem 0.75rem 0.625rem;
+                border-top: 1px solid #e2e8f0;
             }
 
-            #app-header.is-search-minimized .mobile-app-header-bar__brand {
-                flex: 1 1 auto;
-                min-width: 0;
-                justify-content: flex-start;
+            #app-header.is-search-expanded .global-header-search-tray .global-header-search-bar #global-search {
+                min-height: 44px;
             }
 
-            #app-header.is-search-minimized .mobile-app-header-bar__side--end {
-                flex: 0 0 auto;
-                display: flex;
-                align-items: center;
-                gap: 0.375rem;
-            }
-
-            #app-header.is-search-minimized .mobile-profile-search-toggle {
-                display: inline-flex !important;
-            }
-
-            #app-header.is-search-minimized .global-search-wrap {
-                max-height: 0;
-                opacity: 0;
-                overflow: hidden;
-                margin: 0;
-                padding: 0;
-                pointer-events: none;
-                transition: all 0.2s ease-in-out;
-            }
-
-            #app-header.is-search-minimized.is-search-expanded .global-search-wrap {
-                max-height: 4rem;
+            #global-search-desktop-slot .global-header-search-bar {
+                position: static;
+                width: 100%;
                 opacity: 1;
                 overflow: visible;
                 pointer-events: auto;
-                margin-top: 0.375rem;
-                padding: 0 0.375rem 0.25rem;
-                width: 100%;
-            }
-
-            #app-header.is-search-minimized.is-search-expanded .global-search-wrap #global-search {
-                min-height: 44px;
-                padding-top: 0.5rem;
-                padding-bottom: 0.5rem;
+                transform: none;
             }
 
             #page-dashboard .mb-8 {
@@ -7505,7 +7461,7 @@
             <div class="mobile-app-bg-photo pointer-events-none fixed inset-0 z-0 hidden max-md:block md:absolute md:min-h-screen bg-cover bg-center bg-no-repeat bg-[url('airplane-miniature-notepad-world-map-laptop-wooden-table.jpg')]" aria-hidden="true"></div>
             <div class="mobile-app-bg-scrim pointer-events-none fixed inset-0 z-[1] hidden max-md:block md:absolute md:min-h-screen bg-white/88" aria-hidden="true"></div>
             <header id="app-header"
-                class="relative z-30 min-h-16 bg-white border-b border-slate-200 flex flex-col gap-2 py-2 px-3 sm:px-6 md:px-8 max-md:gap-2 max-md:py-2 md:flex-row md:items-center md:justify-between md:gap-4 md:py-0 md:h-16 sticky top-0 shadow-sm">
+                class="relative z-30 min-h-16 bg-white border-b border-slate-200 flex flex-col gap-2 py-2 px-3 sm:px-6 md:px-8 max-md:gap-0 max-md:min-h-16 max-md:h-auto max-md:py-0 max-md:px-1.5 md:flex-row md:items-center md:justify-between md:gap-4 md:py-0 md:h-16 sticky top-0 shadow-sm">
                 <!-- Mobile: menu | logo (center) | profile — single aligned row -->
                 <div class="mobile-app-header-bar md:hidden">
                     <div class="mobile-app-header-bar__side mobile-app-header-bar__side--start">
@@ -7524,12 +7480,13 @@
                         </button>
                     </div>
                     <div class="mobile-app-header-bar__side mobile-app-header-bar__side--end">
+                        <div class="global-header-search-rail">
                         <button type="button"
                             id="mobile-profile-search-toggle"
                             class="mobile-profile-search-toggle shrink-0"
                             onclick="window.toggleMobileProfileSearch()"
                             aria-label="Open search"
-                            aria-controls="global-search-wrap"
+                            aria-controls="global-header-search-tray"
                             aria-expanded="false">
                             <svg class="w-[1.125rem] h-[1.125rem]" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
                                 <circle cx="11" cy="11" r="8"></circle>
@@ -7567,17 +7524,21 @@
                             </div>
                         </div>
                         </div>
+                        </div>
                     </div>
                 </div>
-                <div id="global-search-wrap" class="global-search-wrap relative w-full group min-w-0 md:flex-1 md:max-w-sm md:min-w-0">
-                    <span class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none text-slate-400 group-focus-within:text-[#4285F4] transition-colors z-10">
-                        <i data-lucide="search" class="w-4 h-4"></i>
-                    </span>
-                    <input type="text" id="global-search"
-                        onkeydown="if(event.key === 'Enter') window.handleSearch(this.value)"
-                        placeholder="Search by Trip ID or PNR..."
-                        class="relative z-0 block w-full pl-10 pr-3 py-2.5 max-md:min-h-[44px] md:py-2 border border-slate-200 rounded-lg leading-5 bg-slate-50 placeholder-slate-400 focus:outline-none focus:bg-white focus:ring-1 focus:ring-[#4285F4] focus:border-[#4285F4] text-xs transition-all">
+                <div id="global-header-search-tray" class="global-header-search-tray md:hidden" aria-hidden="true">
+                    <div id="global-search-wrap" class="global-search-wrap global-header-search-bar relative w-full group min-w-0">
+                        <span class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none text-slate-400 group-focus-within:text-[#4285F4] transition-colors z-10">
+                            <i data-lucide="search" class="w-4 h-4"></i>
+                        </span>
+                        <input type="text" id="global-search"
+                            onkeydown="if(event.key === 'Enter') window.handleSearch(this.value)"
+                            placeholder="Search by Trip ID or PNR..."
+                            class="relative z-0 block w-full pl-10 pr-3 py-2.5 max-md:min-h-[44px] md:py-2 border border-slate-200 rounded-lg leading-5 bg-slate-50 placeholder-slate-400 focus:outline-none focus:bg-white focus:ring-1 focus:ring-[#4285F4] focus:border-[#4285F4] text-xs transition-all">
+                    </div>
                 </div>
+                <div id="global-search-desktop-slot" class="hidden md:block md:flex-1 md:max-w-sm md:min-w-0"></div>
 
                 <div class="hidden md:flex md:items-center md:gap-4 md:shrink-0 md:flex-nowrap">
                     <button type="button" onclick="window.openContactServiceModal()"
@@ -7654,7 +7615,8 @@
                 <main id="page-dashboard" class="p-4 md:p-8 max-w-7xl mx-auto w-full animate-fade-in max-md:pb-2">
                     <div class="flex flex-col gap-4 md:flex-row md:justify-between md:items-end mb-6 md:mb-8">
                         <div>
-                            <h2 class="text-xl font-extrabold text-slate-900 tracking-tight md:text-3xl">Welcome Home, John</h2>
+                            <h1 class="text-xl font-extrabold text-slate-900 tracking-tight md:text-3xl">Welcome Home, John</h2>
+                                
                             <p class="text-slate-500 mt-1 text-sm font-medium md:text-base">Manage your corporate travel plans and approvals.
                             </p>
                         </div>
@@ -12224,31 +12186,16 @@
         </div>
     </div>
 
-    <!-- One-Way Flight Selection Prompt Overlay -->
-    <div id="online-oneway-flight-prompt-overlay"
-        class="hidden fixed inset-0 z-[9999] bg-black/50 backdrop-blur-sm"
-        role="dialog" aria-modal="true" aria-labelledby="online-oneway-flight-prompt-title"
-        onclick="if(event.target===this)window.closeOnlineOnewayFlightSelectionPrompt?.()">
-        <div class="absolute inset-0 flex items-center justify-center p-4" style="padding: max(1rem, env(safe-area-inset-top)) max(1rem, env(safe-area-inset-right)) max(1rem, env(safe-area-inset-bottom)) max(1rem, env(safe-area-inset-left));">
-            <div id="online-oneway-flight-prompt-panel"
-                class="opacity-0 scale-95 transition duration-200 ease-out"
-                onclick="event.stopPropagation()">
-                <div id="online-oneway-flight-prompt-body"></div>
-            </div>
-        </div>
-    </div>
-
     <!-- One-Way Flight Review Specification Overlay -->
     <div id="online-oneway-flight-review-overlay"
-        class="hidden fixed inset-0 z-[9999] bg-black/50 backdrop-blur-sm"
+        class="hidden fixed inset-0 z-[9999] flex items-center justify-center bg-black/50 backdrop-blur-sm p-4"
         role="dialog" aria-modal="true" aria-labelledby="online-oneway-flight-review-title"
+        style="padding: max(1rem, env(safe-area-inset-top)) max(1rem, env(safe-area-inset-right)) max(1rem, env(safe-area-inset-bottom)) max(1rem, env(safe-area-inset-left));"
         onclick="if(event.target===this)window.closeOnlineOnewayFlightReviewModals?.()">
-        <div class="absolute inset-0 flex items-center justify-center p-4" style="padding: max(1rem, env(safe-area-inset-top)) max(1rem, env(safe-area-inset-right)) max(1rem, env(safe-area-inset-bottom)) max(1rem, env(safe-area-inset-left));">
-            <div id="online-oneway-flight-review-panel"
-                class="flex flex-col opacity-0 scale-95 transition duration-200 ease-out"
-                onclick="event.stopPropagation()">
-                <div id="online-oneway-flight-review-body" class="online-flight-mobile-review flex-1 min-h-0 overflow-y-auto"></div>
-            </div>
+        <div id="online-oneway-flight-review-panel"
+            class="flex flex-col opacity-0 scale-95 transition duration-200 ease-out bg-white border border-slate-200 shadow-2xl overflow-hidden"
+            onclick="event.stopPropagation()">
+            <div id="online-oneway-flight-review-body" class="online-flight-mobile-review flex-1 min-h-0 overflow-y-auto"></div>
         </div>
     </div>
 
@@ -15456,11 +15403,38 @@
 
         window._mobileSearchExpanded = false;
 
-        window.toggleMobileProfileSearch = () => {
+        window.collapseMobileProfileSearch = (force) => {
+            if (!force && !window._mobileSearchExpanded) return;
+            window._mobileSearchExpanded = false;
             const header = document.getElementById('app-header');
-            if (!header?.classList.contains('is-search-minimized')) return;
+            const tray = document.getElementById('global-header-search-tray');
+            header?.classList.remove('is-search-expanded');
+            tray?.setAttribute('aria-hidden', 'true');
+            const btn = document.getElementById('mobile-profile-search-toggle');
+            btn?.setAttribute('aria-expanded', 'false');
+            btn?.setAttribute('aria-label', 'Open search');
+        };
+
+        window.rehomeGlobalSearch = () => {
+            const wrap = document.getElementById('global-search-wrap');
+            const tray = document.getElementById('global-header-search-tray');
+            const slot = document.getElementById('global-search-desktop-slot');
+            if (!wrap) return;
+            const isMobile = window.matchMedia('(max-width: 767px)').matches;
+            const target = isMobile ? tray : slot;
+            if (target && wrap.parentElement !== target) {
+                target.appendChild(wrap);
+            }
+        };
+
+        window.toggleMobileProfileSearch = () => {
+            if (!window.matchMedia('(max-width: 767px)').matches) return;
+            const header = document.getElementById('app-header');
+            const tray = document.getElementById('global-header-search-tray');
+            if (!header) return;
             window._mobileSearchExpanded = !window._mobileSearchExpanded;
             header.classList.toggle('is-search-expanded', window._mobileSearchExpanded);
+            tray?.setAttribute('aria-hidden', String(!window._mobileSearchExpanded));
             const btn = document.getElementById('mobile-profile-search-toggle');
             btn?.setAttribute('aria-expanded', String(window._mobileSearchExpanded));
             btn?.setAttribute('aria-label', window._mobileSearchExpanded ? 'Close search' : 'Open search');
@@ -15469,33 +15443,34 @@
             }
         };
 
-        window.syncHeaderSearchLayout = (pageId) => {
+        window.syncHeaderSearchLayout = () => {
             const header = document.getElementById('app-header');
-            const input = document.getElementById('global-search');
             if (!header) return;
 
-            const minimized = pageId === 'profile' || pageId === 'my-points';
-            header.classList.toggle('is-search-minimized', minimized);
-            window._mobileSearchExpanded = false;
-            header.classList.remove('is-search-expanded');
-            const toggleBtn = document.getElementById('mobile-profile-search-toggle');
-            toggleBtn?.setAttribute('aria-expanded', 'false');
-            toggleBtn?.setAttribute('aria-label', 'Open search');
-
-            if (input) {
-                input.placeholder = minimized ? 'Search...' : 'Search by Trip ID or PNR...';
-            }
+            const isMobile = window.matchMedia('(max-width: 767px)').matches;
+            header.classList.toggle('is-search-minimized', isMobile);
+            window.rehomeGlobalSearch?.();
+            window.collapseMobileProfileSearch?.(true);
         };
+
+        window.addEventListener('resize', () => {
+            window.syncHeaderSearchLayout?.();
+        }, { passive: true });
+
+        document.addEventListener('click', (event) => {
+            if (!window._mobileSearchExpanded) return;
+            if (!window.matchMedia('(max-width: 767px)').matches) return;
+            const tray = document.getElementById('global-header-search-tray');
+            const toggle = document.getElementById('mobile-profile-search-toggle');
+            const target = event.target;
+            if (tray?.contains(target) || toggle?.contains(target)) return;
+            window.collapseMobileProfileSearch?.();
+        });
 
         document.addEventListener('keydown', (event) => {
             if (event.key !== 'Escape' || !window._mobileSearchExpanded) return;
-            const header = document.getElementById('app-header');
-            if (!header?.classList.contains('is-search-minimized')) return;
-            window._mobileSearchExpanded = false;
-            header.classList.remove('is-search-expanded');
-            const btn = document.getElementById('mobile-profile-search-toggle');
-            btn?.setAttribute('aria-expanded', 'false');
-            btn?.setAttribute('aria-label', 'Open search');
+            if (!window.matchMedia('(max-width: 767px)').matches) return;
+            window.collapseMobileProfileSearch?.();
         });
 
         window.showPage = (pageId, type) => {
@@ -15566,7 +15541,7 @@
                 window.closePriceSortMenu?.();
             }
 
-            window.syncHeaderSearchLayout?.(pageId);
+            window.syncHeaderSearchLayout?.();
         };
 
         window.toggleUserManagementModal = (open) => {
@@ -18018,7 +17993,7 @@
                     window.updateOnlineBookingFooterButtons?.();
                     window.updateBookingStepNextButtonState?.();
                     window.renderOnlineFlightMobileStepper?.();
-                    window.setIsOneWayPromptCardOpen?.(true);
+                    window.setIsFlightReviewActive?.(true);
                     return;
                 }
             } else {
@@ -20906,8 +20881,7 @@
             window._onlineCarPromptOverlayLastActiveEl = null;
         };
 
-        /* One-way flight: selection prompt + review specification modals (encapsulated local state) */
-        window._onlineOnewayFlightPromptOpen = false;
+        /* One-way flight: review modal opens directly on fare selection */
         window._onlineOnewayFlightReviewOpen = false;
         window._onlineOnewayFlightOverlayLastActiveEl = null;
         window._onlineOnewayFlightOverlayKeydown = null;
@@ -20923,11 +20897,11 @@
                 && !results.classList.contains('hidden');
         };
 
-        window.setIsOneWayPromptCardOpen = (open) => {
-            if (open) {
-                window.openOnlineOnewayFlightSelectionPrompt?.();
+        window.setIsFlightReviewActive = (active) => {
+            if (active) {
+                window.openOnlineOnewayFlightReviewSheet?.();
             } else {
-                window.closeOnlineOnewayFlightSelectionPrompt?.();
+                window.closeOnlineOnewayFlightReviewModals?.();
             }
         };
 
@@ -21036,18 +21010,8 @@
                 </div>
                 <div class="online-flight-mobile-review__actions">
                     <button type="button" class="online-flight-mobile-review__done" onclick="window.proceedOnlineOnewayFlightFromReview?.()">Continue Booking</button>
-                    <button type="button" class="online-flight-mobile-review__reset" onclick="window.closeOnlineOnewayFlightReviewModals?.()">Modify Selection</button>
                 </div>`;
         };
-
-        window._onlineOnewayFlightPromptHtml = () => `
-            <div class="online-oneway-flight-prompt__card">
-                <div class="online-oneway-flight-prompt__badge"><i data-lucide="check" class="w-8 h-8"></i></div>
-                <p id="online-oneway-flight-prompt-title" class="online-oneway-flight-prompt__title">Flight selected!</p>
-                <p class="online-oneway-flight-prompt__subtitle">Review your selected flight before continuing.</p>
-                <button type="button" id="online-oneway-flight-review-btn" class="online-oneway-flight-prompt__cta" onclick="window.openOnlineOnewayFlightReviewSheet?.()">Review Your Selected Flight</button>
-                <button type="button" class="online-oneway-flight-prompt__back" onclick="window.closeOnlineOnewayFlightSelectionPrompt?.()">Back to Results</button>
-            </div>`;
 
         window._bindOnlineOnewayFlightOverlayKeydown = (panel) => {
             if (window._onlineOnewayFlightOverlayKeydown) {
@@ -21057,11 +21021,7 @@
             window._onlineOnewayFlightOverlayKeydown = (e) => {
                 if (e.key === 'Escape') {
                     e.preventDefault();
-                    if (window._onlineOnewayFlightReviewOpen) {
-                        window.closeOnlineOnewayFlightReviewModals?.();
-                    } else {
-                        window.closeOnlineOnewayFlightSelectionPrompt?.();
-                    }
+                    window.closeOnlineOnewayFlightReviewModals?.();
                     return;
                 }
                 if (e.key !== 'Tab' || !panel) return;
@@ -21088,58 +21048,6 @@
             }
         };
 
-        window.openOnlineOnewayFlightSelectionPrompt = () => {
-            if (!window._isOnlineOnewayFlightReviewContext?.()) return;
-            if (window._onlineFlightSelectedGoing == null) return;
-            const overlay = document.getElementById('online-oneway-flight-prompt-overlay');
-            const panel = document.getElementById('online-oneway-flight-prompt-panel');
-            const body = document.getElementById('online-oneway-flight-prompt-body');
-            if (!overlay || !panel || !body) return;
-
-            window._onlineOnewayFlightOverlayLastActiveEl = document.activeElement;
-            window._onlineOnewayFlightPromptOpen = true;
-            body.innerHTML = window._onlineOnewayFlightPromptHtml();
-            overlay.classList.remove('hidden');
-            document.body.classList.add('ts-overlay-open');
-            lucide.createIcons?.();
-
-            requestAnimationFrame(() => {
-                panel.classList.remove('opacity-0', 'scale-95');
-                panel.classList.add('opacity-100', 'scale-100');
-            });
-
-            window._bindOnlineOnewayFlightOverlayKeydown(panel);
-            panel.querySelector('button')?.focus?.();
-        };
-
-        window.closeOnlineOnewayFlightSelectionPrompt = () => {
-            const overlay = document.getElementById('online-oneway-flight-prompt-overlay');
-            const panel = document.getElementById('online-oneway-flight-prompt-panel');
-            const body = document.getElementById('online-oneway-flight-prompt-body');
-            if (!overlay || !panel || !body) return;
-
-            window._onlineOnewayFlightPromptOpen = false;
-            panel.classList.add('opacity-0', 'scale-95');
-            panel.classList.remove('opacity-100', 'scale-100');
-
-            if (!window._onlineOnewayFlightReviewOpen) {
-                window._teardownOnlineOnewayFlightOverlayKeydown();
-                document.body.classList.remove('ts-overlay-open');
-            }
-
-            setTimeout(() => {
-                if (!window._onlineOnewayFlightPromptOpen) {
-                    overlay.classList.add('hidden');
-                    body.innerHTML = '';
-                }
-            }, 200);
-
-            if (!window._onlineOnewayFlightReviewOpen) {
-                try { window._onlineOnewayFlightOverlayLastActiveEl?.focus?.(); } catch (e) { /* ignore */ }
-                window._onlineOnewayFlightOverlayLastActiveEl = null;
-            }
-        };
-
         window.openOnlineOnewayFlightReviewSheet = () => {
             if (!window._isOnlineOnewayFlightReviewContext?.()) return;
             if (window._onlineFlightSelectedGoing == null) return;
@@ -21148,8 +21056,8 @@
             const body = document.getElementById('online-oneway-flight-review-body');
             if (!overlay || !panel || !body) return;
 
+            window._onlineOnewayFlightOverlayLastActiveEl = document.activeElement;
             window._onlineOnewayFlightReviewOpen = true;
-            window.closeOnlineOnewayFlightSelectionPrompt?.();
             body.innerHTML = window._buildOnlineOnewayFlightReviewHtml();
             overlay.classList.remove('hidden');
             document.body.classList.add('ts-overlay-open');
@@ -21165,28 +21073,21 @@
         };
 
         window.closeOnlineOnewayFlightReviewModals = () => {
-            const promptOverlay = document.getElementById('online-oneway-flight-prompt-overlay');
-            const promptPanel = document.getElementById('online-oneway-flight-prompt-panel');
-            const promptBody = document.getElementById('online-oneway-flight-prompt-body');
             const reviewOverlay = document.getElementById('online-oneway-flight-review-overlay');
             const reviewPanel = document.getElementById('online-oneway-flight-review-panel');
             const reviewBody = document.getElementById('online-oneway-flight-review-body');
 
-            window._onlineOnewayFlightPromptOpen = false;
             window._onlineOnewayFlightReviewOpen = false;
             window._teardownOnlineOnewayFlightOverlayKeydown();
             document.body.classList.remove('ts-overlay-open');
 
-            [promptPanel, reviewPanel].forEach((panel) => {
-                if (!panel) return;
-                panel.classList.add('opacity-0', 'scale-95');
-                panel.classList.remove('opacity-100', 'scale-100');
-            });
+            if (reviewPanel) {
+                reviewPanel.classList.add('opacity-0', 'scale-95');
+                reviewPanel.classList.remove('opacity-100', 'scale-100');
+            }
 
             setTimeout(() => {
-                promptOverlay?.classList.add('hidden');
                 reviewOverlay?.classList.add('hidden');
-                if (promptBody) promptBody.innerHTML = '';
                 if (reviewBody) reviewBody.innerHTML = '';
             }, 200);
 
@@ -24516,6 +24417,7 @@
 
         window.onload = () => {
             window.fpInitForgotPasswordOtp?.();
+            window.syncHeaderSearchLayout?.();
             lucide.createIcons();
         };
 
