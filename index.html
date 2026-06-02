@@ -1164,19 +1164,22 @@
             min-height: 2.5rem;
             cursor: pointer;
             outline: none;
+            gap: 2px;
+        }
+
+        #page-booking .flight-airport-combo__code {
+            font-weight: 800;
+            color: #0B2545;
+            font-size: 16px;
+            line-height: 1.15;
+            letter-spacing: 0.02em;
         }
 
         #page-booking .flight-airport-combo__city {
-            font-weight: 700;
-            color: #0B2545;
-            font-size: 0.875rem;
-            line-height: 1.25rem;
-        }
-
-        #page-booking .flight-airport-combo__airport {
             color: #64748b;
-            font-size: 0.75rem;
-            line-height: 1rem;
+            font-size: 12px;
+            line-height: 1.2;
+            margin-top: 0;
             white-space: nowrap;
             overflow: hidden;
             text-overflow: ellipsis;
@@ -1219,6 +1222,7 @@
             border-bottom: 1px solid #f1f5f9;
             background: transparent;
             cursor: pointer;
+            gap: 2px;
         }
 
         #page-booking .flight-airport-combo__option:last-child {
@@ -1230,34 +1234,30 @@
             background: #eff6ff;
         }
 
-        #page-booking .flight-airport-combo__option-top {
-            display: flex;
-            align-items: center;
-            gap: 0.5rem;
-            width: 100%;
-        }
-
-        #page-booking .flight-airport-combo__option-city {
-            font-weight: 700;
+        #page-booking .flight-airport-combo__option-code {
+            font-weight: 800;
             color: #0B2545;
-            font-size: 0.8125rem;
-        }
-
-        #page-booking .flight-airport-combo__option-iata-pill {
-            font-size: 0.625rem;
-            font-weight: 600;
-            color: #64748b;
-            background: #f1f5f9;
-            border-radius: 9999px;
-            padding: 0.125rem 0.375rem;
+            font-size: 16px;
+            line-height: 1.15;
             letter-spacing: 0.02em;
         }
 
+        #page-booking .flight-airport-combo__option-city {
+            font-weight: 650;
+            color: #0f172a;
+            font-size: 13px;
+            line-height: 1.15;
+            margin-top: 0;
+        }
+
         #page-booking .flight-airport-combo__option-airport {
+            font-weight: 400;
             color: #64748b;
-            font-size: 0.6875rem;
+            font-size: 11px;
             line-height: 1.2;
-            margin-top: 0.125rem;
+            white-space: normal;
+            overflow: visible;
+            width: 100%;
         }
 
         #page-booking .online-flight-locations-row > .online-flight-searchbar-seg,
@@ -3225,44 +3225,124 @@
             font-weight: 600;
         }
 
-        /* Online multi-city: stacked segment rows + connector */
+        /* Online multi-city: premium row layout (>=768px horizontal, <768px stacked) */
         .online-mc-segments-stack {
             display: flex;
             flex-direction: column;
-            gap: 0;
+            gap: 0.75rem;
         }
-        .online-mc-segment-card {
+
+        .online-mc-segment-row {
+            display: grid;
+            grid-template-columns: 2rem 1fr 2.25rem;
+            gap: 0.75rem;
+            align-items: stretch;
+            padding: 0.75rem;
+            border: 1px solid #e2e8f0;
+            border-radius: 0.75rem;
+            background: #fff;
+            box-shadow: 0 1px 2px rgba(15, 23, 42, 0.04);
+        }
+
+        .online-mc-segment-row__index {
+            width: 2rem;
+            height: 2rem;
+            border-radius: 9999px;
+            background: #1A62F3;
+            color: #fff;
+            font-weight: 800;
+            font-size: 0.875rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            align-self: flex-start;
+            margin-top: 0.15rem;
+        }
+
+        .online-mc-segment-row__fields {
+            display: grid;
+            grid-template-columns: 1fr 1fr 0.7fr;
+            gap: 0.75rem;
+            align-items: stretch;
+        }
+
+        .online-mc-field__label {
+            font-size: 0.625rem;
+            font-weight: 800;
+            letter-spacing: 0.1em;
+            color: #94a3b8;
+            text-transform: uppercase;
+            margin-bottom: 0.35rem;
+        }
+
+        .online-mc-field__control {
             position: relative;
-            padding-left: 1rem;
-            margin-left: 0.35rem;
-            padding-top: 0.75rem;
-            padding-bottom: 0.75rem;
+            display: flex;
+            align-items: center;
+            min-height: 3.25rem;
+            padding: 0.65rem 2.25rem 0.65rem 0.85rem;
+            border: 1px solid #e2e8f0;
+            border-radius: 0.75rem;
+            background: #fff;
+            box-shadow: 0 1px 1px rgba(15, 23, 42, 0.03);
+            min-width: 0;
         }
-        .online-mc-segment-card:not(:first-child) {
-            border-left: 2px solid rgba(66, 133, 244, 0.45);
-            margin-left: 0.5rem;
-            padding-left: 1rem;
+
+        .online-mc-field__control--dropdown .flight-airport-combo-wrap {
+            flex: 1;
+            min-width: 0;
         }
-        .online-mc-segment-card:not(:first-child)::before {
-            content: '';
+
+        .online-mc-field__control--date {
+            padding-right: 2.5rem;
+        }
+
+        .online-mc-field__control--date .booking-mobile-date-display {
+            display: block;
+            font-size: 0.95rem;
+            font-weight: 800;
+            color: #0f172a;
+        }
+
+        .online-mc-field__chevron,
+        .online-mc-field__control--date .material-date-icon {
             position: absolute;
-            left: -2px;
-            top: 0;
-            height: 0.85rem;
-            width: 2px;
-            background: linear-gradient(to bottom, #4285F4, #0A3266);
-            border-radius: 1px;
+            right: 0.75rem;
+            color: #64748b;
         }
-        .online-mc-segment-card .online-flight-searchbar {
-            flex-wrap: wrap;
+
+        .online-mc-segment-row__remove {
+            width: 2.25rem;
+            height: 2.25rem;
+            border-radius: 0.75rem;
+            border: 1px solid #e2e8f0;
+            background: #fff;
+            color: #64748b;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            margin-top: 0.05rem;
+            transition: background 0.15s ease, color 0.15s ease, border-color 0.15s ease;
         }
-        @media (min-width: 768px) {
-            .online-mc-segment-card .online-flight-searchbar {
-                flex-wrap: nowrap;
+
+        .online-mc-segment-row__remove:hover {
+            background: #fff1f2;
+            border-color: #fecdd3;
+            color: #e11d48;
+        }
+
+        .online-mc-segment-row__remove-spacer {
+            width: 2.25rem;
+            height: 2.25rem;
+        }
+
+        @media (max-width: 767px) {
+            .online-mc-segment-row {
+                grid-template-columns: 2rem 1fr 2.25rem;
             }
-        }
-        .online-flight-searchbar--multicity-row .online-flight-searchbar-seg--last {
-            border-right: none;
+            .online-mc-segment-row__fields {
+                grid-template-columns: 1fr;
+            }
         }
 
         .material-date-label {
@@ -9515,20 +9595,22 @@
                                                     </div>
                                                     <div id="online-flight-searchbar-multi-wrap" class="hidden w-full space-y-3">
                                                         <div id="online-flight-multi-segments" class="online-mc-segments-stack w-full online-flight-searchbar-multicity" role="group" aria-label="Multi-city flight segments"></div>
-                                                        <div class="flex flex-wrap items-center gap-2">
+                                                        <div class="w-full">
                                                             <button type="button" id="online-flight-mc-add-btn" onclick="window.addOnlineFlightMcSegment()"
-                                                                class="inline-flex items-center gap-1.5 px-4 py-2 rounded-xl text-xs font-bold text-[#4285F4] border border-[#4285F4]/40 bg-white hover:bg-blue-50/80 transition-colors">
-                                                                <i data-lucide="plus" class="w-3.5 h-3.5"></i>
-                                                                Add segment
+                                                                class="w-full min-h-[52px] rounded-lg border-2 border-dashed border-[#1A62F3]/40 bg-[#1A62F3]/[0.04] text-[#1A62F3] font-extrabold tracking-wide text-sm hover:bg-[#1A62F3]/[0.07] transition-colors flex items-center justify-center gap-2">
+                                                                <i data-lucide="plus" class="w-4 h-4"></i>
+                                                                ADD SEGMENT
                                                             </button>
-                                                            <span class="text-[10px] text-slate-400 font-medium">Up to 5 segments</span>
+                                                            <div class="text-center mt-2">
+                                                                <span class="text-[11px] text-slate-500 font-medium">Up to 6 segments</span>
+                                                            </div>
                                                         </div>
                                                     </div>
                                                 </div>
                                                 <div class="online-flight-search-btn-wrap flex justify-center pt-1 max-md:pt-0">
                                                     <button type="button" onclick="window.searchOnlineFlight()"
-                                                        class="online-flight-search-submit bg-[#4285F4] text-white px-10 py-2.5 rounded-xl font-bold text-sm hover:bg-[#3367D6] transition-all shadow-sm max-md:w-full max-md:min-h-[48px]">
-                                                        Search
+                                                        class="online-flight-search-submit w-full bg-[#1A62F3] text-white px-10 py-3 rounded-lg font-extrabold text-sm hover:opacity-95 transition-all shadow-sm max-md:min-h-[52px]">
+                                                        Search Flights
                                                     </button>
                                                 </div>
                                                 </div>
@@ -9750,20 +9832,22 @@
                                                     </div>
                                                     <div id="online-rail-searchbar-multi-wrap" class="hidden w-full space-y-3">
                                                         <div id="online-rail-multi-segments" class="online-mc-segments-stack w-full online-rail-searchbar-multicity" role="group" aria-label="Multi-city rail segments"></div>
-                                                        <div class="flex flex-wrap items-center gap-2">
+                                                        <div class="w-full">
                                                             <button type="button" id="online-rail-mc-add-btn" onclick="window.addOnlineRailMcSegment()"
-                                                                class="inline-flex items-center gap-1.5 px-4 py-2 rounded-xl text-xs font-bold text-[#4285F4] border border-[#4285F4]/40 bg-white hover:bg-blue-50/80 transition-colors">
-                                                                <i data-lucide="plus" class="w-3.5 h-3.5"></i>
-                                                                Add segment
+                                                                class="w-full min-h-[52px] rounded-lg border-2 border-dashed border-[#1A62F3]/40 bg-[#1A62F3]/[0.04] text-[#1A62F3] font-extrabold tracking-wide text-sm hover:bg-[#1A62F3]/[0.07] transition-colors flex items-center justify-center gap-2">
+                                                                <i data-lucide="plus" class="w-4 h-4"></i>
+                                                                ADD SEGMENT
                                                             </button>
-                                                            <span class="text-[10px] text-slate-400 font-medium">Up to 5 segments</span>
+                                                            <div class="text-center mt-2">
+                                                                <span class="text-[11px] text-slate-500 font-medium">Up to 6 segments</span>
+                                                            </div>
                                                         </div>
                                                     </div>
                                                 </div>
                                                 <div class="flex justify-center pt-1">
                                                     <button type="button" onclick="window.searchOnlineRail()"
-                                                        class="bg-[#4285F4] text-white px-10 py-2.5 rounded-xl font-bold text-sm hover:bg-[#3367D6] transition-all shadow-sm">
-                                                        Search
+                                                        class="w-full bg-[#1A62F3] text-white px-10 py-3 rounded-lg font-extrabold text-sm hover:opacity-95 transition-all shadow-sm max-md:min-h-[52px]">
+                                                        Search Trains
                                                     </button>
                                                 </div>
                                                 </div>
@@ -18098,7 +18182,7 @@
         window._onlineFlightMultiLegRows = [];
         window._onlineRailMultiLegRows = [];
 
-        window._onlineMcMaxSegments = 5;
+        window._onlineMcMaxSegments = 6;
         window._onlineMcMinSegments = 2;
 
         window.FLIGHT_AIRPORTS = [
@@ -18185,6 +18269,19 @@
             }
         };
 
+        window._flightComboCodeCity = (iataOrText) => {
+            const raw = String(iataOrText || '').trim();
+            if (!raw) return { code: '', city: '' };
+            // Supports demo string formats like: "PEK - Beijing Capital International Airport - Beijing"
+            const parts = raw.split(/\s*-\s*/g).map((p) => p.trim()).filter(Boolean);
+            if (parts.length >= 2 && /^[A-Za-z]{3}$/.test(parts[0])) {
+                return { code: parts[0].toUpperCase(), city: parts[parts.length - 1] };
+            }
+            const code = window._resolveFlightIata(raw) || (raw.length === 3 ? raw.toUpperCase() : '');
+            const apt = code ? window._flightAirportByIata(code) : window._flightAirportFromText(raw);
+            return { code: (apt?.iata || code || ''), city: (apt?.city || raw) };
+        };
+
         window.refreshFlightAirportCombo = (hiddenOrId) => {
             const hidden = typeof hiddenOrId === 'string' ? document.getElementById(hiddenOrId) : hiddenOrId;
             if (!hidden) return;
@@ -18195,10 +18292,11 @@
             const iata = hidden.value?.trim().toUpperCase() || '';
             const airport = window._flightAirportByIata(iata);
             if (!airport) {
-                closed.innerHTML = '<span class="flight-airport-combo__city flight-airport-combo__placeholder">Select airport</span>';
+                closed.innerHTML = '<span class="flight-airport-combo__code flight-airport-combo__placeholder">Select airport</span>';
                 return;
             }
-            closed.innerHTML = `<span class="flight-airport-combo__city">${window._flightComboEsc(airport.city)}</span><span class="flight-airport-combo__airport">${window._flightComboEsc(airport.airport)}</span>`;
+            const bits = window._flightComboCodeCity(airport.iata);
+            closed.innerHTML = `<span class="flight-airport-combo__code">${window._flightComboEsc(bits.code)}</span><span class="flight-airport-combo__city">${window._flightComboEsc(bits.city)}</span>`;
         };
 
         window._closeFlightAirportCombo = (wrap) => {
@@ -18229,11 +18327,10 @@
             const items = window._flightAirportMatchQuery(q);
             list.innerHTML = items.map((a) => {
                 const active = a.iata === current ? ' flight-airport-combo__option--active' : '';
+                const bits = window._flightComboCodeCity(a.iata);
                 return `<button type="button" class="flight-airport-combo__option${active}" data-iata="${a.iata}">
-                    <div class="flight-airport-combo__option-top">
-                        <span class="flight-airport-combo__option-city">${window._flightComboEsc(a.city)}</span>
-                        <span class="flight-airport-combo__option-iata-pill">${a.iata}</span>
-                    </div>
+                    <span class="flight-airport-combo__option-code">${window._flightComboEsc(bits.code)}</span>
+                    <span class="flight-airport-combo__option-city">${window._flightComboEsc(bits.city)}</span>
                     <span class="flight-airport-combo__option-airport">${window._flightComboEsc(a.airport)}</span>
                 </button>`;
             }).join('');
@@ -18427,88 +18524,72 @@
 
         window._renderOnlineFlightMcSegmentHtml = (idx, total, seg) => {
             const showRemove = total > window._onlineMcMinSegments && idx >= 1;
-            const lastCls = ' online-flight-searchbar-seg--last';
             return `
-            <div class="online-mc-segment-card border border-slate-200 rounded-xl bg-white overflow-hidden shadow-sm" data-mc-flight-idx="${idx}">
-                <div class="flex items-center justify-between gap-2 px-3 py-2 bg-slate-50/80 border-b border-slate-100">
-                    <span class="text-[10px] font-bold text-[#4285F4] tracking-wide uppercase">Segment ${idx + 1}</span>
-                    ${showRemove ? `<button type="button" onclick="window.removeOnlineFlightMcSegment(${idx})" class="p-1.5 rounded-lg text-slate-400 hover:text-red-500 hover:bg-red-50 transition-colors" title="Remove segment"><i data-lucide="trash-2" class="w-4 h-4"></i></button>` : '<span class="w-8"></span>'}
-                </div>
-                <div class="online-flight-searchbar online-flight-searchbar--multicity-row max-md:relative" role="group">
-                    <div class="online-flight-searchbar-seg max-md:pr-14 max-md:py-2 max-md:pb-2 max-md:border-b max-md:border-slate-100">
-                        <div class="online-flight-searchbar-label">Origin</div>
-                        <div class="flex items-center gap-2 min-w-0">
-                            <i data-lucide="map-pin" class="w-4 h-4 text-slate-400 shrink-0"></i>
+            <div class="online-mc-segment-row" data-mc-flight-idx="${idx}" role="group" aria-label="Flight segment ${idx + 1}">
+                <div class="online-mc-segment-row__index" aria-hidden="true">${idx + 1}</div>
+                <div class="online-mc-segment-row__fields">
+                    <div class="online-mc-field online-mc-field--from">
+                        <div class="online-mc-field__label">FROM</div>
+                        <div class="online-mc-field__control online-mc-field__control--dropdown">
                             ${window._flightMcComboMountHtml('from', seg.from || '')}
+                            <i data-lucide="chevron-down" class="online-mc-field__chevron w-4 h-4" aria-hidden="true"></i>
                         </div>
                     </div>
-                    <button type="button" onclick="window.swapOnlineMcRowLocations('flight', ${idx})" class="online-flight-searchbar-swap max-md:flex max-md:items-center max-md:justify-center" title="Swap Origin and Destination" aria-label="Swap Origin and Destination">
-                        <i data-lucide="arrow-up-down" class="w-4 h-4 md:hidden" aria-hidden="true"></i>
-                        <span class="hidden md:inline-flex items-center gap-0.5" aria-hidden="true">
-                            <i data-lucide="chevron-left" class="w-4 h-4"></i>
-                            <i data-lucide="chevron-right" class="w-4 h-4"></i>
-                        </span>
-                    </button>
-                    <div class="online-flight-searchbar-seg max-md:pr-14 max-md:py-2 max-md:pt-2">
-                        <div class="online-flight-searchbar-label">Destination</div>
-                        <div class="flex items-center gap-2 min-w-0">
-                            <i data-lucide="map-pin" class="w-4 h-4 text-slate-400 shrink-0"></i>
+                    <div class="online-mc-field online-mc-field--to">
+                        <div class="online-mc-field__label">TO</div>
+                        <div class="online-mc-field__control online-mc-field__control--dropdown">
                             ${window._flightMcComboMountHtml('to', seg.to || '')}
+                            <i data-lucide="chevron-down" class="online-mc-field__chevron w-4 h-4" aria-hidden="true"></i>
                         </div>
                     </div>
-                    <div class="online-flight-searchbar-seg${lastCls}">
-                        <div class="online-flight-searchbar-label">Travel date</div>
-                        <div class="material-date-field w-full booking-mobile-date-field">
+                    <div class="online-mc-field online-mc-field--date">
+                        <div class="online-mc-field__label">DATE</div>
+                        <div class="online-mc-field__control online-mc-field__control--date">
                             <span class="booking-mobile-date-display" data-mc-date-display aria-hidden="true"></span>
                             <input type="date" data-mc-field="date" class="material-date-input booking-mobile-native-date-input" value="${(seg.date || '').replace(/"/g, '&quot;')}" aria-label="Travel date segment ${idx + 1}" onchange="window.syncOnlineMcDateDisplays('flight')">
-                            <i data-lucide="calendar" class="material-date-icon w-4 h-4"></i>
+                            <i data-lucide="calendar" class="material-date-icon w-4 h-4" aria-hidden="true"></i>
                         </div>
                     </div>
                 </div>
+                ${showRemove
+                    ? `<button type="button" class="online-mc-segment-row__remove" onclick="window.removeOnlineFlightMcSegment(${idx})" aria-label="Remove segment ${idx + 1}" title="Remove segment"><i data-lucide="x" class="w-4 h-4"></i></button>`
+                    : `<span class="online-mc-segment-row__remove-spacer" aria-hidden="true"></span>`}
             </div>`;
         };
 
         window._renderOnlineRailMcSegmentHtml = (idx, total, seg) => {
             const showRemove = total > window._onlineMcMinSegments && idx >= 1;
-            const lastCls = ' online-flight-searchbar-seg--last';
             return `
-            <div class="online-mc-segment-card border border-slate-200 rounded-xl bg-white overflow-hidden shadow-sm" data-mc-rail-idx="${idx}">
-                <div class="flex items-center justify-between gap-2 px-3 py-2 bg-slate-50/80 border-b border-slate-100">
-                    <span class="text-[10px] font-bold text-[#4285F4] tracking-wide uppercase">Segment ${idx + 1}</span>
-                    ${showRemove ? `<button type="button" onclick="window.removeOnlineRailMcSegment(${idx})" class="p-1.5 rounded-lg text-slate-400 hover:text-red-500 hover:bg-red-50 transition-colors" title="Remove segment"><i data-lucide="trash-2" class="w-4 h-4"></i></button>` : '<span class="w-8"></span>'}
-                </div>
-                <div class="online-flight-searchbar online-flight-searchbar--multicity-row max-md:relative" role="group">
-                    <div class="online-flight-searchbar-seg max-md:pr-14 max-md:py-2 max-md:pb-2 max-md:border-b max-md:border-slate-100">
-                        <div class="online-flight-searchbar-label">Origin</div>
-                        <div class="flex items-center gap-2 min-w-0">
-                            <i data-lucide="map-pin" class="w-4 h-4 text-slate-400 shrink-0"></i>
+            <div class="online-mc-segment-row" data-mc-rail-idx="${idx}" role="group" aria-label="Rail segment ${idx + 1}">
+                <div class="online-mc-segment-row__index" aria-hidden="true">${idx + 1}</div>
+                <div class="online-mc-segment-row__fields">
+                    <div class="online-mc-field online-mc-field--from">
+                        <div class="online-mc-field__label">FROM</div>
+                        <div class="online-mc-field__control online-mc-field__control--dropdown">
                             <input type="text" data-mc-field="from" class="online-flight-loc-input" placeholder="Origin station" value="${(seg.from || '').replace(/"/g, '&quot;')}" autocomplete="off">
+                            <i data-lucide="chevron-down" class="online-mc-field__chevron w-4 h-4" aria-hidden="true"></i>
                         </div>
                     </div>
-                    <button type="button" onclick="window.swapOnlineMcRowLocations('rail', ${idx})" class="online-flight-searchbar-swap max-md:flex max-md:items-center max-md:justify-center" title="Swap Origin and Destination" aria-label="Swap Origin and Destination">
-                        <i data-lucide="arrow-up-down" class="w-4 h-4 md:hidden" aria-hidden="true"></i>
-                        <span class="hidden md:inline-flex items-center gap-0.5" aria-hidden="true">
-                            <i data-lucide="chevron-left" class="w-4 h-4"></i>
-                            <i data-lucide="chevron-right" class="w-4 h-4"></i>
-                        </span>
-                    </button>
-                    <div class="online-flight-searchbar-seg max-md:pr-14 max-md:py-2 max-md:pt-2">
-                        <div class="online-flight-searchbar-label">Destination</div>
-                        <div class="flex items-center gap-2 min-w-0">
-                            <i data-lucide="map-pin" class="w-4 h-4 text-slate-400 shrink-0"></i>
+                    <div class="online-mc-field online-mc-field--to">
+                        <div class="online-mc-field__label">TO</div>
+                        <div class="online-mc-field__control online-mc-field__control--dropdown">
                             <input type="text" data-mc-field="to" class="online-flight-loc-input" placeholder="Destination station" value="${(seg.to || '').replace(/"/g, '&quot;')}" autocomplete="off"
                                 oninput="window._chainOnlineMcNextOrigin('rail', ${idx})">
+                            <i data-lucide="chevron-down" class="online-mc-field__chevron w-4 h-4" aria-hidden="true"></i>
                         </div>
                     </div>
-                    <div class="online-flight-searchbar-seg${lastCls}">
-                        <div class="online-flight-searchbar-label">Travel date</div>
-                        <div class="material-date-field w-full booking-mobile-date-field">
+                    <div class="online-mc-field online-mc-field--date">
+                        <div class="online-mc-field__label">DATE</div>
+                        <div class="online-mc-field__control online-mc-field__control--date">
                             <span class="booking-mobile-date-display" data-mc-date-display aria-hidden="true"></span>
                             <input type="date" data-mc-field="date" class="material-date-input booking-mobile-native-date-input" value="${(seg.date || '').replace(/"/g, '&quot;')}" aria-label="Travel date segment ${idx + 1}" onchange="window.syncOnlineMcDateDisplays('rail')">
-                            <i data-lucide="calendar" class="material-date-icon w-4 h-4"></i>
+                            <i data-lucide="calendar" class="material-date-icon w-4 h-4" aria-hidden="true"></i>
                         </div>
                     </div>
                 </div>
+                ${showRemove
+                    ? `<button type="button" class="online-mc-segment-row__remove" onclick="window.removeOnlineRailMcSegment(${idx})" aria-label="Remove segment ${idx + 1}" title="Remove segment"><i data-lucide="x" class="w-4 h-4"></i></button>`
+                    : `<span class="online-mc-segment-row__remove-spacer" aria-hidden="true"></span>`}
             </div>`;
         };
 
