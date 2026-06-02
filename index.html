@@ -9386,7 +9386,7 @@
                                         <i data-lucide="map" class="w-4 h-4 text-[#4285F4]"></i> Itinerary Details
                                     </h3>
                                 </div>
-                                <div class="p-4 sm:p-6 max-md:pb-3 text-center">
+                                <div class="p-4 sm:p-6 max-md:pb-3 text-left w-full max-w-full">
 
                                     <div id="itinerary-tab-container-wrap" class="app-tabstrip-scroll mb-6 -mx-1 px-1">
                                     <div id="itinerary-tab-container"
@@ -9398,6 +9398,8 @@
                                             class="shrink-0 whitespace-nowrap px-4 sm:px-8 py-2.5 rounded-xl font-bold text-slate-500 hover:text-slate-800 transition-all">Booking Offline</button>
                                     </div>
                                     </div>
+
+                                    <div id="content-offline" class="booking-interactive-host hidden py-2 text-left w-full max-w-full"></div>
 
                                     <!-- Online Section: modality tabs + itinerary summary (visible for Flight / Rail / Hotel / Car like offline context) -->
                                     <div id="content-online" class="booking-interactive-host py-2 text-left w-full max-w-full">
@@ -10299,9 +10301,6 @@
                                         </div>
                                     </div>
                                 </div>
-
-                                <!-- Offline Section -->
-                                <div id="content-offline" class="booking-interactive-host hidden py-2"></div>
 
                                 <!-- Other Request Section -->
                                 <div id="content-other"
