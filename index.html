@@ -10260,8 +10260,11 @@
                         </div>
                     </div>
 
-                    <!-- STEP 2: CONFIRMATION -->
-                    <div id="booking-step-2" class="hidden animate-fade-in pb-12">
+                    <!-- STEP 2: CONFIRMATION (mounted on demand) -->
+                    <div id="booking-step-2-mount" class="hidden"></div>
+
+                    <template id="booking-step-2-template">
+                    <div id="booking-step-2" class="animate-fade-in pb-12">
                         <div class="w-full max-w-full space-y-6 text-left">
                             <div
                                 class="bg-blue-50 border-l-4 border-blue-500 p-4 rounded-r-xl flex items-center gap-4 mb-6">
@@ -10513,6 +10516,7 @@
                             </div>
                         </div>
                     </div>
+                    </template>
 
                     <!-- STEP 3: COMPLETED -->
                     <div id="booking-step-3" class="hidden animate-fade-in pb-12">
@@ -12985,7 +12989,7 @@
             <div class="p-6 border-t border-slate-200 flex justify-between items-center gap-3 shrink-0 flex-wrap modal-footer-sm-stack">
                 <button type="button" onclick="window.setBookingStep(1)"
                     class="px-6 py-2.5 rounded-xl text-sm font-bold text-slate-600 border-2 border-slate-200 bg-white hover:bg-slate-50 transition-colors">Back</button>
-                <button type="button" id="booking-travel-info-primary-btn" onclick="window.closeBookingTravelInfoModal()"
+                <button type="button" id="booking-travel-info-primary-btn" onclick="window.confirmBookingTravelInfo()"
                     class="px-6 py-2.5 rounded-xl text-sm font-bold text-white shadow-md hover:opacity-95 transition-opacity"
                     style="background-color: #4285F4;">Submit</button>
             </div>
@@ -14739,7 +14743,7 @@
                     }
                 }
             }
-            window.setBookingStep(2);
+            window.openBookingTravelInfoModal?.();
         };
 
         // --- GLOBAL APP LOGIC ---
@@ -15477,6 +15481,13 @@
             document.querySelectorAll('main[id^="page-"]').forEach(p => p.classList.add('hidden'));
             const target = document.getElementById('page-' + pageId);
             if (target) target.classList.remove('hidden');
+
+            if (pageId !== 'booking' && pageId !== 'change-request') {
+                window._resetBookingWorkflow?.();
+            }
+            if (pageId === 'change-request') {
+                window._unmountBookingStep2?.();
+            }
 
             if (pageId !== 'profile' && pageId !== 'my-points') {
                 document.querySelectorAll('.nav-btn').forEach(btn => {
@@ -16842,6 +16853,7 @@
         function cloneWithPrefixedIds(source, idPrefix) {
             if (!source || !source.cloneNode) return null;
             const clone = source.cloneNode(true);
+            if (clone.id) clone.id = idPrefix + clone.id;
             const allWithId = clone.querySelectorAll('[id]');
             allWithId.forEach(el => { if (el.id) el.id = idPrefix + el.id; });
             clone.querySelectorAll('label[for]').forEach(label => { if (label.getAttribute('for')) label.setAttribute('for', idPrefix + label.getAttribute('for')); });
@@ -16850,13 +16862,14 @@
         function ensureChangeRequestFormCloned() {
             if (window.changeRequestFormCloned) return;
             const step1 = document.getElementById('booking-step-1');
-            const step2 = document.getElementById('booking-step-2');
+            const tpl2 = document.getElementById('booking-step-2-template');
+            const step2Root = tpl2?.content?.firstElementChild;
             const step3 = document.getElementById('booking-step-3');
             const dest1 = document.getElementById('change-request-step-1');
             const dest2 = document.getElementById('change-request-step-2');
             const dest3 = document.getElementById('change-request-step-3');
             if (step1 && dest1) { dest1.innerHTML = ''; const c1 = cloneWithPrefixedIds(step1, 'change-'); dest1.appendChild(c1); c1.querySelectorAll('[onclick*="setBookingStep"]').forEach(btn => { btn.setAttribute('onclick', btn.getAttribute('onclick').replace(/setBookingStep/g, 'setChangeRequestStep')); }); }
-            if (step2 && dest2) { dest2.innerHTML = ''; const c2 = cloneWithPrefixedIds(step2, 'change-'); dest2.appendChild(c2); c2.querySelectorAll('[onclick*="setBookingStep"]').forEach(btn => { btn.setAttribute('onclick', btn.getAttribute('onclick').replace(/setBookingStep/g, 'setChangeRequestStep')); }); }
+            if (step2Root && dest2) { dest2.innerHTML = ''; const c2 = cloneWithPrefixedIds(step2Root, 'change-'); dest2.appendChild(c2); c2.querySelectorAll('[onclick*="setBookingStep"]').forEach(btn => { btn.setAttribute('onclick', btn.getAttribute('onclick').replace(/setBookingStep/g, 'setChangeRequestStep')); }); }
             if (step3 && dest3) { dest3.innerHTML = ''; const c3 = cloneWithPrefixedIds(step3, 'change-'); dest3.appendChild(c3); c3.querySelectorAll('[onclick*="setBookingStep"]').forEach(btn => { btn.setAttribute('onclick', btn.getAttribute('onclick').replace(/setBookingStep/g, 'setChangeRequestStep')); }); }
             window.changeRequestFormCloned = true;
         }
@@ -20401,7 +20414,7 @@
 
         window.proceedOnlineHotelFromReview = () => {
             window.closeHotelSelectionReviewModal?.();
-            window.setBookingStep?.(2);
+            window.openBookingTravelInfoModal?.();
         };
 
         window.openHotelSelectionReviewModal = () => {
@@ -22650,18 +22663,61 @@
             }
         };
 
+        window._bookingStep2Mounted = false;
+
+        window._mountBookingStep2 = () => {
+            if (window._bookingStep2Mounted) return;
+            const mount = document.getElementById('booking-step-2-mount');
+            const tpl = document.getElementById('booking-step-2-template');
+            if (!mount || !tpl) return;
+            mount.replaceChildren(tpl.content.cloneNode(true));
+            mount.classList.remove('hidden');
+            window._bookingStep2Mounted = true;
+            lucide.createIcons?.();
+        };
+
+        window._unmountBookingStep2 = () => {
+            const mount = document.getElementById('booking-step-2-mount');
+            if (mount) {
+                mount.replaceChildren();
+                mount.classList.add('hidden');
+            }
+            window._bookingStep2Mounted = false;
+        };
+
+        window._resetBookingWorkflow = () => {
+            window._unmountBookingStep2();
+            window.closeBookingTravelInfoModal?.();
+            const page = document.getElementById('page-booking');
+            page?.setAttribute('data-active-step', '1');
+            document.getElementById('booking-step-1')?.classList.remove('hidden');
+            document.getElementById('booking-step-3')?.classList.add('hidden');
+            document.getElementById('booking-step-2-mount')?.classList.add('hidden');
+            window.updateBookingStepNextButtonState?.();
+        };
+
+        window.confirmBookingTravelInfo = () => {
+            window.closeBookingTravelInfoModal();
+            window.setBookingStep(2);
+        };
+
         window.setBookingStep = (step) => {
             document.getElementById('page-booking')?.setAttribute('data-active-step', String(step));
-            if (step !== 2) window.closeBookingTravelInfoModal?.();
-            // Updated for 3 steps
-            for (let i = 1; i <= 3; i++) { const el = document.getElementById('booking-step-' + i); if (el) el.classList.add('hidden'); }
-            const target = document.getElementById('booking-step-' + step); if (target) target.classList.remove('hidden');
+            if (step !== 2) {
+                window.closeBookingTravelInfoModal?.();
+                window._unmountBookingStep2();
+            }
+
+            document.getElementById('booking-step-1')?.classList.toggle('hidden', step !== 1);
+            document.getElementById('booking-step-3')?.classList.toggle('hidden', step !== 3);
+            document.getElementById('booking-step-2-mount')?.classList.toggle('hidden', step !== 2);
 
             if (step === 1) {
                 window.updateBookingStepNextButtonState();
             }
 
             if (step === 2) {
+                window._mountBookingStep2();
                 window.populateConfirmationTravelerDetails('');
                 window.updateConfirmationTotalAmount?.('');
                 window.populateConfirmationCheckoutUI?.('');
@@ -22674,7 +22730,6 @@
                     /* Domestic/International: online host → Book; offline host → Submit */
                     confPrimary.textContent = window._bookingStep2PrimaryLabel();
                 }
-                requestAnimationFrame(() => window.openBookingTravelInfoModal?.());
             }
             document.querySelectorAll('#booking-steps-indicator .step-container').forEach(c => {
                 const s = parseInt(c.getAttribute('data-step'), 10);
