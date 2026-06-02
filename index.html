@@ -2457,6 +2457,22 @@
                 margin-left: 0.35rem;
             }
 
+            /* Flight mobile review modal (overlay only — never inline) */
+            #online-flight-mobile-review-overlay {
+                background-color: rgba(0, 0, 0, 0.5);
+            }
+
+            #online-flight-mobile-review-panel {
+                max-width: 640px;
+            }
+
+            @media (max-width: 767px) {
+                #online-flight-mobile-review-overlay .online-flight-mobile-review-overlay__sheet {
+                    max-height: min(92vh, 100%);
+                    border-radius: 1.25rem 1.25rem 0 0;
+                }
+            }
+
             /* Car rental: pickup date/time horizontal row + selection prompt overlay */
             #page-booking .online-car-pickup-datetime-row {
                 display: flex;
@@ -12190,6 +12206,31 @@
         </div>
     </div>
 
+    <!-- Online Flight Mobile Review Overlay (modal — not inline in stepper) -->
+    <div id="online-flight-mobile-review-overlay"
+        class="hidden fixed inset-0 z-[60] bg-black/50 backdrop-blur-sm"
+        role="dialog" aria-modal="true" aria-labelledby="online-flight-mobile-review-title"
+        onclick="if(event.target===this)window.closeOnlineFlightMobileReviewModal?.()">
+        <div class="absolute inset-0 flex items-end md:items-center justify-center p-0 md:p-6 online-flight-mobile-review-overlay__sheet-wrap">
+            <div id="online-flight-mobile-review-panel"
+                class="online-flight-mobile-review-overlay__sheet w-full md:max-w-[640px] bg-white rounded-t-2xl md:rounded-2xl shadow-2xl border border-slate-200 overflow-hidden max-h-[92vh] md:max-h-[90vh] flex flex-col opacity-0 translate-y-full md:translate-y-0 md:scale-95 transition duration-200 ease-out"
+                style="padding-bottom: env(safe-area-inset-bottom);" onclick="event.stopPropagation()">
+                <div class="px-5 py-4 border-b border-slate-200 flex items-center justify-between gap-3 shrink-0">
+                    <div class="min-w-0 text-left">
+                        <p id="online-flight-mobile-review-title" class="text-sm font-black tracking-tight text-slate-900" style="font-family: var(--font-heading);">Review Your Selected Flights</p>
+                        <p class="text-[11px] font-medium text-slate-500 mt-0.5">Confirm selections before continuing</p>
+                    </div>
+                    <button type="button" onclick="window.closeOnlineFlightMobileReviewModal?.()"
+                        class="inline-flex items-center justify-center w-10 h-10 rounded-xl border border-slate-200 text-slate-500 hover:bg-slate-50 hover:text-slate-800 transition-colors"
+                        aria-label="Close flight review">
+                        <i data-lucide="x" class="w-5 h-5"></i>
+                    </button>
+                </div>
+                <div id="online-flight-mobile-review-overlay-body" class="flex-1 min-h-0 overflow-y-auto"></div>
+            </div>
+        </div>
+    </div>
+
     <!-- One-Way Flight Review Specification Overlay -->
     <div id="online-oneway-flight-review-overlay"
         class="hidden fixed inset-0 z-[9999] flex items-center justify-center bg-black/50 backdrop-blur-sm p-4"
@@ -18884,7 +18925,178 @@
             }
             window._onlineFlightMobileReviewPending = false;
             window._onlineFlightMobileReviewOpen = false;
+            window.closeOnlineFlightMobileReviewModal?.({ popHistory: true });
         };
+
+        window._onlineFlightMobileReviewModalOpen = false;
+        window._onlineFlightMobileReviewLastActiveEl = null;
+        window._onlineFlightMobileReviewKeydown = null;
+        window._onlineFlightMobileReviewHistoryPushed = false;
+        window._onlineFlightMobileReviewSuppressPopStateClose = false;
+
+        window._buildOnlineFlightMobileReviewHtml = (selectedSummaries, segs) => {
+            const total = selectedSummaries.reduce((sum, item) => sum + item.price, 0);
+            return `<div class="online-flight-mobile-review">
+                    <div class="online-flight-mobile-review__header">
+                        <p class="online-flight-mobile-review__title">Review Your Selected Flights</p>
+                        <p class="online-flight-mobile-review__subtitle">${selectedSummaries.length} of ${segs.length} trips selected</p>
+                    </div>
+                    <div class="online-flight-mobile-review__list">
+                        ${selectedSummaries.map((item) => `
+                            <div class="online-flight-mobile-review__card">
+                                <div class="online-flight-mobile-review__card-top">
+                                    <div class="min-w-0">
+                                        <p class="online-flight-mobile-review__label">${window._onlineUiEsc(item.tripLabel)}</p>
+                                        <p class="online-flight-mobile-review__route">${window._onlineUiEsc(item.routeText)}</p>
+                                    </div>
+                                    <button type="button" class="online-flight-mobile-stepper__summary-edit" onclick="window.editOnlineFlightMobileLeg(${item.legIndex})">Edit</button>
+                                </div>
+                                <div class="online-flight-mobile-review__meta obt-density-badge-row">
+                                    ${window._densityBadgeHtml('calendar', item.dateLine)}
+                                    ${window._densityBadgeHtml('plane', item.airline)}
+                                    ${window._densityBadgeHtml('clock-3', item.timeLine)}
+                                    ${window._densityBadgeHtml('route', item.durationLine)}
+                                    ${window._densityBadgeHtml('wallet', item.priceText)}
+                                    ${item.fareName ? window._densityBadgeHtml('tag', item.fareName) : ''}
+                                </div>
+                            </div>`).join('')}
+                    </div>
+                    <div class="online-flight-mobile-review__fare">
+                        <p class="online-flight-mobile-review__fare-label">Total Fare</p>
+                        <p class="online-flight-mobile-review__fare-amount">¥${total.toLocaleString()}</p>
+                        <p class="online-flight-mobile-review__fare-note">Includes taxes and fees</p>
+                    </div>
+                    <div class="online-flight-mobile-review__actions">
+                        <button type="button" class="online-flight-mobile-review__done" onclick="window.completeOnlineFlightMobileReview()">Done</button>
+                        <button type="button" class="online-flight-mobile-review__reset" onclick="window.startOverOnlineFlightMobileSelection()">Start Over</button>
+                    </div>
+                </div>`;
+        };
+
+        window.openOnlineFlightMobileReviewModal = (innerHtml, opts) => {
+            const options = opts || {};
+            const pushHistory = options.pushHistory !== false;
+            const overlay = document.getElementById('online-flight-mobile-review-overlay');
+            const panel = document.getElementById('online-flight-mobile-review-panel');
+            const body = document.getElementById('online-flight-mobile-review-overlay-body');
+            if (!overlay || !panel || !body) return;
+
+            window.closeOnlineFlightMobilePromptOverlay?.();
+            window._onlineFlightMobileReviewLastActiveEl = document.activeElement;
+            body.innerHTML = innerHtml || '';
+            overlay.classList.remove('hidden');
+            document.body.classList.add('ts-overlay-open');
+            document.body.style.overflow = 'hidden';
+            window._onlineFlightMobileReviewModalOpen = true;
+
+            if (pushHistory && !window._onlineFlightMobileReviewHistoryPushed) {
+                try {
+                    history.pushState({ onlineFlightMobileReview: true }, '');
+                    window._onlineFlightMobileReviewHistoryPushed = true;
+                } catch (e) { /* ignore */ }
+            }
+
+            lucide.createIcons?.();
+
+            requestAnimationFrame(() => {
+                panel.classList.remove('opacity-0', 'translate-y-full', 'md:scale-95');
+                panel.classList.add('opacity-100', 'translate-y-0', 'md:scale-100');
+            });
+
+            const focusable = panel.querySelector('button, [href], input, select, textarea, [tabindex]:not([tabindex="-1"])');
+            focusable?.focus?.();
+
+            if (window._onlineFlightMobileReviewKeydown) {
+                document.removeEventListener('keydown', window._onlineFlightMobileReviewKeydown, true);
+                window._onlineFlightMobileReviewKeydown = null;
+            }
+
+            window._onlineFlightMobileReviewKeydown = (e) => {
+                if (e.key === 'Escape') {
+                    e.preventDefault();
+                    window.closeOnlineFlightMobileReviewModal?.();
+                    return;
+                }
+                if (e.key !== 'Tab') return;
+                const list = Array.from(panel.querySelectorAll('button, [href], input, select, textarea, [tabindex]:not([tabindex="-1"])'))
+                    .filter((el) => !el.hasAttribute('disabled') && el.getAttribute('aria-hidden') !== 'true' && el.offsetParent !== null);
+                if (!list.length) return;
+                const first = list[0];
+                const last = list[list.length - 1];
+                if (e.shiftKey && document.activeElement === first) {
+                    e.preventDefault();
+                    last.focus();
+                } else if (!e.shiftKey && document.activeElement === last) {
+                    e.preventDefault();
+                    first.focus();
+                }
+            };
+            document.addEventListener('keydown', window._onlineFlightMobileReviewKeydown, true);
+        };
+
+        window.closeOnlineFlightMobileReviewModal = (opts) => {
+            const options = opts || {};
+            const popHistory = options.popHistory !== false;
+            const overlay = document.getElementById('online-flight-mobile-review-overlay');
+            const panel = document.getElementById('online-flight-mobile-review-panel');
+            const body = document.getElementById('online-flight-mobile-review-overlay-body');
+            if (!overlay || !panel || !body) return;
+            if (!window._onlineFlightMobileReviewModalOpen && !options.force) return;
+
+            panel.classList.add('opacity-0', 'translate-y-full', 'md:scale-95');
+            panel.classList.remove('opacity-100', 'translate-y-0', 'md:scale-100');
+
+            if (window._onlineFlightMobileReviewKeydown) {
+                document.removeEventListener('keydown', window._onlineFlightMobileReviewKeydown, true);
+                window._onlineFlightMobileReviewKeydown = null;
+            }
+
+            const wasOpen = window._onlineFlightMobileReviewModalOpen;
+            window._onlineFlightMobileReviewModalOpen = false;
+            window._onlineFlightMobileReviewOpen = false;
+
+            const inlineReview = document.getElementById('online-flight-mobile-review');
+            if (inlineReview) {
+                inlineReview.classList.add('hidden');
+                inlineReview.innerHTML = '';
+            }
+
+            document.body.classList.remove('ts-overlay-open');
+            if (!document.querySelector('.ts-overlay-open, body.obt-filter-drawer-open, body.mobile-nav-open')) {
+                document.body.style.overflow = '';
+            }
+
+            setTimeout(() => {
+                overlay.classList.add('hidden');
+                body.innerHTML = '';
+            }, 200);
+
+            try { window._onlineFlightMobileReviewLastActiveEl?.focus?.(); } catch (e) { /* ignore */ }
+            window._onlineFlightMobileReviewLastActiveEl = null;
+
+            if (wasOpen && popHistory && window._onlineFlightMobileReviewHistoryPushed) {
+                window._onlineFlightMobileReviewHistoryPushed = false;
+                window._onlineFlightMobileReviewSuppressPopStateClose = true;
+                try { history.back(); } catch (e) { /* ignore */ }
+            }
+
+            window.renderOnlineFlightMobileStepper?.();
+        };
+
+        window._onlineFlightMobileReviewOnPopState = () => {
+            if (window._onlineFlightMobileReviewSuppressPopStateClose) {
+                window._onlineFlightMobileReviewSuppressPopStateClose = false;
+                return;
+            }
+            if (window._onlineFlightMobileReviewModalOpen) {
+                window.closeOnlineFlightMobileReviewModal({ popHistory: false });
+            }
+        };
+
+        if (!window._onlineFlightMobileReviewPopStateBound) {
+            window.addEventListener('popstate', window._onlineFlightMobileReviewOnPopState);
+            window._onlineFlightMobileReviewPopStateBound = true;
+        }
         window.deferOnlineFlightMobileReviewOpen = (delay = 320) => {
             if (window._onlineFlightMobileReviewTimer) {
                 clearTimeout(window._onlineFlightMobileReviewTimer);
@@ -19081,7 +19293,9 @@
                 sticky.classList.remove('hidden');
                 prompt.classList.add('hidden');
                 review.classList.add('hidden');
+                review.innerHTML = '';
                 window.closeOnlineFlightMobilePromptOverlay?.();
+                window.closeOnlineFlightMobileReviewModal?.({ popHistory: true });
                 shell.classList.remove('hidden');
                 resultsRoot?.classList.remove('online-results-complete');
                 legTabs?.classList.toggle('hidden', showMultiTabs);
@@ -19141,10 +19355,12 @@
 
             const showReview = allDone && window._onlineFlightMobileReviewOpen;
             const showPrompt = allDone && !showReview;
-            sticky.classList.toggle('hidden', showReview);
+            // Review renders in overlay modal only — keep stepper summaries visible behind backdrop.
+            sticky.classList.remove('hidden');
             // Task 3: prompt is no longer an inline/flow element; keep it hidden always.
             prompt.classList.add('hidden');
-            review.classList.toggle('hidden', !showReview);
+            review.classList.add('hidden');
+            review.innerHTML = '';
 
             if (showPrompt) {
                 const html = `
@@ -19162,43 +19378,18 @@
             }
 
             if (showReview) {
-                const total = selectedSummaries.reduce((sum, item) => sum + item.price, 0);
-                review.innerHTML = `
-                    <div class="online-flight-mobile-review__header">
-                        <p class="online-flight-mobile-review__title">Review Your Selected Flights</p>
-                        <p class="online-flight-mobile-review__subtitle">${selectedSummaries.length} of ${segs.length} trips selected</p>
-                    </div>
-                    <div class="online-flight-mobile-review__list">
-                        ${selectedSummaries.map((item) => `
-                            <div class="online-flight-mobile-review__card">
-                                <div class="online-flight-mobile-review__card-top">
-                                    <div class="min-w-0">
-                                        <p class="online-flight-mobile-review__label">${window._onlineUiEsc(item.tripLabel)}</p>
-                                        <p class="online-flight-mobile-review__route">${window._onlineUiEsc(item.routeText)}</p>
-                                    </div>
-                                    <button type="button" class="online-flight-mobile-stepper__summary-edit" onclick="window.editOnlineFlightMobileLeg(${item.legIndex})">Edit</button>
-                                </div>
-                                <div class="online-flight-mobile-review__meta obt-density-badge-row">
-                                    ${window._densityBadgeHtml('calendar', item.dateLine)}
-                                    ${window._densityBadgeHtml('plane', item.airline)}
-                                    ${window._densityBadgeHtml('clock-3', item.timeLine)}
-                                    ${window._densityBadgeHtml('route', item.durationLine)}
-                                    ${window._densityBadgeHtml('wallet', item.priceText)}
-                                    ${item.fareName ? window._densityBadgeHtml('tag', item.fareName) : ''}
-                                </div>
-                            </div>`).join('')}
-                    </div>
-                    <div class="online-flight-mobile-review__fare">
-                        <p class="online-flight-mobile-review__fare-label">Total Fare</p>
-                        <p class="online-flight-mobile-review__fare-amount">¥${total.toLocaleString()}</p>
-                        <p class="online-flight-mobile-review__fare-note">Includes taxes and fees</p>
-                    </div>
-                    <div class="online-flight-mobile-review__actions">
-                        <button type="button" class="online-flight-mobile-review__done" onclick="window.completeOnlineFlightMobileReview()">Done</button>
-                        <button type="button" class="online-flight-mobile-review__reset" onclick="window.startOverOnlineFlightMobileSelection()">Start Over</button>
-                    </div>`;
-            } else {
-                review.innerHTML = '';
+                const reviewHtml = window._buildOnlineFlightMobileReviewHtml(selectedSummaries, segs);
+                if (window._onlineFlightMobileReviewModalOpen) {
+                    const modalBody = document.getElementById('online-flight-mobile-review-overlay-body');
+                    if (modalBody) {
+                        modalBody.innerHTML = reviewHtml;
+                        lucide.createIcons?.();
+                    }
+                } else {
+                    window.openOnlineFlightMobileReviewModal(reviewHtml, { pushHistory: true });
+                }
+            } else if (window._onlineFlightMobileReviewModalOpen) {
+                window.closeOnlineFlightMobileReviewModal({ popHistory: false });
             }
             lucide.createIcons();
         };
