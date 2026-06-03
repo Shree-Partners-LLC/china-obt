@@ -1185,6 +1185,16 @@
             text-overflow: ellipsis;
         }
 
+        #page-booking .flight-airport-combo__airport {
+            font-weight: 400;
+            color: #64748b;
+            font-size: 11px;
+            line-height: 1.2;
+            white-space: normal;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
         #page-booking .flight-airport-combo__placeholder {
             font-weight: 500;
             color: #94a3b8;
@@ -7603,7 +7613,7 @@
             </nav>
 
             <div class="sidebar-footer-copy p-4 border-t border-slate-700/50 text-xs text-slate-500 text-center font-medium">
-                Copyright © 2025 BCD Travel Limited
+                Copyright © 2026 BCD Travel Limited
             </div>
         </div>
 
@@ -8090,11 +8100,11 @@
                                         <td class="px-4 py-3 text-sm text-slate-700">Site audit — Guangzhou</td>
                                         <td class="px-4 py-3 text-sm font-bold text-slate-900 text-right">¥5,600</td>
                                     </tr>
-                                    <tr class="approvals-row hover:bg-slate-50/50 transition-colors bg-white" data-approval-id="APR-2026-0104" data-traveler="WANG HAO" data-app-date="2026-03-25" data-reason="Conference — Tokyo (return via Osaka)" data-amount="42100">
+                                    <tr class="approvals-row hover:bg-slate-50/50 transition-colors bg-white" data-approval-id="APR-2026-0104" data-traveler="WANG HAO" data-app-date="2026-03-25" data-reason="Conference — Beijing (return via Shanghai)" data-amount="42100">
                                         <td class="px-4 py-3 text-sm font-semibold text-[#4285F4]">APR-2026-0104</td>
                                         <td class="px-4 py-3 text-sm text-slate-800 whitespace-nowrap">2026/03/25</td>
                                         <td class="px-4 py-3 text-sm text-slate-800">WANG HAO</td>
-                                        <td class="px-4 py-3 text-sm text-slate-700">Conference — Tokyo (return via Osaka)</td>
+                                        <td class="px-4 py-3 text-sm text-slate-700">Conference — Beijing (return via Shanghai)</td>
                                         <td class="px-4 py-3 text-sm font-bold text-slate-900 text-right">¥42,100</td>
                                     </tr>
                                 </tbody>
@@ -9841,7 +9851,7 @@
                                                                 <div class="flex items-center gap-2 min-w-0">
                                                                     <i data-lucide="map-pin" class="w-4 h-4 text-slate-400 shrink-0"></i>
                                                                     <input type="text" id="online-rail-from" class="online-flight-loc-input"
-                                                                        placeholder="Origin station" value="Tokyo Station" autocomplete="off">
+                                                                        placeholder="Origin station" value="Beijing South Station" autocomplete="off">
                                                                 </div>
                                                             </div>
                                                             <button type="button" onclick="window.swapOnlineRailLocations()"
@@ -9857,7 +9867,7 @@
                                                                 <div class="flex items-center gap-2 min-w-0">
                                                                     <i data-lucide="map-pin" class="w-4 h-4 text-slate-400 shrink-0"></i>
                                                                     <input type="text" id="online-rail-to" class="online-flight-loc-input"
-                                                                        placeholder="Destination station" value="Shin-Osaka" autocomplete="off">
+                                                                        placeholder="Destination station" value="Shanghai Hongqiao" autocomplete="off">
                                                                 </div>
                                                             </div>
                                                             </div>
@@ -9971,7 +9981,7 @@
                                                             </div>
                                                             <div class="border-t border-slate-100 pt-3 space-y-2">
                                                                 <p class="text-[11px] font-bold text-slate-700 tracking-wide">Line family</p>
-                                                                <label class="flex items-center gap-2 cursor-pointer group"><input type="checkbox" class="accent-[#0A3266] w-3.5 h-3.5" data-rail-filter="traintype" value="G" onchange="window.applyRailFilters()"><span class="text-xs text-slate-600 group-hover:text-slate-900">G — Shinkansen</span></label>
+                                                                <label class="flex items-center gap-2 cursor-pointer group"><input type="checkbox" class="accent-[#0A3266] w-3.5 h-3.5" data-rail-filter="traintype" value="G" onchange="window.applyRailFilters()"><span class="text-xs text-slate-600 group-hover:text-slate-900">G — China High-Speed Rail (CRH)</span></label>
                                                                 <label class="flex items-center gap-2 cursor-pointer group"><input type="checkbox" class="accent-[#0A3266] w-3.5 h-3.5" data-rail-filter="traintype" value="D" onchange="window.applyRailFilters()"><span class="text-xs text-slate-600 group-hover:text-slate-900">D — EMU</span></label>
                                                                 <label class="flex items-center gap-2 cursor-pointer group"><input type="checkbox" class="accent-[#0A3266] w-3.5 h-3.5" data-rail-filter="traintype" value="regular" onchange="window.applyRailFilters()"><span class="text-xs text-slate-600 group-hover:text-slate-900">Regular / Other</span></label>
                                                             </div>
@@ -10049,7 +10059,7 @@
                                                     <div class="form-group !mb-0">
                                                         <label for="online-hotel-destination">Destination</label>
                                                         <input type="text" id="online-hotel-destination" class="w-full rounded-lg border border-slate-200 px-3 py-2 text-sm"
-                                                            placeholder="City or area" value="Tokyo" autocomplete="off">
+                                                            placeholder="City or area" value="Beijing" autocomplete="off">
                                                     </div>
                                                     <!-- Task: Mobile horizontal row for Check-in / Check-out (md+ keeps 3-col grid) -->
                                                     <div class="grid grid-cols-2 gap-3 w-full md:contents">
@@ -10232,12 +10242,12 @@
                                                     <div class="form-group !mb-0">
                                                         <label for="online-car-pickup">Pickup location</label>
                                                         <input type="text" id="online-car-pickup" class="w-full rounded-lg border border-slate-200 px-3 py-2 text-sm"
-                                                            placeholder="Airport or city" value="Narita Airport T1" autocomplete="off">
+                                                            placeholder="Airport or city" value="PEK Terminal 3" autocomplete="off">
                                                     </div>
                                                     <div class="form-group !mb-0">
                                                         <label for="online-car-dropoff">Drop-off location</label>
                                                         <input type="text" id="online-car-dropoff" class="w-full rounded-lg border border-slate-200 px-3 py-2 text-sm"
-                                                            placeholder="Airport or city" value="Shinagawa Station" autocomplete="off">
+                                                            placeholder="Airport or city" value="Beijing South Railway Station" autocomplete="off">
                                                     </div>
                                                     <div class="form-group !mb-0">
                                                         <div class="online-car-pickup-datetime-row">
@@ -11238,12 +11248,12 @@
                                         <button type="button" onclick="window.userManagementDeleteRow(this.closest('tr'))" class="text-red-600 hover:text-red-800 text-sm font-bold">Delete</button>
                                     </td>
                                 </tr>
-                                <tr class="um-user-row border-b border-slate-200 hover:bg-slate-50/80 transition-colors" data-user-id="4" data-chinese="田中由纪" data-english="TANAKA/YUKI" data-email="yuki.tanaka@bcdtravel.com" data-company="BCD Travel Japan" data-phone="+81 3 5550 4400">
+                                <tr class="um-user-row border-b border-slate-200 hover:bg-slate-50/80 transition-colors" data-user-id="4" data-chinese="田中由纪" data-english="TANAKA/YUKI" data-email="yuki.tanaka@bcdtravel.com" data-company="BCD Travel China" data-phone="+81 3 5550 4400">
                                     <td class="px-4 py-3"><input type="checkbox" class="um-row-check rounded border-slate-300 text-[#4285F4] focus:ring-[#4285F4]"></td>
                                     <td class="px-4 py-3 text-sm text-slate-800">田中由纪</td>
                                     <td class="px-4 py-3 text-sm font-semibold text-slate-900">TANAKA/YUKI</td>
                                     <td class="px-4 py-3 text-sm text-slate-700">yuki.tanaka@bcdtravel.com</td>
-                                    <td class="px-4 py-3 text-sm text-slate-700">BCD Travel Japan</td>
+                                    <td class="px-4 py-3 text-sm text-slate-700">BCD Travel China</td>
                                     <td class="px-4 py-3 text-right whitespace-nowrap">
                                         <button type="button" onclick="window.openUserManagementEdit(this.closest('tr'))" class="text-[#4285F4] hover:text-blue-700 text-sm font-bold mr-3">Edit</button>
                                         <button type="button" onclick="window.userManagementDeleteRow(this.closest('tr'))" class="text-red-600 hover:text-red-800 text-sm font-bold">Delete</button>
@@ -11416,12 +11426,12 @@
                                                 <button type="button" onclick="window.userManagementDeleteRow(this.closest('tr'))" class="text-xs font-bold text-red-500 hover:underline">Delete</button>
                                             </td>
                                         </tr>
-                                        <tr class="um-user-row hover:bg-slate-50/80 transition-colors" data-user-id="4" data-chinese="田中由纪" data-english="TANAKA/YUKI" data-email="yuki.tanaka@bcdtravel.com" data-company="BCD Travel Japan" data-phone="+81 3 5550 4400">
+                                        <tr class="um-user-row hover:bg-slate-50/80 transition-colors" data-user-id="4" data-chinese="田中由纪" data-english="TANAKA/YUKI" data-email="yuki.tanaka@bcdtravel.com" data-company="BCD Travel China" data-phone="+81 3 5550 4400">
                                             <td class="px-6 py-4"><input type="checkbox" class="um-row-check w-4 h-4 rounded border-slate-300 text-[#4285F4] focus:ring-[#4285F4]"></td>
                                             <td class="px-4 py-4 text-sm font-medium text-slate-700">田中由纪</td>
                                             <td class="px-4 py-4 text-sm font-bold text-slate-900">TANAKA/YUKI</td>
                                             <td class="px-4 py-4 text-sm text-slate-600">yuki.tanaka@bcdtravel.com</td>
-                                            <td class="px-4 py-4 text-sm text-slate-500">BCD Travel Japan</td>
+                                            <td class="px-4 py-4 text-sm text-slate-500">BCD Travel China</td>
                                             <td class="px-6 py-4 text-right space-x-3">
                                                 <button type="button" onclick="window.openUserManagementEdit(this.closest('tr'))" class="text-xs font-bold text-[#4285F4] hover:underline">Edit</button>
                                                 <button type="button" onclick="window.userManagementDeleteRow(this.closest('tr'))" class="text-xs font-bold text-red-500 hover:underline">Delete</button>
@@ -11781,11 +11791,11 @@
                                                 <td class="px-4 py-4"><span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-[10px] font-bold bg-slate-100 text-slate-600 uppercase tracking-wide">Completed</span></td>
                                                 <td class="px-6 py-4 text-right"><button type="button" onclick="window.openTripDetailModal(this.closest('tr'))" class="text-xs font-bold text-slate-400 hover:text-[#4285F4] hover:underline">View</button></td>
                                             </tr>
-                                            <tr class="library-trip-row hover:bg-slate-50/50 transition-colors" data-order="ORD-2025-0922" data-traveler="CHEN MIN" data-travel-time="2025-09-12" data-route="Shanghai → Tokyo" data-price="5600" data-status="Completed" data-style="International">
+                                            <tr class="library-trip-row hover:bg-slate-50/50 transition-colors" data-order="ORD-2025-0922" data-traveler="CHEN MIN" data-travel-time="2025-09-12" data-route="Shanghai → Beijing" data-price="5600" data-status="Completed" data-style="International">
                                                 <td class="px-6 py-4"><button type="button" onclick="window.openTripDetailModal(this.closest('tr'))" class="text-sm font-bold text-[#0A3266] hover:text-[#4285F4] underline decoration-blue-200 underline-offset-4">ORD-2025-0922</button></td>
                                                 <td class="px-4 py-4 text-sm font-medium text-slate-700">CHEN MIN</td>
                                                 <td class="px-4 py-4 text-sm text-slate-600">2025/09/12</td>
-                                                <td class="px-4 py-4 text-sm text-slate-600 font-medium">Shanghai → Tokyo</td>
+                                                <td class="px-4 py-4 text-sm text-slate-600 font-medium">Shanghai → Beijing</td>
                                                 <td class="px-4 py-4 text-sm font-bold text-slate-900">¥5,600</td>
                                                 <td class="px-4 py-4"><span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-[10px] font-bold bg-slate-100 text-slate-600 uppercase tracking-wide">Completed</span></td>
                                                 <td class="px-6 py-4 text-right"><button type="button" onclick="window.openTripDetailModal(this.closest('tr'))" class="text-xs font-bold text-slate-400 hover:text-[#4285F4] hover:underline">View</button></td>
@@ -13431,9 +13441,9 @@
                             </label>
                         </div>
                     </div>
-                    <!-- JR route -->
+                    <!-- Rail route -->
                     <div class="flex items-center gap-4 border-b border-slate-50 pb-3">
-                        <span class="text-xs font-semibold text-slate-700 w-24 shrink-0">JR route</span>
+                        <span class="text-xs font-semibold text-slate-700 w-24 shrink-0">Rail route</span>
                         <div class="flex items-center gap-4 flex-wrap">
                             <label
                                 class="flex items-center gap-1.5 text-xs font-medium text-slate-600 cursor-pointer whitespace-nowrap">
@@ -13890,7 +13900,7 @@
         const transType = document.querySelector('input[name="jr-trans-type"]:checked')?.value || 'rail';
         const dateDispJr = (date && /^\d{4}-\d{2}-\d{2}$/.test(date)) ? window.formatAppDateDisplay(date) : (date || '');
 
-        item.title = transType === 'bus' ? "Bus" : transType === 'ship' ? "Ferry" : "Railway (JR)";
+        item.title = transType === 'bus' ? "Bus" : transType === 'ship' ? "Ferry" : "China Railway";
         item.icon = transType === 'bus' ? "bus" : transType === 'ship' ? "ship" : "train-front";
         item.primary = `${origin} → ${destination}`;
         item.secondary = `${dateDispJr} • Dep ${depTime}${arrTime ? ' · Arr ' + arrTime : ''}`;
@@ -14109,7 +14119,7 @@
                 window._searchOnlineRailExecute?.();
                 let targetRailSeg = 0;
                 if (typeof item.rawData?.legIndex === 'number') targetRailSeg = item.rawData.legIndex;
-                else if (/\(return\)/i.test(String(item.title || '')) || String(item.title || '').indexOf('Railway (Return)') >= 0) targetRailSeg = 1;
+                else if (/\(return\)/i.test(String(item.title || '')) || String(item.title || '').indexOf('China Railway (Return)') >= 0) targetRailSeg = 1;
                 const nRailSeg = (window._multiCitySegments || []).length;
                 if (nRailSeg >= 2) targetRailSeg = Math.min(Math.max(targetRailSeg, 0), nRailSeg - 1);
                 const tripR = document.querySelector('input[name="online-rail-trip-type"]:checked')?.value || 'oneway';
@@ -14504,10 +14514,10 @@
         window.buildItineraryCardsHtml = () => {
             let html = '';
             const TYPE_BADGE = {
-                'Shinkansen (JR)': { bg: 'bg-yellow-50', text: 'text-yellow-700', border: 'border-yellow-200' },
-                'Shinkansen (JR) (Return)': { bg: 'bg-yellow-50', text: 'text-yellow-700', border: 'border-yellow-200' },
-                'Railway (JR)': { bg: 'bg-blue-50', text: 'text-blue-700', border: 'border-blue-200' },
-                'Railway (JR) (Return)': { bg: 'bg-blue-50', text: 'text-blue-700', border: 'border-blue-200' },
+                'China High-Speed Rail (CRH)': { bg: 'bg-yellow-50', text: 'text-yellow-700', border: 'border-yellow-200' },
+                'China High-Speed Rail (CRH) (Return)': { bg: 'bg-yellow-50', text: 'text-yellow-700', border: 'border-yellow-200' },
+                'China Railway': { bg: 'bg-blue-50', text: 'text-blue-700', border: 'border-blue-200' },
+                'China Railway (Return)': { bg: 'bg-blue-50', text: 'text-blue-700', border: 'border-blue-200' },
                 'Bus': { bg: 'bg-green-50', text: 'text-green-700', border: 'border-green-200' },
                 'Flight': { bg: 'bg-red-50', text: 'text-red-700', border: 'border-red-200' },
                 'Flight (Return)': { bg: 'bg-red-50', text: 'text-red-700', border: 'border-red-200' },
@@ -14516,8 +14526,8 @@
                 'Other Request': { bg: 'bg-slate-50', text: 'text-slate-600', border: 'border-slate-200' },
             };
             const iconColor = {
-                'Shinkansen (JR)': 'text-yellow-500', 'Shinkansen (JR) (Return)': 'text-yellow-500',
-                'Railway (JR)': 'text-blue-500', 'Railway (JR) (Return)': 'text-blue-500',
+                'China High-Speed Rail (CRH)': 'text-yellow-500', 'China High-Speed Rail (CRH) (Return)': 'text-yellow-500',
+                'China Railway': 'text-blue-500', 'China Railway (Return)': 'text-blue-500',
                 'Bus': 'text-green-500', 'Flight': 'text-red-500', 'Flight (Return)': 'text-red-500',
                 'Hotel Stay': 'text-purple-500', 'Car Rental': 'text-teal-500',
             };
@@ -16769,10 +16779,10 @@
             const travelType = (d.travelType || '').toLowerCase();
             let html = '';
             if (travelType === 'flight' || travelType === "int'l") {
-                html = '<div class="border border-slate-200 rounded-xl overflow-hidden"><div class="bg-slate-700 text-white px-4 py-2 text-xs font-black flex items-center gap-2"><i data-lucide="plane" class="w-4 h-4"></i> Flight</div><div class="p-4 space-y-3"><div class="flex flex-wrap items-center gap-4 text-sm"><span class="font-semibold text-slate-800">' + travelDatesFmt + '</span><span class="text-slate-500">•</span><span>NRT (Narita) → SIN (Singapore)</span></div><div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-2 text-xs"><div class="bg-slate-50 px-3 py-2 rounded"><span class="text-slate-500 block">Carrier</span><span class="font-semibold">NH</span></div><div class="bg-slate-50 px-3 py-2 rounded"><span class="text-slate-500 block">Flight No.</span><span class="font-semibold">NH 801</span></div><div class="bg-slate-50 px-3 py-2 rounded"><span class="text-slate-500 block">Class</span><span class="font-semibold">Economy</span></div><div class="bg-slate-50 px-3 py-2 rounded"><span class="text-slate-500 block">Status</span><span class="font-semibold text-green-600">Confirmed</span></div></div></div></div>';
+                html = '<div class="border border-slate-200 rounded-xl overflow-hidden"><div class="bg-slate-700 text-white px-4 py-2 text-xs font-black flex items-center gap-2"><i data-lucide="plane" class="w-4 h-4"></i> Flight</div><div class="p-4 space-y-3"><div class="flex flex-wrap items-center gap-4 text-sm"><span class="font-semibold text-slate-800">' + travelDatesFmt + '</span><span class="text-slate-500">•</span><span>PEK (Capital) → SIN (Singapore)</span></div><div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-2 text-xs"><div class="bg-slate-50 px-3 py-2 rounded"><span class="text-slate-500 block">Carrier</span><span class="font-semibold">CA</span></div><div class="bg-slate-50 px-3 py-2 rounded"><span class="text-slate-500 block">Flight No.</span><span class="font-semibold">CA 801</span></div><div class="bg-slate-50 px-3 py-2 rounded"><span class="text-slate-500 block">Class</span><span class="font-semibold">Economy</span></div><div class="bg-slate-50 px-3 py-2 rounded"><span class="text-slate-500 block">Status</span><span class="font-semibold text-green-600">Confirmed</span></div></div></div></div>';
             }
             if (travelType === 'train') {
-                html = '<div class="border border-slate-200 rounded-xl overflow-hidden"><div class="bg-green-700 text-white px-4 py-2 text-xs font-black flex items-center gap-2"><i data-lucide="train-front" class="w-4 h-4"></i> Train</div><div class="p-4 space-y-3"><div class="flex flex-wrap items-center gap-4 text-sm"><span class="font-semibold text-slate-800">' + travelDatesFmt + '</span><span class="text-slate-500">•</span><span>Tokyo → Osaka</span></div><div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-2 text-xs"><div class="bg-slate-50 px-3 py-2 rounded"><span class="text-slate-500 block">Service</span><span class="font-semibold">Shinkansen</span></div><div class="bg-slate-50 px-3 py-2 rounded"><span class="text-slate-500 block">Class</span><span class="font-semibold">Reserved</span></div><div class="bg-slate-50 px-3 py-2 rounded"><span class="text-slate-500 block">Status</span><span class="font-semibold text-green-600">Confirmed</span></div></div></div></div>';
+                html = '<div class="border border-slate-200 rounded-xl overflow-hidden"><div class="bg-green-700 text-white px-4 py-2 text-xs font-black flex items-center gap-2"><i data-lucide="train-front" class="w-4 h-4"></i> Train</div><div class="p-4 space-y-3"><div class="flex flex-wrap items-center gap-4 text-sm"><span class="font-semibold text-slate-800">' + travelDatesFmt + '</span><span class="text-slate-500">•</span><span>Beijing → Shanghai</span></div><div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-2 text-xs"><div class="bg-slate-50 px-3 py-2 rounded"><span class="text-slate-500 block">Service</span><span class="font-semibold">China High-Speed Rail (CRH)</span></div><div class="bg-slate-50 px-3 py-2 rounded"><span class="text-slate-500 block">Class</span><span class="font-semibold">Reserved</span></div><div class="bg-slate-50 px-3 py-2 rounded"><span class="text-slate-500 block">Status</span><span class="font-semibold text-green-600">Confirmed</span></div></div></div></div>';
             }
             if (!html) {
                 html = '<div class="border border-slate-200 rounded-xl overflow-hidden"><div class="bg-slate-600 text-white px-4 py-2 text-xs font-black flex items-center gap-2"><i data-lucide="map-pin" class="w-4 h-4"></i> Itinerary</div><div class="p-4 text-sm text-slate-600">Travel details for Request No. ' + reqId + '. Trip: ' + travelDatesFmt + ', Traveler: ' + (d.traveler || '—') + '.</div></div>';
@@ -17496,7 +17506,7 @@
 
         window._buildOnlineFareServiceNumber = (mode, row, idx) => {
             if (mode === 'flight') {
-                const airlineMap = { JAL: 'JL', ANA: 'NH', IndiGo: '6E', 'Spring Japan': 'IJ', 'Air China': 'CA' };
+                const airlineMap = { JAL: 'JL', ANA: 'NH', IndiGo: '6E', 'Spring Japan': 'IJ', 'Air China': 'CA', 'China Eastern Airlines': 'MU', 'China Southern Airlines': 'CZ', 'Hainan Airlines': 'HU' };
                 const code = airlineMap[row.airline] || String(row.airline || 'FL').replace(/[^A-Za-z]/g, '').slice(0, 2).toUpperCase() || 'FL';
                 return `${code}${String(180 + idx * 7).padStart(3, '0')}`;
             }
@@ -17661,7 +17671,7 @@
 
         window._buildOnlineFareServiceNumber = (mode, row, idx) => {
             if (mode === 'flight') {
-                const airlineMap = { JAL: 'JL', ANA: 'NH', IndiGo: '6E', 'Spring Japan': 'IJ', 'Air China': 'CA' };
+                const airlineMap = { JAL: 'JL', ANA: 'NH', IndiGo: '6E', 'Spring Japan': 'IJ', 'Air China': 'CA', 'China Eastern Airlines': 'MU', 'China Southern Airlines': 'CZ', 'Hainan Airlines': 'HU' };
                 const code = airlineMap[row.airline] || String(row.airline || 'FL').replace(/[^A-Za-z]/g, '').slice(0, 2).toUpperCase() || 'FL';
                 return `${code}${String(180 + idx * 7).padStart(3, '0')}`;
             }
@@ -18268,7 +18278,8 @@
             { iata: 'PVG', city: 'Shanghai', airport: 'Shanghai Pudong International Airport' },
             { iata: 'CAN', city: 'Guangzhou', airport: 'Guangzhou Baiyun International Airport' },
             { iata: 'SZX', city: 'Shenzhen', airport: "Shenzhen Bao'an International Airport" },
-            { iata: 'TFU', city: 'Chengdu', airport: 'Chengdu Tianfu International Airport' }
+            { iata: 'TFU', city: 'Chengdu', airport: 'Chengdu Tianfu International Airport' },
+            { iata: 'HGH', city: 'Hangzhou', airport: 'Hangzhou Xiaoshan International Airport' }
         ];
 
         window._flightAirportByIata = (iata) => {
@@ -18374,7 +18385,7 @@
                 return;
             }
             const bits = window._flightComboCodeCity(airport.iata);
-            closed.innerHTML = `<span class="flight-airport-combo__code">${window._flightComboEsc(bits.code)}</span><span class="flight-airport-combo__city">${window._flightComboEsc(bits.city)}</span>`;
+            closed.innerHTML = `<span class="flight-airport-combo__code">${window._flightComboEsc(bits.code)}</span><span class="flight-airport-combo__city">${window._flightComboEsc(bits.city)}</span><span class="flight-airport-combo__airport">${window._flightComboEsc(airport.airport)}</span>`;
         };
 
         window._closeFlightAirportCombo = (wrap) => {
@@ -19711,7 +19722,7 @@
         };
 
         window._buildMockOnlineFlights = (originCode, destCode, reverse) => {
-            const airlines = ['JAL', 'ANA', 'IndiGo', 'Spring Japan', 'Air China'];
+            const airlines = ['Air China', 'China Eastern Airlines', 'IndiGo', 'Hainan Airlines', 'China Southern Airlines'];
             const rows = [];
             for (let i = 0; i < 12; i++) {
                 const startM = 6 * 60 + i * 48;
@@ -19756,9 +19767,9 @@
         };
 
         window._buildMockOnlineRail = (originCode, destCode, reverse) => {
-            const services = ['Nozomi', 'Hikari', 'Kodama', 'Mizuho', 'Sakura', 'Thunderbird'];
-            const depStations = ['Tokyo', 'Shinagawa', 'Nagoya', 'Kyoto', 'Shin-Osaka'];
-            const arrStations = ['Nagoya', 'Kyoto', 'Shin-Osaka', 'Hakata', 'Hiroshima'];
+            const services = ['G28', 'G1', 'D24', 'G848', 'D30', 'D38'];
+            const depStations = ['Beijing', 'Beijing South', 'Shenzhen North', 'Guangzhou South', 'Shanghai Hongqiao'];
+            const arrStations = ['Shenzhen North', 'Guangzhou South', 'Shanghai Hongqiao', 'Hangzhou East', 'Chengdu East'];
             const rows = [];
             for (let i = 0; i < 12; i++) {
                 const startM = 6 * 60 + i * 42;
@@ -19780,7 +19791,7 @@
                 const seatClasses = ['second', 'first', 'business'];
                 const seatClass = seatClasses[i % 3];
                 const trainCode = services[i % services.length].charAt(0);
-                const trainType = (trainCode === 'N' || trainCode === 'M' || trainCode === 'S') ? 'G' : (trainCode === 'H' || trainCode === 'T') ? 'D' : 'regular';
+                const trainType = trainCode === 'D' ? 'D' : 'G';
                 const fares = [
                     { name: 'Ordinary', price: p },
                     { name: 'Green Car', price: Math.round(p * 1.45) },
@@ -20431,18 +20442,18 @@
         /* AI-ADDED: Hotel mock flags for sidebar filters (breakfast / cancel / corporate)
            Prompt: hotel filter options */
         window._buildMockOnlineHotels = () => ([
-            { name: 'Park Hyatt Tokyo', area: 'Shinjuku', rating: '★ 4.8', starRank: 5, price: 48500, lat: 35.6853, lon: 139.7108, includeBreakfast: true, freeCancellation: true, corporateRate: true },
-            { name: 'Hotel Gracery Shinjuku', area: 'Shinjuku', rating: '★ 4.5', starRank: 4, price: 18200, lat: 35.6938, lon: 139.7034, includeBreakfast: true, freeCancellation: false, corporateRate: true },
-            { name: 'Keio Plaza Hotel Tokyo', area: 'Shinjuku', rating: '★ 4.4', starRank: 4, price: 22400, lat: 35.6910, lon: 139.6985, includeBreakfast: false, freeCancellation: true, corporateRate: false },
-            { name: 'Cerulean Tower Tokyu', area: 'Shibuya', rating: '★ 4.7', starRank: 5, price: 35200, lat: 35.6564, lon: 139.6987, includeBreakfast: true, freeCancellation: true, corporateRate: true },
-            { name: 'Shibuya Excel Hotel', area: 'Shibuya', rating: '★ 4.2', starRank: 4, price: 14800, lat: 35.6591, lon: 139.7016, includeBreakfast: false, freeCancellation: true, corporateRate: false },
-            { name: 'The Prince Gallery Tokyo', area: 'Kioicho', rating: '★ 4.9', starRank: 5, price: 62000, lat: 35.6798, lon: 139.7356, includeBreakfast: true, freeCancellation: false, corporateRate: true },
-            { name: 'Dai-ichi Hotel Tokyo', area: 'Shinbashi', rating: '★ 4.3', starRank: 4, price: 19600, lat: 35.6672, lon: 139.7584, includeBreakfast: true, freeCancellation: true, corporateRate: false },
-            { name: 'Hotel Metropolitan Marunouchi', area: 'Marunouchi', rating: '★ 4.6', starRank: 5, price: 26800, lat: 35.6819, lon: 139.7671, includeBreakfast: false, freeCancellation: false, corporateRate: true },
-            { name: 'Mimaru Tokyo Ginza East', area: 'Ginza', rating: '★ 4.5', starRank: 4, price: 17200, lat: 35.6698, lon: 139.7689, includeBreakfast: true, freeCancellation: true, corporateRate: false },
-            { name: 'Ascott Marunouchi Tokyo', area: 'Marunouchi', rating: '★ 4.7', starRank: 5, price: 31500, lat: 35.6825, lon: 139.7702, includeBreakfast: true, freeCancellation: true, corporateRate: true },
-            { name: 'Hotel Niwa Tokyo', area: 'Suidōbashi', rating: '★ 4.4', starRank: 4, price: 13400, lat: 35.7021, lon: 139.7534, includeBreakfast: false, freeCancellation: true, corporateRate: false },
-            { name: 'Tokyo Bay Shiomi Prince', area: 'Shiomi', rating: '★ 4.1', starRank: 4, price: 11200, lat: 35.6589, lon: 139.8262, includeBreakfast: true, freeCancellation: false, corporateRate: false }
+            { name: 'Park Hyatt Beijing', area: 'Chaoyang', rating: '★ 4.8', starRank: 5, price: 48500, lat: 39.9142, lon: 116.4607, includeBreakfast: true, freeCancellation: true, corporateRate: true },
+            { name: 'Hotel Gracery Chaoyang', area: 'Chaoyang', rating: '★ 4.5', starRank: 4, price: 18200, lat: 39.9212, lon: 116.4431, includeBreakfast: true, freeCancellation: false, corporateRate: true },
+            { name: 'Keio Plaza Hotel Beijing', area: 'Chaoyang', rating: '★ 4.4', starRank: 4, price: 22400, lat: 39.9189, lon: 116.4074, includeBreakfast: false, freeCancellation: true, corporateRate: false },
+            { name: 'Cerulean Tower Pudong', area: 'Pudong', rating: '★ 4.7', starRank: 5, price: 35200, lat: 31.2304, lon: 121.4737, includeBreakfast: true, freeCancellation: true, corporateRate: true },
+            { name: 'Shanghai Excel Hotel', area: 'Pudong', rating: '★ 4.2', starRank: 4, price: 14800, lat: 31.2244, lon: 121.4692, includeBreakfast: false, freeCancellation: true, corporateRate: false },
+            { name: 'The Prince Gallery Beijing', area: 'Dongcheng', rating: '★ 4.9', starRank: 5, price: 62000, lat: 39.9289, lon: 116.3883, includeBreakfast: true, freeCancellation: false, corporateRate: true },
+            { name: 'Dai-ichi Hotel Beijing', area: 'Chaoyang', rating: '★ 4.3', starRank: 4, price: 19600, lat: 39.9054, lon: 116.4574, includeBreakfast: true, freeCancellation: true, corporateRate: false },
+            { name: 'Hotel Metropolitan Wangfujing', area: 'Dongcheng', rating: '★ 4.6', starRank: 5, price: 26800, lat: 39.9149, lon: 116.4039, includeBreakfast: false, freeCancellation: false, corporateRate: true },
+            { name: 'Mimaru Beijing Qianmen East', area: 'Dongcheng', rating: '★ 4.5', starRank: 4, price: 17200, lat: 39.8993, lon: 116.3974, includeBreakfast: true, freeCancellation: true, corporateRate: false },
+            { name: 'Ascott Wangfujing Beijing', area: 'Dongcheng', rating: '★ 4.7', starRank: 5, price: 31500, lat: 39.9126, lon: 116.4103, includeBreakfast: true, freeCancellation: true, corporateRate: true },
+            { name: 'Hotel Niwa Beijing', area: 'Haidian', rating: '★ 4.4', starRank: 4, price: 13400, lat: 39.9833, lon: 116.3229, includeBreakfast: false, freeCancellation: true, corporateRate: false },
+            { name: 'Beijing Bay Tongzhou Prince', area: 'Tongzhou', rating: '★ 4.1', starRank: 4, price: 11200, lat: 39.9022, lon: 116.6586, includeBreakfast: true, freeCancellation: false, corporateRate: false }
         ]);
 
         window.switchOnlineHotelResultsTab = (tab) => {
@@ -22474,7 +22485,7 @@
 
     const meta = {
         air: { title: 'Flight', icon: 'plane', detail: 'Online booking • Flight' },
-        jr: { title: 'Railway (JR)', icon: 'train-front', detail: 'Online booking • Rail' },
+        jr: { title: 'China Railway', icon: 'train-front', detail: 'Online booking • Rail' },
         hotel: { title: 'Hotel Stay', icon: 'building', detail: 'Online booking • Hotel' },
         car: { title: 'Car Rental', icon: 'car', detail: 'Online booking • Rental car' }
     };
@@ -22641,7 +22652,7 @@
             segs.forEach((seg, i) => {
                 const gr = sel[i].row;
                 const dStr = window.formatOnlineFlightDateDisplay(seg.date);
-                const title = isRound ? (i === 0 ? 'Railway (JR)' : 'Railway (Return)') : `Rail (${window.getWorkflowLegLabel(i)})`;
+                const title = isRound ? (i === 0 ? 'China Railway' : 'China Railway (Return)') : `Rail (${window.getWorkflowLegLabel(i)})`;
                 const idx = sel[i].idx;
                 const fk = `mc-${i}-${idx}`;
                 const rp = window._onlineFareSelection.rail[fk];
@@ -22685,7 +22696,7 @@
             id: Date.now(),
             type: 'jr',
             isOnline: true,
-            title: 'Railway (JR)',
+            title: 'China Railway',
             icon: 'train-front',
             primary: primary,
             secondary: secondary,
@@ -23461,7 +23472,7 @@
         }
 
         function generateMockFlights(origin, destination, date, count, minDepartureTime) {
-            const carriers = ['JAL', 'ANA', 'IndiGo', 'Air India', 'SpiceJet'];
+            const carriers = ['Air China', 'China Eastern Airlines', 'IndiGo', 'Air India', 'SpiceJet'];
             const flights = [];
             const minMins = minDepartureTime ? parseTimeToMinutes(minDepartureTime) : 6 * 60;
             const startMins = Math.max(minMins, 6 * 60);
@@ -24831,67 +24842,67 @@
             {
                 id: 1, duration: '245min', fare: '28,450', transfers: 3,
                 dep: '08:00', arr: '12:05',
-                summary: 'Hiroshima · HIJ Airport · HND Airport · Tokyo Station',
+                summary: 'Chengdu · TFU Airport · PEK Airport · Beijing South Station',
                 segments: [
-                    { type: 'walk', from: 'Departure Point', to: 'Hiroshima St.', time: '08:00', duration: '10min', detail: 'Walk to terminal' },
-                    { type: 'train', from: 'Hiroshima St.', to: 'Hiroshima Airport', time: '08:15', arr: '09:05', detail: 'Airport Limousine Bus', fare: '¥1,370' },
-                    { type: 'plane', from: 'Hiroshima Airport (HIJ)', to: 'Haneda Airport (HND)', time: '10:00', arr: '11:20', detail: 'ANA Flight NH674', fare: '¥24,500' },
-                    { type: 'train', from: 'Haneda Airport', to: 'Tokyo Station', time: '11:35', arr: '12:05', detail: 'Keikyu Line · JR Yamanote', fare: '¥2,580' },
-                    { type: 'end', from: 'Tokyo Station', to: '', time: '12:05', detail: '' }
+                    { type: 'walk', from: 'Departure Point', to: 'Chengdu South Gate', time: '08:00', duration: '10min', detail: 'Walk to terminal' },
+                    { type: 'train', from: 'Chengdu South Gate', to: 'Chengdu Tianfu Airport', time: '08:15', arr: '09:05', detail: 'Airport Express Bus', fare: '¥1,370' },
+                    { type: 'plane', from: 'Chengdu Tianfu Airport (TFU)', to: 'Beijing Capital Airport (PEK)', time: '10:00', arr: '11:20', detail: 'Air China Flight CA674', fare: '¥24,500' },
+                    { type: 'train', from: 'PEK Airport', to: 'Beijing South Station', time: '11:35', arr: '12:05', detail: 'Airport Express · Beijing Subway', fare: '¥2,580' },
+                    { type: 'end', from: 'Beijing South Station', to: '', time: '12:05', detail: '' }
                 ]
             },
             {
                 id: 2, duration: '300min', fare: '17,880', transfers: 5,
                 dep: '12:03', arr: '17:03',
-                summary: 'Hiroden-Itsukaichi · Itsukaichi · Hiroshima · Kyoto · Tsuruga · Fukui · Fukui-Eki',
+                summary: 'Chengdu West · Chengdu · Guangzhou · Wuhan · Hangzhou · Hangzhou East',
                 segments: [
-                    { type: 'walk', from: 'Departure Point', to: 'Hiroden-Itsukaichi', time: '12:03', duration: '3min', detail: 'Walk approx. 250m to station' },
-                    { type: 'train', from: 'Hiroden-Itsukaichi', to: 'Itsukaichi', time: '12:06', arr: '12:18', detail: 'Hiroden Local · Platform 1', fare: '¥230' },
-                    { type: 'train', from: 'Itsukaichi', to: 'Hiroshima', time: '12:20', arr: '12:49', detail: 'JR Sanyo Line · Platform 3', fare: '¥330' },
-                    { type: 'bullet', from: 'Hiroshima', to: 'Kyoto', time: '12:53', arr: '14:29', detail: 'JR Shinkansen Nozomi No.28 · Platform 11', fare: '¥8,580' },
-                    { type: 'train', from: 'Kyoto', to: 'Tsuruga', time: '14:41', arr: '15:33', detail: 'JR Ltd.Exp. Thunderbird No.24 · Platform 7', fare: '¥3,290' },
-                    { type: 'train', from: 'Tsuruga', to: 'Fukui', time: '15:41', arr: '16:01', detail: 'JR Shinkansen Tsuruga No.28 · Platform 12', fare: '¥3,290' },
-                    { type: 'walk', from: 'Fukui-Eki', to: 'Tobanaka', time: '16:03', duration: '4min', detail: 'Walk approx. 300m' },
-                    { type: 'end', from: 'Tobanaka', to: '', time: '17:03', detail: '' }
+                    { type: 'walk', from: 'Departure Point', to: 'Chengdu West', time: '12:03', duration: '3min', detail: 'Walk approx. 250m to station' },
+                    { type: 'train', from: 'Chengdu West', to: 'Chengdu East', time: '12:06', arr: '12:18', detail: 'Metro Line 7 · Platform 1', fare: '¥230' },
+                    { type: 'train', from: 'Chengdu East', to: 'Chengdu South', time: '12:20', arr: '12:49', detail: 'China Railway · Platform 3', fare: '¥330' },
+                    { type: 'bullet', from: 'Chengdu South', to: 'Guangzhou South', time: '12:53', arr: '14:29', detail: 'CRH G28 · Platform 11', fare: '¥8,580' },
+                    { type: 'train', from: 'Guangzhou South', to: 'Wuhan', time: '14:41', arr: '15:33', detail: 'CRH D24 · Platform 7', fare: '¥3,290' },
+                    { type: 'train', from: 'Wuhan', to: 'Hangzhou East', time: '15:41', arr: '16:01', detail: 'CRH G28 · Platform 12', fare: '¥3,290' },
+                    { type: 'walk', from: 'Hangzhou East', to: 'West Lake Gate', time: '16:03', duration: '4min', detail: 'Walk approx. 300m' },
+                    { type: 'end', from: 'West Lake Gate', to: '', time: '17:03', detail: '' }
                 ]
             },
             {
                 id: 3, duration: '305min', fare: '16,180', transfers: 5,
                 dep: '12:03', arr: '17:08',
-                summary: 'Hiroden-Itsukaichi · Itsukaichi · Hiroshima · Kyoto · Tsuruga · Takefu · Takefu-Shin',
+                summary: 'Chengdu West · Chengdu · Guangzhou · Wuhan · Shenzhen · Shenzhen North',
                 segments: [
-                    { type: 'walk', from: 'Departure Point', to: 'Hiroden-Itsukaichi', time: '12:03', duration: '3min', detail: 'Walk 250m' },
-                    { type: 'train', from: 'Hiroden-Itsukaichi', to: 'Itsukaichi', time: '12:06', arr: '12:18', detail: 'Hiroden Local', fare: '¥230' },
-                    { type: 'train', from: 'Itsukaichi', to: 'Hiroshima', time: '12:20', arr: '12:49', detail: 'JR Sanyo Line', fare: '¥330' },
-                    { type: 'bullet', from: 'Hiroshima', to: 'Kyoto', time: '12:53', arr: '14:29', detail: 'JR Shinkansen Nozomi No.28', fare: '¥8,580' },
-                    { type: 'train', from: 'Kyoto', to: 'Tsuruga', time: '14:41', arr: '15:33', detail: 'JR Ltd.Exp. Thunderbird', fare: '¥2,870' },
-                    { type: 'train', from: 'Tsuruga', to: 'Takefu-Shin', time: '15:55', arr: '17:08', detail: 'JR Shinkansen Takefu No.12', fare: '¥940' },
-                    { type: 'end', from: 'Takefu-Shin', to: '', time: '17:08', detail: '' }
+                    { type: 'walk', from: 'Departure Point', to: 'Chengdu West', time: '12:03', duration: '3min', detail: 'Walk 250m' },
+                    { type: 'train', from: 'Chengdu West', to: 'Chengdu East', time: '12:06', arr: '12:18', detail: 'Metro Line 7', fare: '¥230' },
+                    { type: 'train', from: 'Chengdu East', to: 'Chengdu South', time: '12:20', arr: '12:49', detail: 'China Railway', fare: '¥330' },
+                    { type: 'bullet', from: 'Chengdu South', to: 'Guangzhou South', time: '12:53', arr: '14:29', detail: 'CRH G28', fare: '¥8,580' },
+                    { type: 'train', from: 'Guangzhou South', to: 'Wuhan', time: '14:41', arr: '15:33', detail: 'CRH D24', fare: '¥2,870' },
+                    { type: 'train', from: 'Wuhan', to: 'Shenzhen North', time: '15:55', arr: '17:08', detail: 'CRH G12', fare: '¥940' },
+                    { type: 'end', from: 'Shenzhen North', to: '', time: '17:08', detail: '' }
                 ]
             },
             {
                 id: 4, duration: '330min', fare: '17,880', transfers: 4,
                 dep: '12:03', arr: '17:33',
-                summary: 'Hiroshima-Eki · Hiroshima · Kyoto · Tsuruga · Fukui · Fukui-Eki',
+                summary: 'Chengdu East · Chengdu · Guangzhou · Wuhan · Hangzhou · Hangzhou East',
                 segments: [
-                    { type: 'walk', from: 'Departure Point', to: 'Hiroshima-Eki', time: '12:03', duration: '2min', detail: 'Walk' },
-                    { type: 'bullet', from: 'Hiroshima-Eki', to: 'Kyoto', time: '12:05', arr: '13:48', detail: 'JR Shinkansen Kodama No.848', fare: '¥8,580' },
-                    { type: 'train', from: 'Kyoto', to: 'Tsuruga', time: '13:55', arr: '14:58', detail: 'JR Ltd.Exp. Thunderbird No.30', fare: '¥3,290' },
-                    { type: 'train', from: 'Tsuruga', to: 'Fukui', time: '15:10', arr: '15:30', detail: 'JR Shinkansen Tsuruga · Platform 4', fare: '¥3,290' },
-                    { type: 'walk', from: 'Fukui-Eki', to: 'Tobanaka', time: '15:32', duration: '4min', detail: 'Walk' },
-                    { type: 'end', from: 'Tobanaka', to: '', time: '17:33', detail: '' }
+                    { type: 'walk', from: 'Departure Point', to: 'Chengdu East', time: '12:03', duration: '2min', detail: 'Walk' },
+                    { type: 'bullet', from: 'Chengdu East', to: 'Guangzhou South', time: '12:05', arr: '13:48', detail: 'CRH G848', fare: '¥8,580' },
+                    { type: 'train', from: 'Guangzhou South', to: 'Wuhan', time: '13:55', arr: '14:58', detail: 'CRH D30 · Platform 7', fare: '¥3,290' },
+                    { type: 'train', from: 'Wuhan', to: 'Hangzhou East', time: '15:10', arr: '15:30', detail: 'CRH G28 · Platform 4', fare: '¥3,290' },
+                    { type: 'walk', from: 'Hangzhou East', to: 'West Lake Gate', time: '15:32', duration: '4min', detail: 'Walk' },
+                    { type: 'end', from: 'West Lake Gate', to: '', time: '17:33', detail: '' }
                 ]
             },
             {
                 id: 5, duration: '479min', fare: '13,040', transfers: 4,
                 dep: '12:43', arr: '20:42',
-                summary: 'Hiroshima-Eki · Hiroshima · Himeji · Tsuruga · Takefu · Takefu-Shin',
+                summary: 'Chengdu East · Chengdu · Chongqing · Wuhan · Shenzhen · Shenzhen North',
                 segments: [
-                    { type: 'walk', from: 'Departure Point', to: 'Hiroshima-Eki', time: '12:43', duration: '3min', detail: 'Walk to station' },
-                    { type: 'train', from: 'Hiroshima-Eki', to: 'Himeji', time: '12:46', arr: '15:02', detail: 'JR Sanyo Line Rapid', fare: '¥2,310' },
-                    { type: 'train', from: 'Himeji', to: 'Tsuruga', time: '15:12', arr: '17:49', detail: 'JR Ltd.Exp. Thunderbird No.38 · Platform 5', fare: '¥5,400' },
-                    { type: 'train', from: 'Tsuruga', to: 'Takefu-Shin', time: '18:05', arr: '20:42', detail: 'JR Shinkansen Takefu Express', fare: '¥1,890' },
-                    { type: 'end', from: 'Takefu-Shin', to: '', time: '20:42', detail: '' }
+                    { type: 'walk', from: 'Departure Point', to: 'Chengdu East', time: '12:43', duration: '3min', detail: 'Walk to station' },
+                    { type: 'train', from: 'Chengdu East', to: 'Chongqing North', time: '12:46', arr: '15:02', detail: 'China Railway Rapid', fare: '¥2,310' },
+                    { type: 'train', from: 'Chongqing North', to: 'Wuhan', time: '15:12', arr: '17:49', detail: 'CRH D38 · Platform 5', fare: '¥5,400' },
+                    { type: 'train', from: 'Wuhan', to: 'Shenzhen North', time: '18:05', arr: '20:42', detail: 'CRH G Express', fare: '¥1,890' },
+                    { type: 'end', from: 'Shenzhen North', to: '', time: '20:42', detail: '' }
                 ]
             }
         ];
@@ -25029,7 +25040,7 @@
                         </div>` : `
                         <div class="rt-segment-info">
                             <div class="flex items-center gap-2 mb-2">
-                                ${seg.type === 'bullet' ? '<span class="bg-amber-50 text-amber-700 text-[9px] font-black px-1.5 py-0.5 rounded-md border border-amber-200 tracking-wide">Shinkansen</span>' :
+                                ${seg.type === 'bullet' ? '<span class="bg-amber-50 text-amber-700 text-[9px] font-black px-1.5 py-0.5 rounded-md border border-amber-200 tracking-wide">China High-Speed Rail (CRH)</span>' :
                         seg.type === 'plane' ? '<span class="bg-red-50 text-red-700 text-[9px] font-black px-1.5 py-0.5 rounded-md border border-red-200 tracking-wide">Flight</span>' :
                             '<span class="bg-blue-50 text-blue-700 text-[9px] font-black px-1.5 py-0.5 rounded-md border border-blue-200 tracking-wide">Railway</span>'}
                                 <span class="seg-title text-slate-900 font-bold">${seg.detail}</span>
@@ -25110,7 +25121,7 @@
             return {
                 id: baseId,
                 type: 'jr',
-                title: isBullet ? 'Shinkansen (JR)' : isBus ? 'Bus' : 'Railway (JR)',
+                title: isBullet ? 'China High-Speed Rail (CRH)' : isBus ? 'Bus' : 'China Railway',
                 icon: isBullet ? 'train-front' : isBus ? 'bus' : 'train-front',
                 primary: `${seg.from} → ${seg.to}`,
                 secondary: `${(date && /^\d{4}-\d{2}-\d{2}$/.test(date)) ? window.formatAppDateDisplay(date) : (date || '')} • Dep ${seg.time}${seg.arr ? ' · Arr ' + seg.arr : ''}`,
