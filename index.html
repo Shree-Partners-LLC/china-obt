@@ -15587,6 +15587,7 @@
         };
 
         window._mobileSearchExpanded = false;
+        window._headerSearchLayoutMode = null;
 
         window.collapseMobileProfileSearch = (force) => {
             if (!force && !window._mobileSearchExpanded) return;
@@ -15628,14 +15629,35 @@
             }
         };
 
-        window.syncHeaderSearchLayout = () => {
+        window._applyMobileSearchExpandedUi = () => {
+            const header = document.getElementById('app-header');
+            const tray = document.getElementById('global-header-search-tray');
+            const btn = document.getElementById('mobile-profile-search-toggle');
+            if (!header || !window._mobileSearchExpanded) return;
+            header.classList.add('is-search-expanded');
+            tray?.setAttribute('aria-hidden', 'false');
+            btn?.setAttribute('aria-expanded', 'true');
+            btn?.setAttribute('aria-label', 'Close search');
+        };
+
+        window.syncHeaderSearchLayout = (opts = {}) => {
             const header = document.getElementById('app-header');
             if (!header) return;
 
             const isMobile = window.matchMedia('(max-width: 767px)').matches;
+            const mode = isMobile ? 'mobile' : 'desktop';
+            const prevMode = window._headerSearchLayoutMode;
+            const modeChanged = prevMode !== null && prevMode !== mode;
+            window._headerSearchLayoutMode = mode;
+
             header.classList.toggle('is-search-minimized', isMobile);
             window.rehomeGlobalSearch?.();
-            window.collapseMobileProfileSearch?.(true);
+
+            if (opts.forceCollapse || modeChanged || !isMobile) {
+                window.collapseMobileProfileSearch?.(true);
+            } else if (window._mobileSearchExpanded) {
+                window._applyMobileSearchExpandedUi?.();
+            }
         };
 
         window.addEventListener('resize', () => {
@@ -15733,7 +15755,7 @@
                 window.closePriceSortMenu?.();
             }
 
-            window.syncHeaderSearchLayout?.();
+            window.syncHeaderSearchLayout?.({ forceCollapse: true });
         };
 
         window.toggleUserManagementModal = (open) => {
@@ -24800,7 +24822,7 @@
 
         window.onload = () => {
             window.fpInitForgotPasswordOtp?.();
-            window.syncHeaderSearchLayout?.();
+            window.syncHeaderSearchLayout?.({ forceCollapse: true });
             lucide.createIcons();
         };
 
