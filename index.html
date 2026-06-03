@@ -3424,10 +3424,15 @@
                 min-height: 0 !important;
                 height: auto !important;
             }
-            #main-content-wrapper > header {
-  gap: 0.375rem;           /* was gap-2 (0.5rem) via Tailwind */
-  padding-bottom: 0.25rem; /* reduce space under search */
-}
+            #main-content-wrapper > header#app-header:not(.is-search-expanded) {
+                gap: 0 !important;
+                padding-bottom: 0 !important;
+            }
+
+            #main-content-wrapper > header#app-header.is-search-expanded {
+                gap: 0.375rem;
+                padding-bottom: 0.25rem;
+            }
 
             #pages-container {
                 flex: 0 0 auto !important;
@@ -3526,6 +3531,9 @@
                 min-height: 4rem;
                 height: 4rem;
                 padding: 0 0.375rem;
+                position: relative;
+                z-index: 2;
+                isolation: isolate;
             }
 
             .mobile-app-header-bar__brand {
@@ -3545,7 +3553,9 @@
 
             .mobile-app-header-bar__brand > button {
                 max-width: 100%;
+                width: 100%;
                 pointer-events: auto;
+                touch-action: manipulation;
             }
 
             .mobile-app-header-bar__side {
@@ -3569,11 +3579,13 @@
 
             .header-mobile-logo {
                 display: block;
-                width: 138px !important;
-                height: 60px !important;
+                width: auto !important;
+                max-width: 100% !important;
+                height: auto !important;
+                max-height: 2.5rem !important;
                 object-fit: contain;
                 object-position: center;
-                flex-shrink: 0;
+                flex-shrink: 1;
             }
 
             .mobile-app-header-bar .header-profile-dropdown-wrap button[data-profile-dropdown-trigger] {
@@ -3601,19 +3613,24 @@
             .global-header-search-tray {
                 width: 100%;
                 position: relative;
+                flex: 0 0 0;
+                min-height: 0;
                 max-height: 0;
+                margin: 0;
+                padding: 0;
                 opacity: 0;
+                visibility: hidden;
                 overflow: hidden;
                 pointer-events: none;
-                transition: max-height 0.25s cubic-bezier(0.4, 0, 0.2, 1), opacity 0.2s ease-in-out;
+                transition: max-height 0.25s cubic-bezier(0.4, 0, 0.2, 1), opacity 0.2s ease-in-out, visibility 0s linear 0.25s;
             }
 
             .global-header-search-tray .global-header-search-bar {
                 width: 100%;
                 position: relative;
                 opacity: 1;
-                overflow: visible;
-                pointer-events: auto;
+                overflow: hidden;
+                pointer-events: none;
             }
 
             .global-header-search-tray .global-header-search-bar #global-search {
@@ -3639,6 +3656,8 @@
                 position: relative !important;
                 z-index: 50 !important;
                 pointer-events: auto !important;
+                touch-action: manipulation;
+                -webkit-tap-highlight-color: transparent;
             }
 
             .mobile-profile-search-toggle:hover {
@@ -3654,23 +3673,44 @@
                 padding-bottom: 0;
                 padding-left: 0.375rem;
                 padding-right: 0.375rem;
-                overflow: visible;
             }
 
             #app-header.is-search-minimized:not(.is-search-expanded) {
-                height: 4rem;
+                height: auto;
+                min-height: 4rem;
+                max-height: 4rem;
+                overflow: hidden;
             }
 
-            #app-header:not(.is-search-expanded) .global-header-search-tray .global-header-search-bar {
+            #app-header.is-search-minimized.is-search-expanded {
+                max-height: none;
+                overflow: visible;
+            }
+
+            #app-header:not(.is-search-expanded) .global-header-search-tray {
+                visibility: hidden !important;
+                pointer-events: none !important;
+            }
+
+            #app-header:not(.is-search-expanded) .global-header-search-tray .global-header-search-bar,
+            #app-header:not(.is-search-expanded) .global-header-search-tray #global-search {
                 pointer-events: none !important;
             }
 
             #app-header.is-search-expanded .global-header-search-tray {
+                flex: 0 0 auto;
+                visibility: visible;
                 max-height: 4.75rem;
                 opacity: 1;
                 pointer-events: auto;
                 padding: 0.375rem 0.75rem 0.625rem;
                 border-top: 1px solid #e2e8f0;
+                transition: max-height 0.25s cubic-bezier(0.4, 0, 0.2, 1), opacity 0.2s ease-in-out, visibility 0s;
+            }
+
+            #app-header.is-search-expanded .global-header-search-tray .global-header-search-bar {
+                overflow: visible;
+                pointer-events: auto;
             }
 
             #app-header.is-search-expanded .global-header-search-tray .global-header-search-bar #global-search {
