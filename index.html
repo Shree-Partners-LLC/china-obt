@@ -1532,6 +1532,11 @@
                 max-width: 100%;
             }
 
+            #page-booking #online-flight-search-panel,
+            #page-booking #online-rail-search-panel {
+                scroll-margin-top: 5.5rem;
+            }
+
             #page-booking .booking-mobile-search-shell--collapsed .booking-mobile-search-form {
                 display: none;
             }
@@ -9410,7 +9415,7 @@
                                                         </button>
                                                     </div>
                                                     <div id="online-flight-multi-leg-tabs" class="hidden max-md:hidden md:flex flex-nowrap overflow-x-auto gap-2 max-w-full mb-4 p-1.5 rounded-xl bg-sky-50/90 border border-[#4285F4]/25" role="tablist" aria-label="Multi-city flight trips"></div>
-                                                    <div id="online-flight-mobile-stepper" class="hidden md:hidden online-flight-mobile-stepper">
+                                                    <div id="online-flight-mobile-stepper" class="hidden md:hidden online-flight-mobile-stepper" data-module="flight">
                                                         <div id="online-flight-mobile-stepper-sticky" class="online-flight-mobile-stepper__sticky">
                                                             <div id="online-flight-mobile-stepper-tabs" class="online-flight-mobile-stepper__tabs" role="tablist" aria-label="Selected flight trips"></div>
                                                             <div id="online-flight-mobile-stepper-summaries" class="online-flight-mobile-stepper__summaries"></div>
@@ -9647,7 +9652,7 @@
                                                         </button>
                                                     </div>
                                                     <div id="online-rail-multi-leg-tabs" class="hidden max-md:hidden md:flex flex-nowrap overflow-x-auto gap-2 max-w-full mb-4 p-1.5 rounded-xl bg-sky-50/90 border border-[#4285F4]/25" role="tablist" aria-label="Multi-city rail trips"></div>
-                                                    <div id="online-rail-mobile-stepper" class="hidden md:hidden online-flight-mobile-stepper">
+                                                    <div id="online-rail-mobile-stepper" class="hidden md:hidden online-flight-mobile-stepper" data-module="rail">
                                                         <div id="online-rail-mobile-stepper-sticky" class="online-flight-mobile-stepper__sticky">
                                                             <div id="online-rail-mobile-stepper-tabs" class="online-flight-mobile-stepper__tabs" role="tablist" aria-label="Selected rail trips"></div>
                                                             <div id="online-rail-mobile-stepper-summaries" class="online-flight-mobile-stepper__summaries"></div>
@@ -14603,6 +14608,43 @@
         };
         window.collapseOnlineSearchPanel = (mode) => window.setOnlineSearchCollapsed(mode, true);
         window.expandOnlineSearchPanel = (mode) => window.setOnlineSearchCollapsed(mode, false);
+        window._getMobileStepperModuleFromButton = (btn) => {
+            if (!btn?.closest) return null;
+            const explicit = btn.getAttribute('data-module')
+                || btn.closest('[data-module]')?.getAttribute('data-module');
+            if (explicit === 'flight' || explicit === 'rail') return explicit;
+            if (btn.closest('#online-rail-mobile-stepper, #online-rail-mobile-review')) return 'rail';
+            if (btn.closest('#online-flight-mobile-stepper, #online-flight-mobile-review, #online-flight-mobile-review-overlay')) return 'flight';
+            return null;
+        };
+        window._focusOnlineMobileSearchPanel = (module) => {
+            if (module !== 'flight' && module !== 'rail') return;
+            const panelId = module === 'flight' ? 'online-flight-search-panel' : 'online-rail-search-panel';
+            const panel = document.getElementById(panelId);
+            if (!panel || panel.classList.contains('hidden')) return;
+            window.expandOnlineSearchPanel?.(module);
+            const runScroll = () => {
+                const sticky = document.getElementById(
+                    module === 'flight' ? 'online-flight-mobile-stepper-sticky' : 'online-rail-mobile-stepper-sticky'
+                );
+                const offset =
+                    (sticky?.offsetHeight || 0) +
+                    (document.getElementById('booking-steps-indicator')?.offsetHeight || 0) +
+                    12;
+                if (window.isMobileBookingViewport?.()) {
+                    const top = panel.getBoundingClientRect().top + window.scrollY - offset;
+                    window.scrollTo({ top: Math.max(0, top), behavior: 'smooth' });
+                } else {
+                    panel.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                }
+                const focusTarget = panel.querySelector('.booking-mobile-search-form, .online-flight-searchbar, #online-rail-searchbar');
+                focusTarget?.setAttribute?.('tabindex', '-1');
+                focusTarget?.focus?.({ preventScroll: true });
+            };
+            requestAnimationFrame(() => {
+                requestAnimationFrame(runScroll);
+            });
+        };
         window.resetOnlineSearchPanels = () => {
             Object.keys(window._onlineSearchAccordionState).forEach((mode) => window.setOnlineSearchCollapsed(mode, false));
         };
@@ -18847,7 +18889,7 @@
                                         <p class="online-flight-mobile-review__label">${window._onlineUiEsc(item.tripLabel)}</p>
                                         <p class="online-flight-mobile-review__route">${window._onlineUiEsc(item.routeText)}</p>
                                     </div>
-                                    <button type="button" class="online-flight-mobile-stepper__summary-edit" onclick="window.editOnlineFlightMobileLeg(${item.legIndex})">Edit</button>
+                                    <button type="button" class="online-flight-mobile-stepper__summary-edit" data-module="flight" onclick="window.editOnlineFlightMobileLeg(event, ${item.legIndex})">Edit</button>
                                 </div>
                                 <div class="online-flight-mobile-review__meta obt-density-badge-row">
                                     ${window._densityBadgeHtml('calendar', item.dateLine)}
@@ -19054,11 +19096,19 @@
             window._onlineFlightMobileReviewOpen = true;
             window.renderOnlineFlightMobileStepper?.();
         };
-        window.editOnlineFlightMobileLeg = (legIndex) => {
+        window.editOnlineFlightMobileLeg = (eventOrLeg, legIndexMaybe) => {
+            const event = (typeof eventOrLeg === 'object' && eventOrLeg?.currentTarget) ? eventOrLeg : null;
+            const legIndex = event ? legIndexMaybe : eventOrLeg;
+            window.closeOnlineFlightMobilePromptOverlay?.();
             window.closeOnlineFlightMobileReview();
             window._onlineFlightMobileEditingLeg = legIndex;
+            document.getElementById('online-flight-results-shell')?.classList.remove('hidden');
+            document.getElementById('online-flight-results')?.classList.remove('online-results-complete');
             window._syncOnlineFlightResultsCompleteUi(false);
             window.switchOnlineFlightMultiLegTab(legIndex);
+            const detected = window._getMobileStepperModuleFromButton(event?.currentTarget);
+            if (detected && detected !== 'flight') return;
+            setTimeout(() => window._focusOnlineMobileSearchPanel('flight'), 220);
         };
         window.startOverOnlineFlightMobileSelection = () => {
             const segs = window._multiCitySegments || [];
@@ -19204,7 +19254,8 @@
             const segs = window._multiCitySegments || [];
             const active = window._onlineFlightMultiProgressLeg;
             const allDone = window._onlineFlightMobileAllDone();
-            window._syncOnlineFlightResultsCompleteUi(allDone);
+            const editing = window._onlineFlightMobileEditingLeg != null;
+            window._syncOnlineFlightResultsCompleteUi(allDone && !editing);
             const isFlightDrawerOpen = window._obtFilterDrawer?.vertical === 'flight';
             if (allDone && window.isOnlineFlightMobileStepperActive?.() && isFlightDrawerOpen) {
                 window.closeObtFilterDrawer?.();
@@ -19239,7 +19290,7 @@
                                 <p class="online-flight-mobile-stepper__summary-name">${window._onlineUiEsc(item.routeText)}</p>
                             </div>
                         </div>
-                        <button type="button" class="online-flight-mobile-stepper__summary-edit" onclick="window.editOnlineFlightMobileLeg(${item.legIndex})">Edit</button>
+                        <button type="button" class="online-flight-mobile-stepper__summary-edit" data-module="flight" onclick="window.editOnlineFlightMobileLeg(event, ${item.legIndex})">Edit</button>
                     </div>
                     <div class="online-flight-mobile-stepper__summary-detail">
                         <div class="online-flight-mobile-stepper__summary-detail-line obt-density-badge-row">
@@ -19251,8 +19302,8 @@
                     </div>
                 </div>`).join('');
 
-            const showReview = allDone && window._onlineFlightMobileReviewOpen;
-            const showPrompt = allDone && !showReview;
+            const showReview = allDone && window._onlineFlightMobileReviewOpen && !editing;
+            const showPrompt = allDone && !showReview && !editing;
             // Review renders in overlay modal only — keep stepper summaries visible behind backdrop.
             sticky.classList.remove('hidden');
             // Task 3: prompt is no longer an inline/flow element; keep it hidden always.
@@ -19297,10 +19348,15 @@
             window._onlineRailMobileReviewOpen = true;
             window.renderOnlineRailMobileStepper?.();
         };
-        window.editOnlineRailMobileLeg = (legIndex) => {
+        window.editOnlineRailMobileLeg = (eventOrLeg, legIndexMaybe) => {
+            const event = (typeof eventOrLeg === 'object' && eventOrLeg?.currentTarget) ? eventOrLeg : null;
+            const legIndex = event ? legIndexMaybe : eventOrLeg;
             window._onlineRailMobileReviewOpen = false;
             document.getElementById('online-rail-results-shell')?.classList.remove('hidden');
             window.switchOnlineRailMultiLegTab(legIndex);
+            const detected = window._getMobileStepperModuleFromButton(event?.currentTarget);
+            if (detected && detected !== 'rail') return;
+            window._focusOnlineMobileSearchPanel('rail');
         };
         window.startOverOnlineRailMobileSelection = () => {
             const segs = window._multiCitySegments || [];
@@ -19373,7 +19429,7 @@
                                 <p class="online-flight-mobile-stepper__summary-name">${window._onlineUiEsc(item.routeText)}</p>
                             </div>
                         </div>
-                        <button type="button" class="online-flight-mobile-stepper__summary-edit" onclick="window.editOnlineRailMobileLeg(${item.legIndex})">Edit</button>
+                        <button type="button" class="online-flight-mobile-stepper__summary-edit" data-module="rail" onclick="window.editOnlineRailMobileLeg(event, ${item.legIndex})">Edit</button>
                     </div>
                     <div class="online-flight-mobile-stepper__summary-detail">
                         <div class="online-flight-mobile-stepper__summary-detail-line obt-density-badge-row">
@@ -19421,7 +19477,7 @@
                                         <p class="online-flight-mobile-review__label">${window._onlineUiEsc(item.tripLabel)}</p>
                                         <p class="online-flight-mobile-review__route">${window._onlineUiEsc(item.routeText)}</p>
                                     </div>
-                                    <button type="button" class="online-flight-mobile-stepper__summary-edit" onclick="window.editOnlineRailMobileLeg(${item.legIndex})">Edit</button>
+                                    <button type="button" class="online-flight-mobile-stepper__summary-edit" data-module="rail" onclick="window.editOnlineRailMobileLeg(event, ${item.legIndex})">Edit</button>
                                 </div>
                                 <div class="online-flight-mobile-review__meta obt-density-badge-row">
                                     ${window._densityBadgeHtml('calendar', item.dateLine)}
