@@ -6669,73 +6669,117 @@
 
         #online-fare-detail-modal .online-flight-fare-timeline {
             display: grid;
-            grid-template-columns: minmax(0, 1fr) minmax(150px, auto) minmax(0, 1fr);
-            gap: 0.75rem;
+            grid-template-columns: minmax(0, 30%) minmax(0, 40%) minmax(0, 30%);
+            gap: 0.5rem 1.25rem;
             align-items: center;
-            padding: 0.95rem 1rem;
+            padding: 1.25rem 1.625rem;
             border-radius: 1.2rem;
             background: rgba(255, 255, 255, 0.88);
             border: 1px solid rgba(191, 219, 254, 0.9);
+            box-sizing: border-box;
+            width: 100%;
         }
 
         #online-fare-detail-modal .online-flight-fare-timeline__point {
             min-width: 0;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: flex-start;
+            text-align: left;
         }
 
         #online-fare-detail-modal .online-flight-fare-timeline__point--end {
             text-align: right;
+            align-items: flex-end;
         }
 
         #online-fare-detail-modal .online-flight-fare-timeline__time {
-            font-size: 1.1rem;
+            font-size: 1.125rem;
             font-weight: 900;
             color: #0f172a;
-            line-height: 1.1;
+            line-height: 1.15;
+            margin: 0;
         }
 
         #online-fare-detail-modal .online-flight-fare-timeline__city {
-            font-size: 0.8rem;
+            font-size: 0.8125rem;
             font-weight: 700;
             color: #334155;
-            margin-top: 0.22rem;
-            line-height: 1.3;
+            margin: 0.25rem 0 0;
+            line-height: 1.35;
             word-break: break-word;
         }
 
         #online-fare-detail-modal .online-flight-fare-timeline__code {
-            font-size: 0.68rem;
+            font-size: 0.6875rem;
             font-weight: 800;
             color: #64748b;
-            margin-top: 0.15rem;
+            margin: 0.2rem 0 0;
             letter-spacing: 0.08em;
             text-transform: uppercase;
+            line-height: 1.3;
         }
 
         #online-fare-detail-modal .online-flight-fare-timeline__mid {
             display: flex;
             flex-direction: column;
             align-items: center;
-            gap: 0.35rem;
+            justify-content: center;
+            gap: 0.45rem;
             min-width: 0;
+            width: 100%;
+            text-align: center;
+            padding: 0 0.25rem;
         }
 
         #online-fare-detail-modal .online-flight-fare-timeline__line {
+            position: relative;
             width: 100%;
-            height: 2px;
+            max-width: 100%;
+            height: 1px;
             border-radius: 9999px;
-            background: linear-gradient(90deg, rgba(66, 133, 244, 0.35) 0%, rgba(66, 133, 244, 0.9) 50%, rgba(66, 133, 244, 0.35) 100%);
+            background: #cbd5e1;
+            flex-shrink: 0;
+        }
+
+        #online-fare-detail-modal .online-flight-fare-timeline__line::before,
+        #online-fare-detail-modal .online-flight-fare-timeline__line::after {
+            content: '';
+            position: absolute;
+            top: 50%;
+            width: 5px;
+            height: 5px;
+            border-radius: 50%;
+            background: #94a3b8;
+            border: 1px solid #fff;
+            box-shadow: 0 0 0 1px #cbd5e1;
+            transform: translateY(-50%);
+        }
+
+        #online-fare-detail-modal .online-flight-fare-timeline__line::before {
+            left: 0;
+        }
+
+        #online-fare-detail-modal .online-flight-fare-timeline__line::after {
+            right: 0;
         }
 
         #online-fare-detail-modal .online-flight-fare-timeline__duration {
-            font-size: 0.8rem;
+            font-size: 0.8125rem;
             font-weight: 900;
             color: #0a3266;
+            line-height: 1.2;
+            text-align: center;
+            white-space: nowrap;
         }
 
         #online-fare-detail-modal .online-flight-fare-timeline__stops {
-            font-size: 0.7rem;
+            font-size: 0.6875rem;
             font-weight: 700;
             color: #64748b;
+            line-height: 1.25;
+            text-align: center;
         }
 
         #online-fare-detail-modal .online-flight-fare-tier-tabs {
@@ -6750,30 +6794,45 @@
         /* Task 2.2 / 2.3 — mobile fare modal timeline row + compact tier tabs */
         @media (max-width: 768px) {
             #online-fare-detail-modal .online-flight-fare-timeline {
-                display: flex;
-                flex-direction: row;
-                align-items: stretch;
-                gap: 0.35rem;
-                padding: 0.55rem 0.5rem;
+                grid-template-columns: minmax(0, 30%) minmax(0, 40%) minmax(0, 30%);
+                gap: 0.35rem 0.625rem;
+                padding: 1rem 1.125rem;
+                align-items: center;
             }
 
             #online-fare-detail-modal .online-flight-fare-timeline__point,
             #online-fare-detail-modal .online-flight-fare-timeline__point--end {
-                flex: 1 1 0;
                 min-width: 0;
-                text-align: left;
             }
 
             #online-fare-detail-modal .online-flight-fare-timeline__point--end {
                 text-align: right;
+                align-items: flex-end;
+            }
+
+            #online-fare-detail-modal .online-flight-fare-timeline__time {
+                font-size: 1rem;
+            }
+
+            #online-fare-detail-modal .online-flight-fare-timeline__city {
+                font-size: 0.75rem;
+            }
+
+            #online-fare-detail-modal .online-flight-fare-timeline__code {
+                font-size: 0.625rem;
             }
 
             #online-fare-detail-modal .online-flight-fare-timeline__mid {
-                flex: 0 1 5.5rem;
-                min-width: 4.25rem;
-                max-width: 6.5rem;
-                justify-content: center;
-                padding: 0 0.15rem;
+                padding: 0 0.125rem;
+                gap: 0.35rem;
+            }
+
+            #online-fare-detail-modal .online-flight-fare-timeline__duration {
+                font-size: 0.75rem;
+            }
+
+            #online-fare-detail-modal .online-flight-fare-timeline__stops {
+                font-size: 0.625rem;
             }
 
             #online-fare-detail-modal .online-flight-fare-tier-tabs {
@@ -7071,9 +7130,23 @@
                 padding: 0.9rem;
             }
 
-            #online-fare-detail-modal .online-flight-fare-timeline__point--end,
             #online-fare-detail-modal .online-flight-fare-offer__price {
                 text-align: left;
+            }
+
+            #online-fare-detail-modal .online-flight-fare-timeline__point--end {
+                align-items: flex-end;
+                text-align: right;
+            }
+
+            #online-fare-detail-modal .online-flight-fare-timeline {
+                grid-template-columns: minmax(0, 30%) minmax(0, 40%) minmax(0, 30%);
+                gap: 0.3rem 0.5rem;
+                padding: 0.875rem 1rem;
+            }
+
+            #online-fare-detail-modal .online-flight-fare-timeline__stops {
+                white-space: normal;
             }
 
             #online-fare-detail-modal .online-flight-fare-tier-tab {
@@ -7266,7 +7339,7 @@
                         <button type="button" onclick="window.setLoginLanguage('en')"
                             class="w-full text-left px-3 py-2.5 text-[10px] font-bold hover:bg-blue-50 hover:text-blue-600 transition-colors">English</button>
                         <button type="button" onclick="window.setLoginLanguage('ja')"
-                            class="w-full text-left px-3 py-2.5 text-[10px] font-bold hover:bg-blue-50 hover:text-blue-600 transition-colors">日本語</button>
+                            class="w-full text-left px-3 py-2.5 text-[10px] font-bold hover:bg-blue-50 hover:text-blue-600 transition-colors">中国人</button>
                     </div>
                 </div>
             </div>
