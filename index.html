@@ -10708,8 +10708,8 @@
                                         <i data-lucide="map-pin" class="w-4 h-4 text-[#4285F4]"></i> Traveler
                                         Itinerary List
                                     </h3>
-                                    <button onclick="window.setBookingStep(1)"
-                                        class="text-xs font-bold text-[#4285F4] hover:text-blue-700 flex items-center gap-1"><i
+                                    <button type="button" id="conf-traveler-itinerary-add-btn" disabled aria-disabled="true"
+                                        class="text-xs font-bold text-slate-400 opacity-60 cursor-not-allowed flex items-center gap-1 pointer-events-none"><i
                                             data-lucide="plus-circle" class="w-3.5 h-3.5"></i> Add</button>
                                 </div>
                                 <div class="p-6">
@@ -10968,11 +10968,14 @@
                                         <!-- AI-ADDED: Trip type for reports; Prompt: Domestic / International selector -->
                                         <div class="form-row">
                                             <div class="form-group">
-                                                <label for="reports-trip-type">Trip Type <span class="required-mark">*</span></label>
-                                                <select id="reports-trip-type" class="w-full">
-                                                    <option value="domestic">Booking</option>
-                                                    <option value="international">International</option>
-                                                </select>
+                                                <p class="md:hidden text-sm text-slate-700"><span class="font-bold">Trip Type:</span> Booking</p>
+                                                <div class="hidden md:block">
+                                                    <label for="reports-trip-type">Trip Type <span class="required-mark">*</span></label>
+                                                    <select id="reports-trip-type" class="w-full">
+                                                        <option value="domestic">Booking</option>
+                                                        <option value="international">International</option>
+                                                    </select>
+                                                </div>
                                             </div>
                                             <div class="form-group">
                                                 <label for="reports-output-type">Output Report <span class="required-mark">*</span></label>
@@ -18673,6 +18676,14 @@
                         return;
                     }
                 }
+                const railTrip = document.querySelector('input[name="online-rail-trip-type"]:checked')?.value || 'round';
+                if (railTrip === 'oneway' && !window._onlineRailIsSequentialRound) {
+                    window.updateOnlineBookingFooterButtons?.();
+                    window.updateBookingStepNextButtonState?.();
+                    window.renderOnlineRailMobileStepper?.();
+                    window._focusOnlineMobileSearchPanel?.('rail');
+                    return;
+                }
             }
             window.updateOnlineBookingFooterButtons?.();
             window.updateBookingStepNextButtonState?.();
@@ -22050,6 +22061,7 @@
         window.handleOnlineFooterPrimaryClick = () => {
             const addBtn = document.getElementById('online-add-itinerary-btn');
             if (!addBtn || addBtn.disabled || addBtn.classList.contains('hidden')) return;
+            if (document.querySelector('.online-subtab-card[data-online-mode="hotel"].ring-2')) return;
             const mode = addBtn.getAttribute('data-footer-action') || 'book';
             if (mode === 'next') {
                 window.goToOnlineMultiNextLeg();
@@ -22073,16 +22085,13 @@
             const interactiveBookingVisible = window._isInteractiveBookingTabVisible?.() === true;
             const flightActive = interactiveBookingVisible && document.querySelector('.online-subtab-card[data-online-mode="flight"].ring-2');
             const railActive = interactiveBookingVisible && document.querySelector('.online-subtab-card[data-online-mode="rail"].ring-2');
-            const hotelActive = interactiveBookingVisible && document.querySelector('.online-subtab-card[data-online-mode="hotel"].ring-2');
             const carActive = interactiveBookingVisible && document.querySelector('.online-subtab-card[data-online-mode="car"].ring-2');
 
             const flightResults = document.getElementById('online-flight-results');
             const railResults = document.getElementById('online-rail-results');
-            const hotelResults = document.getElementById('online-hotel-results');
             const carResults = document.getElementById('online-car-results');
             const flightResultsVisible = flightResults && !flightResults.classList.contains('hidden');
             const railResultsVisible = railResults && !railResults.classList.contains('hidden');
-            const hotelResultsVisible = hotelResults && !hotelResults.classList.contains('hidden');
             const carResultsVisible = carResults && !carResults.classList.contains('hidden');
 
             if (window.isOnlineFlightMobileStepperActive?.() || window.isOnlineRailMobileStepperActive?.()) {
@@ -22102,18 +22111,18 @@
             const flightPlainSelected = window._onlineFlightSelectedGoing !== null || window._onlineFlightSelectedReturn !== null;
             const railPlainSelected = window._onlineRailSelectedGoing !== null || window._onlineRailSelectedReturn !== null;
 
-            const hotelHasSelection = hotelResultsVisible && window._onlineHotelSelectedIndex !== null;
             const carHasSelection = carResultsVisible && window._onlineCarSelectedIndex !== null;
 
             const flightShowFooter = !!(flightActive && flightResultsVisible && (
                 flightIsMultiLeg || (flightTrip !== 'oneway' && flightPlainSelected)
             ));
-            const railShowFooter = !!(railActive && railResultsVisible && (railIsMultiLeg || railPlainSelected));
+            const railShowFooter = !!(railActive && railResultsVisible && (
+                railIsMultiLeg || (railTrip !== 'oneway' && railPlainSelected)
+            ));
 
             const showFooter = !!(
                 flightShowFooter ||
                 railShowFooter ||
-                (hotelActive && hotelHasSelection) ||
                 (carActive && carHasSelection)
             );
             footer.classList.toggle('hidden', !showFooter);
@@ -22258,6 +22267,11 @@
                 addBtn.className = 'hidden ' + activeCls;
                 return;
             }
+            if (railActive && railResultsVisible && railTrip === 'oneway' && !railIsMultiLeg) {
+                addBtn.disabled = false;
+                addBtn.className = 'hidden ' + activeCls;
+                return;
+            }
             if (flightActive && flightResultsVisible && flightIsMultiLeg) {
                 const n = (window._multiCitySegments || []).length;
                 const k = window._onlineFlightMultiProgressLeg;
@@ -22283,12 +22297,15 @@
             const hotelActive = document.querySelector('.online-subtab-card[data-online-mode="hotel"].ring-2');
             const hotelResultsEl = document.getElementById('online-hotel-results');
             const hotelResultsVisible = hotelResultsEl && !hotelResultsEl.classList.contains('hidden');
+            if (hotelActive && hotelResultsVisible) {
+                addBtn.disabled = false;
+                addBtn.className = 'hidden ' + activeCls;
+                return;
+            }
             if (hotelActive) {
-                if (!hotelResultsVisible || window._onlineHotelSelectedIndex === null) {
-                    addBtn.disabled = true;
-                    addBtn.className = hiddenPrefix + disCls;
-                    return;
-                }
+                addBtn.disabled = true;
+                addBtn.className = hiddenPrefix + disCls;
+                return;
             }
             const carActive = document.querySelector('.online-subtab-card[data-online-mode="car"].ring-2');
             const carResultsEl = document.getElementById('online-car-results');
