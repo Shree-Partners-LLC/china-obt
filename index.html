@@ -5878,335 +5878,6 @@
             max-width: 920px;
         }
 
-        #online-fare-detail-modal .online-fare-compact-layout {
-            display: flex;
-            flex-direction: column;
-            gap: 0.9rem;
-            min-height: 0;
-            padding: 0.2rem;
-        }
-
-        #online-fare-detail-modal .online-fare-meta-strip {
-            display: flex;
-            flex-wrap: wrap;
-            align-items: center;
-            gap: 0.5rem 0.75rem;
-            padding: 0.85rem 1rem;
-            border: 1px solid #dbe7f6;
-            border-radius: 1.25rem;
-            background: linear-gradient(180deg, #f8fbff 0%, #eef5ff 100%);
-        }
-
-        #online-fare-detail-modal .online-fare-meta-strip__route {
-            font-size: 1rem;
-            font-weight: 900;
-            color: #0f172a;
-            letter-spacing: -0.01em;
-            margin-right: auto;
-            white-space: nowrap;
-        }
-
-        #online-fare-detail-modal .online-fare-meta-strip__items {
-            display: inline-flex;
-            flex-wrap: wrap;
-            align-items: center;
-            justify-content: flex-end;
-            gap: 0.35rem 0.5rem;
-            min-width: 0;
-            flex: 1 1 320px;
-        }
-
-        #online-fare-detail-modal .online-fare-meta-strip__item {
-            display: inline-flex;
-            align-items: center;
-            gap: 0.3rem;
-            max-width: 100%;
-            font-size: 0.72rem;
-            font-weight: 700;
-            color: #475569;
-            line-height: 1.25;
-            white-space: nowrap;
-        }
-
-        #online-fare-detail-modal .online-fare-meta-strip__item i {
-            width: 0.85rem;
-            height: 0.85rem;
-            color: #64748b;
-            flex-shrink: 0;
-        }
-
-        #online-fare-detail-modal .online-fare-meta-strip__dot {
-            color: #94a3b8;
-            font-size: 0.75rem;
-            line-height: 1;
-        }
-
-        #online-fare-detail-modal .online-fare-tier-stack {
-            display: flex;
-            flex-direction: column;
-            gap: 0.75rem;
-        }
-
-        #online-fare-detail-modal .online-fare-tier-accordion {
-            border: 1px solid #e2e8f0;
-            border-radius: 1.25rem;
-            background: #ffffff;
-            overflow: hidden;
-            transition: border-color 0.2s ease, box-shadow 0.2s ease;
-        }
-
-        #online-fare-detail-modal .online-fare-tier-accordion--active {
-            border-color: rgba(66, 133, 244, 0.45);
-            box-shadow: 0 12px 28px rgba(66, 133, 244, 0.12);
-        }
-
-        #online-fare-detail-modal .online-fare-tier-accordion__header {
-            width: 100%;
-            display: flex;
-            align-items: flex-start;
-            justify-content: space-between;
-            gap: 0.75rem;
-            padding: 0.95rem 1rem;
-            text-align: left;
-            background: transparent;
-        }
-
-        #online-fare-detail-modal .online-fare-tier-accordion__title {
-            font-size: 0.95rem;
-            font-weight: 900;
-            color: #0f172a;
-            line-height: 1.2;
-        }
-
-        #online-fare-detail-modal .online-fare-tier-accordion__sub {
-            font-size: 0.72rem;
-            font-weight: 600;
-            color: #64748b;
-            margin-top: 0.2rem;
-            line-height: 1.35;
-        }
-
-        #online-fare-detail-modal .online-fare-tier-accordion__summary {
-            display: flex;
-            flex-direction: column;
-            align-items: flex-end;
-            gap: 0.25rem;
-            text-align: right;
-            flex-shrink: 0;
-        }
-
-        #online-fare-detail-modal .online-fare-tier-accordion__count {
-            display: inline-flex;
-            align-items: center;
-            gap: 0.35rem;
-            padding: 0.2rem 0.55rem;
-            border-radius: 9999px;
-            background: #eff6ff;
-            color: #0a3266;
-            font-size: 0.65rem;
-            font-weight: 800;
-            letter-spacing: 0.04em;
-            text-transform: uppercase;
-        }
-
-        #online-fare-detail-modal .online-fare-tier-accordion__price {
-            font-size: 1rem;
-            font-weight: 900;
-            color: #0a3266;
-            line-height: 1;
-        }
-
-        #online-fare-detail-modal .online-fare-tier-accordion__price-note {
-            font-size: 0.67rem;
-            font-weight: 700;
-            color: #94a3b8;
-        }
-
-        #online-fare-detail-modal .online-fare-tier-accordion__chevron {
-            color: #64748b;
-            transition: transform 0.2s ease;
-        }
-
-        #online-fare-detail-modal .online-fare-tier-accordion--active .online-fare-tier-accordion__chevron {
-            transform: rotate(180deg);
-        }
-
-        #online-fare-detail-modal .online-fare-tier-accordion__panel {
-            padding: 0 1rem 1rem;
-            border-top: 1px solid #f1f5f9;
-            background: linear-gradient(180deg, rgba(248, 250, 252, 0.55) 0%, rgba(255, 255, 255, 0.98) 100%);
-        }
-
-        #online-fare-detail-modal .online-fare-tier-accordion__panel-head {
-            display: flex;
-            flex-wrap: wrap;
-            align-items: center;
-            justify-content: space-between;
-            gap: 0.5rem;
-            padding: 0.8rem 0 0.25rem;
-        }
-
-        #online-fare-detail-modal .online-fare-tier-accordion__panel-title {
-            font-size: 0.72rem;
-            font-weight: 900;
-            letter-spacing: 0.08em;
-            text-transform: uppercase;
-            color: #64748b;
-        }
-
-        #online-fare-detail-modal .online-fare-tier-accordion__panel-sub {
-            font-size: 0.72rem;
-            font-weight: 600;
-            color: #64748b;
-        }
-
-        #online-fare-detail-modal .online-fare-offer-stack {
-            display: flex;
-            flex-direction: column;
-            gap: 0.65rem;
-        }
-
-        #online-fare-detail-modal .online-fare-offer-row {
-            width: 100%;
-            border: 1px solid #dbe5f0;
-            border-radius: 1rem;
-            background: #ffffff;
-            padding: 0.85rem 0.9rem;
-            text-align: left;
-            transition: border-color 0.2s ease, box-shadow 0.2s ease, background 0.2s ease;
-        }
-
-        #online-fare-detail-modal .online-fare-offer-row:hover {
-            border-color: rgba(66, 133, 244, 0.35);
-        }
-
-        #online-fare-detail-modal .online-fare-offer-row--selected {
-            border-color: #4285f4;
-            background: linear-gradient(180deg, #ffffff 0%, #f8fbff 100%);
-            box-shadow: 0 10px 24px rgba(66, 133, 244, 0.12);
-        }
-
-        #online-fare-detail-modal .online-fare-offer-row__top {
-            display: flex;
-            align-items: flex-start;
-            justify-content: space-between;
-            gap: 0.85rem;
-        }
-
-        #online-fare-detail-modal .online-fare-offer-row__badge {
-            display: inline-flex;
-            align-items: center;
-            justify-content: center;
-            min-height: 1.35rem;
-            padding: 0.15rem 0.5rem;
-            border-radius: 9999px;
-            background: #e0ecff;
-            color: #0a3266;
-            font-size: 0.62rem;
-            font-weight: 900;
-            letter-spacing: 0.06em;
-            text-transform: uppercase;
-        }
-
-        #online-fare-detail-modal .online-fare-offer-row__name {
-            font-size: 0.9rem;
-            font-weight: 900;
-            color: #0f172a;
-            margin-top: 0.35rem;
-            line-height: 1.2;
-        }
-
-        #online-fare-detail-modal .online-fare-offer-row__sub {
-            font-size: 0.72rem;
-            font-weight: 600;
-            color: #64748b;
-            margin-top: 0.2rem;
-            line-height: 1.4;
-        }
-
-        #online-fare-detail-modal .online-fare-offer-row__price {
-            display: flex;
-            flex-direction: column;
-            align-items: flex-end;
-            gap: 0.2rem;
-            flex-shrink: 0;
-            text-align: right;
-        }
-
-        #online-fare-detail-modal .online-fare-offer-row__price-value {
-            font-size: 1rem;
-            font-weight: 900;
-            color: #0a3266;
-            line-height: 1;
-        }
-
-        #online-fare-detail-modal .online-fare-offer-row__price-note {
-            font-size: 0.64rem;
-            font-weight: 700;
-            color: #94a3b8;
-        }
-
-        #online-fare-detail-modal .online-fare-offer-row__indicator {
-            display: inline-flex;
-            align-items: center;
-            justify-content: center;
-            width: 1.15rem;
-            height: 1.15rem;
-            border-radius: 9999px;
-            border: 1.5px solid #94a3b8;
-            color: transparent;
-            margin-top: 0.45rem;
-        }
-
-        #online-fare-detail-modal .online-fare-offer-row--selected .online-fare-offer-row__indicator {
-            border-color: #4285f4;
-            background: #4285f4;
-            color: #ffffff;
-        }
-
-        #online-fare-detail-modal .online-fare-offer-row__features {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 0.35rem;
-            margin-top: 0.7rem;
-        }
-
-        #online-fare-detail-modal .online-fare-offer-row__feature {
-            display: inline-flex;
-            align-items: center;
-            gap: 0.32rem;
-            max-width: 100%;
-            padding: 0.35rem 0.5rem;
-            border-radius: 9999px;
-            background: #f8fafc;
-            color: #475569;
-            font-size: 0.67rem;
-            font-weight: 700;
-            line-height: 1.2;
-        }
-
-        #online-fare-detail-modal .online-fare-offer-row__feature i {
-            width: 0.8rem;
-            height: 0.8rem;
-            color: #64748b;
-            flex-shrink: 0;
-        }
-
-        #online-fare-detail-modal .online-fare-offer-row__actions {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            gap: 0.75rem;
-            margin-top: 0.75rem;
-        }
-
-        #online-fare-detail-modal .online-fare-offer-row__rules {
-            font-size: 0.67rem;
-            font-weight: 700;
-            color: #64748b;
-            line-height: 1.4;
-        }
-
         #online-fare-detail-modal .online-fare-modal-layout {
             display: grid;
             grid-template-columns: minmax(0, 1.05fr) minmax(340px, 0.95fr);
@@ -6662,8 +6333,7 @@
             margin: 0;
         }
 
-        #online-fare-detail-modal .online-flight-fare-offer__summary,
-        #online-fare-detail-modal .online-fare-offer-row__rules {
+        #online-fare-detail-modal .online-flight-fare-offer__summary {
             display: none;
         }
 
@@ -7088,43 +6758,6 @@
                 width: min(100%, 96vw);
             }
 
-            #online-fare-detail-modal .online-fare-meta-strip {
-                padding: 0.8rem 0.85rem;
-            }
-
-            #online-fare-detail-modal .online-fare-meta-strip__route {
-                width: 100%;
-                margin-right: 0;
-            }
-
-            #online-fare-detail-modal .online-fare-meta-strip__items {
-                justify-content: flex-start;
-                flex-basis: 100%;
-                gap: 0.25rem 0.45rem;
-            }
-
-            #online-fare-detail-modal .online-fare-tier-accordion__header,
-            #online-fare-detail-modal .online-fare-tier-accordion__panel {
-                padding-left: 0.85rem;
-                padding-right: 0.85rem;
-            }
-
-            #online-fare-detail-modal .online-fare-tier-accordion__header {
-                flex-direction: column;
-            }
-
-            #online-fare-detail-modal .online-fare-tier-accordion__summary,
-            #online-fare-detail-modal .online-fare-offer-row__price {
-                align-items: flex-start;
-                text-align: left;
-            }
-
-            #online-fare-detail-modal .online-fare-offer-row__top,
-            #online-fare-detail-modal .online-fare-offer-row__actions {
-                flex-direction: column;
-                align-items: flex-start;
-            }
-
             #online-fare-detail-modal .online-flight-fare-summary,
             #online-fare-detail-modal .online-flight-fare-offers-panel {
                 padding: 0.9rem;
@@ -7366,7 +6999,7 @@
                         <button type="button" onclick="window.setLoginLanguage('en')"
                             class="w-full text-left px-3 py-2 text-[10px] font-bold hover:bg-blue-50 hover:text-blue-600 transition-colors">English</button>
                         <button type="button" onclick="window.setLoginLanguage('ja')"
-                            class="w-full text-left px-3 py-2 text-[10px] font-bold hover:bg-blue-50 hover:text-blue-600 transition-colors">日本語</button>
+                            class="w-full text-left px-3 py-2 text-[10px] font-bold hover:bg-blue-50 hover:text-blue-600 transition-colors">中国人</button>
                     </div>
                 </div>
                 </div>
@@ -18006,7 +17639,7 @@
             if (itin) {
                 itin.textContent = isFlight
                     ? 'Choose the fare family and bundle that best matches your baggage and flexibility needs.'
-                    : `${row.service} ${serviceNumber} · ${row.time} · ${row.dur}`;
+                    : 'Choose the cabin tier and bundle that best matches your seat, change, and refund needs.';
             }
             if (!wrap) return;
             if (isFlight) {
@@ -18124,81 +17757,103 @@
                     });
                 });
             } else {
-                const metaItems = [
-                    { icon: 'train-front', text: `${row.service} ${serviceNumber}` },
-                    { icon: 'route', text: `${fromCode} → ${toCode}` },
-                    { icon: 'clock-3', text: row.time },
-                    { icon: 'timer-reset', text: row.dur }
-                ];
+                const seatLabels = { second: '2nd Class', first: '1st Class', business: 'Business Class' };
+                const railTierLabels = { highspeed: 'High-speed', express: 'Express', local: 'Local' };
+                const routeFrom = row.depStation || fromCode;
+                const routeTo = row.arrStation || toCode;
+                const seatLabel = seatLabels[row.seatClass || 'second'] || '2nd Class';
+                const tierLabel = railTierLabels[row.railtier || 'express'] || 'Express';
+                const trainBadge = String(row.service || 'TR').replace(/[^A-Za-z0-9]/g, '').slice(0, 2).toUpperCase() || 'TR';
+                const depCity = row.depStation || fromCode;
+                const arrCity = row.arrStation || toCode;
                 wrap.innerHTML = `
-                    <div class="online-fare-compact-layout">
-                        <div class="online-fare-meta-strip">
-                            <p class="online-fare-meta-strip__route">${window._onlineUiEsc(fromCode)} <span class="text-slate-400">→</span> ${window._onlineUiEsc(toCode)}</p>
-                            <div class="online-fare-meta-strip__items">
-                                ${metaItems.map((item, index) => `
-                                    ${index ? '<span class="online-fare-meta-strip__dot">&bull;</span>' : ''}
-                                    <span class="online-fare-meta-strip__item"><i data-lucide="${item.icon}" class="w-3.5 h-3.5"></i>${window._onlineUiEsc(item.text)}</span>
-                                `).join('')}
+                    <div class="online-flight-fare-wizard">
+                        <section class="online-flight-fare-summary">
+                            <div class="online-flight-fare-summary__top">
+                                <div class="min-w-0">
+                                    <p class="online-flight-fare-summary__kicker">Train Journey Summary</p>
+                                    <p class="online-flight-fare-summary__route">${window._onlineUiEsc(routeFrom)} <span class="text-slate-400">→</span> ${window._onlineUiEsc(routeTo)}</p>
+                                </div>
                             </div>
-                        </div>
-                        <div class="online-fare-tier-stack">
+                            <div class="online-flight-fare-summary__meta">
+                                <div class="online-flight-fare-summary__carrier">
+                                    <span class="online-flight-fare-summary__carrier-logo">${window._onlineUiEsc(trainBadge)}</span>
+                                    <div class="min-w-0">
+                                        <p class="online-flight-fare-summary__carrier-line">${window._onlineUiEsc(row.service)} <span class="text-slate-400">•</span> ${window._onlineUiEsc(serviceNumber)}</p>
+                                        <p class="online-flight-fare-summary__carrier-sub">${window._onlineUiEsc(seatLabel)} <span class="text-slate-400">•</span> ${window._onlineUiEsc(tierLabel)}</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="online-flight-fare-timeline">
+                                <div class="online-flight-fare-timeline__point">
+                                    <p class="online-flight-fare-timeline__time">${window._onlineUiEsc(depTime || row.time)}</p>
+                                    <p class="online-flight-fare-timeline__city">${window._onlineUiEsc(depCity)}</p>
+                                    <p class="online-flight-fare-timeline__code">${window._onlineUiEsc(fromCode)}</p>
+                                </div>
+                                <div class="online-flight-fare-timeline__mid">
+                                    <span class="online-flight-fare-timeline__duration">${window._onlineUiEsc(row.dur)}</span>
+                                    <span class="online-flight-fare-timeline__line"></span>
+                                    <span class="online-flight-fare-timeline__stops">Direct</span>
+                                </div>
+                                <div class="online-flight-fare-timeline__point online-flight-fare-timeline__point--end">
+                                    <p class="online-flight-fare-timeline__time">${window._onlineUiEsc(arrTime || row.time)}</p>
+                                    <p class="online-flight-fare-timeline__city">${window._onlineUiEsc(arrCity)}</p>
+                                    <p class="online-flight-fare-timeline__code">${window._onlineUiEsc(toCode)}</p>
+                                </div>
+                            </div>
+                        </section>
+                        <div class="online-flight-fare-tier-tabs" role="tablist" aria-label="Fare type selector">
                             ${fares.map((fare) => {
-                                const isActive = fare.name === activeCategory.name;
-                                const categoryDescriptor = window._getOnlineFareCategoryDescriptor(mode, fare.name, row);
-                                const tierOffers = window._buildOnlineFareOffers(mode, row, fare);
+                                const tabActive = fare.name === activeCategory.name;
+                                const tabDescriptor = window._getOnlineFareCategoryDescriptor(mode, fare.name, row);
                                 return `
-                                    <section class="online-fare-tier-accordion${isActive ? ' online-fare-tier-accordion--active' : ''}">
-                                        <button type="button" class="online-fare-tier-accordion__header" data-fare-category="${encodeURIComponent(fare.name)}">
-                                            <div class="min-w-0">
-                                                <p class="online-fare-tier-accordion__title">${window._onlineUiEsc(fare.name)}</p>
-                                                <p class="online-fare-tier-accordion__sub">${window._onlineUiEsc(categoryDescriptor)}</p>
-                                            </div>
-                                            <div class="online-fare-tier-accordion__summary">
-                                                <span class="online-fare-tier-accordion__count">${tierOffers.length} offers</span>
-                                                <p class="online-fare-tier-accordion__price">¥${Number(fare.price).toLocaleString()}</p>
-                                                <p class="online-fare-tier-accordion__price-note">from per adult</p>
-                                                <i data-lucide="chevron-down" class="online-fare-tier-accordion__chevron w-4 h-4"></i>
-                                            </div>
-                                        </button>
-                                        <div class="online-fare-tier-accordion__panel${isActive ? '' : ' hidden'}">
-                                            <div class="online-fare-tier-accordion__panel-head">
-                                                <p class="online-fare-tier-accordion__panel-title">Select an offer</p>
-                                                <p class="online-fare-tier-accordion__panel-sub">${window._onlineUiEsc(categoryDescriptor)}</p>
-                                            </div>
-                                            <div class="online-fare-offer-stack">
-                                                ${tierOffers.map((offer) => {
-                                                    const isSelected = selectedFare?.name === offer.name;
-                                                    const isExpanded = !!ctx.expandedOfferKeys[offer.name];
-                                                    return `
-                                                        <div class="online-fare-offer-row${isSelected ? ' online-fare-offer-row--selected' : ''}" data-fare-offer-select="${encodeURIComponent(offer.name)}" data-fare-offer-price="${offer.price}" role="button" tabindex="0">
-                                                            <div class="online-fare-offer-row__top">
-                                                                <div class="min-w-0">
-                                                                    <span class="online-fare-offer-row__badge">${window._onlineUiEsc(fare.name)}</span>
-                                                                    <p class="online-fare-offer-row__name">${window._onlineUiEsc(offer.name)}</p>
-                                                                    <p class="online-fare-offer-row__sub">${window._onlineUiEsc(offer.subtitle)}</p>
-                                                                </div>
-                                                                <div class="flex items-start gap-3 shrink-0">
-                                                                    <div class="online-fare-offer-row__price">
-                                                                        <p class="online-fare-offer-row__price-value">¥${Number(offer.price).toLocaleString()}</p>
-                                                                        <p class="online-fare-offer-row__price-note">per adult</p>
-                                                                    </div>
-                                                                    <span class="online-fare-offer-row__indicator"><i data-lucide="check" class="w-3 h-3"></i></span>
-                                                                </div>
-                                                            </div>
-                                                            <div class="online-fare-offer-row__features">
-                                                                ${window._buildFareOfferPrimaryFeaturesHtml(offer, 'rail')}
-                                                            </div>
-                                                            <div class="online-fare-offer-row__actions">
-                                                                <button type="button" class="online-fare-offer-details-toggle" data-fare-offer-toggle="${encodeURIComponent(offer.name)}">${isExpanded ? 'Hide details ∧' : 'View details ∨'}</button>
-                                                            </div>
-                                                            ${isExpanded ? `<div class="online-fare-offer-details">${window._buildFareOfferDetailsPanelHtml(offer)}</div>` : ''}
-                                                        </div>`;
-                                                }).join('')}
-                                            </div>
+                                    <button type="button" class="online-flight-fare-tier-tab${tabActive ? ' online-flight-fare-tier-tab--active' : ''}" data-fare-category="${encodeURIComponent(fare.name)}" role="tab" aria-selected="${tabActive}">
+                                        <div class="min-w-0">
+                                            <p class="online-flight-fare-tier-tab__name">${window._onlineUiEsc(fare.name)}</p>
+                                            <p class="online-flight-fare-tier-tab__sub">${window._onlineUiEsc(tabDescriptor)}</p>
                                         </div>
-                                    </section>`;
+                                        <div>
+                                            <p class="online-flight-fare-tier-tab__price">¥${Number(fare.price).toLocaleString()}</p>
+                                            <p class="online-flight-fare-tier-tab__price-note">starting per adult</p>
+                                        </div>
+                                    </button>`;
                             }).join('')}
                         </div>
+                        <section class="online-flight-fare-offers-panel">
+                            <div class="online-flight-fare-offers-panel__head">
+                                <div class="min-w-0">
+                                    <p class="online-flight-fare-offers-panel__title">${window._onlineUiEsc(activeCategory.name)}</p>
+                                    <p class="online-flight-fare-offers-panel__sub">${window._onlineUiEsc(descriptor)}</p>
+                                </div>
+                            </div>
+                            <div class="online-flight-fare-offer-stack">
+                                ${offers.map((offer) => {
+                                    const isSelected = selectedFare?.name === offer.name;
+                                    const isExpanded = !!ctx.expandedOfferKeys[offer.name];
+                                    return `
+                                        <div class="online-flight-fare-offer${isSelected ? ' online-flight-fare-offer--selected' : ''}" data-fare-offer-select="${encodeURIComponent(offer.name)}" data-fare-offer-price="${offer.price}" role="button" tabindex="0">
+                                            <span class="online-flight-fare-offer__radio"><i data-lucide="check" class="w-3 h-3"></i></span>
+                                            <div class="online-flight-fare-offer__top">
+                                                <div class="min-w-0">
+                                                    <p class="online-flight-fare-offer__name">${window._onlineUiEsc(offer.name)}</p>
+                                                    <p class="online-flight-fare-offer__sub">${window._onlineUiEsc(offer.subtitle)}</p>
+                                                </div>
+                                                <div class="online-flight-fare-offer__price">
+                                                    <p class="online-flight-fare-offer__price-value">¥${Number(offer.price).toLocaleString()}</p>
+                                                    <p class="online-flight-fare-offer__price-note">per adult</p>
+                                                </div>
+                                            </div>
+                                            <div class="online-flight-fare-offer__chips">
+                                                ${window._buildFareOfferPrimaryFeaturesHtml(offer, 'flight')}
+                                            </div>
+                                            <div class="online-flight-fare-offer__actions">
+                                                <button type="button" class="online-fare-offer-details-toggle" data-fare-offer-toggle="${encodeURIComponent(offer.name)}">${isExpanded ? 'Hide details ∧' : 'View details ∨'}</button>
+                                            </div>
+                                            ${isExpanded ? `<div class="online-fare-offer-details">${window._buildFareOfferDetailsPanelHtml(offer)}</div>` : ''}
+                                        </div>`;
+                                }).join('')}
+                            </div>
+                        </section>
                         <div class="online-fare-disclaimer">All fares are per adult and include taxes. Select the bundle that best matches your baggage, change, and refund needs.</div>
                     </div>`;
             }
