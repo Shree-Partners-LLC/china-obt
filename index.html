@@ -17921,7 +17921,7 @@
 
         window._buildOnlineFareServiceNumber = (mode, row, idx) => {
             if (mode === 'flight') {
-                const airlineMap = { JAL: 'JL', ANA: 'NH', IndiGo: '6E', 'Spring Japan': 'IJ', 'Air China': 'CA', 'China Eastern Airlines': 'MU', 'China Southern Airlines': 'CZ', 'Hainan Airlines': 'HU' };
+                const airlineMap = { JAL: 'JL', ANA: 'NH', 'Shenzhen Airlines': 'ZH', 'Spring Japan': 'IJ', 'Air China': 'CA', 'China Eastern Airlines': 'MU', 'China Southern Airlines': 'CZ', 'Hainan Airlines': 'HU' };
                 const code = airlineMap[row.airline] || String(row.airline || 'FL').replace(/[^A-Za-z]/g, '').slice(0, 2).toUpperCase() || 'FL';
                 return `${code}${String(180 + idx * 7).padStart(3, '0')}`;
             }
@@ -18086,7 +18086,7 @@
 
         window._buildOnlineFareServiceNumber = (mode, row, idx) => {
             if (mode === 'flight') {
-                const airlineMap = { JAL: 'JL', ANA: 'NH', IndiGo: '6E', 'Spring Japan': 'IJ', 'Air China': 'CA', 'China Eastern Airlines': 'MU', 'China Southern Airlines': 'CZ', 'Hainan Airlines': 'HU' };
+                const airlineMap = { JAL: 'JL', ANA: 'NH', 'Shenzhen Airlines': 'ZH', 'Spring Japan': 'IJ', 'Air China': 'CA', 'China Eastern Airlines': 'MU', 'China Southern Airlines': 'CZ', 'Hainan Airlines': 'HU' };
                 const code = airlineMap[row.airline] || String(row.airline || 'FL').replace(/[^A-Za-z]/g, '').slice(0, 2).toUpperCase() || 'FL';
                 return `${code}${String(180 + idx * 7).padStart(3, '0')}`;
             }
@@ -20173,7 +20173,7 @@
         };
 
         window._buildMockOnlineFlights = (originCode, destCode, reverse) => {
-            const airlines = ['Air China', 'China Eastern Airlines', 'IndiGo', 'Hainan Airlines', 'China Southern Airlines'];
+            const airlines = ['Air China', 'China Eastern Airlines', 'Shenzhen Airlines', 'Hainan Airlines', 'China Southern Airlines'];
             const rows = [];
             for (let i = 0; i < 12; i++) {
                 const startM = 6 * 60 + i * 48;
@@ -23921,7 +23921,7 @@
         }
 
         function generateMockFlights(origin, destination, date, count, minDepartureTime) {
-            const carriers = ['Air China', 'China Eastern Airlines', 'IndiGo', 'Air India', 'SpiceJet'];
+            const carriers = ['Air China', 'China Eastern Airlines', 'Shenzhen Airlines', 'Air India', 'SpiceJet'];
             const flights = [];
             const minMins = minDepartureTime ? parseTimeToMinutes(minDepartureTime) : 6 * 60;
             const startMins = Math.max(minMins, 6 * 60);
