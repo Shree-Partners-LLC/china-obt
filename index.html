@@ -15341,6 +15341,9 @@
             return false;
         };
         window.handleBookingStepNext = () => {
+            if (window._isOnlineRailOnewayMobileContext?.() && !(window.itineraryItems || []).length) {
+                return;
+            }
             const interactiveBookingVisible = window._isInteractiveBookingTabVisible?.() === true;
             if (interactiveBookingVisible && !(window.itineraryItems || []).length && window._hasActiveOnlineSelection()) {
                 const mode = window._getActiveOnlineMode();
@@ -18680,8 +18683,12 @@
                 if (railTrip === 'oneway' && !window._onlineRailIsSequentialRound) {
                     window.updateOnlineBookingFooterButtons?.();
                     window.updateBookingStepNextButtonState?.();
-                    window.renderOnlineRailMobileStepper?.();
-                    window._focusOnlineMobileSearchPanel?.('rail');
+                    if (window._isOnlineRailOnewayMobileContext?.()) {
+                        window.renderOnlineRailMobileStepper?.();
+                    } else {
+                        window.renderOnlineRailMobileStepper?.();
+                        window._focusOnlineMobileSearchPanel?.('rail');
+                    }
                     return;
                 }
             }
@@ -19487,6 +19494,13 @@
             return segs.length > 0 && sel.length === segs.length && sel.every((item) => item && item.row);
         };
         window._onlineRailMobileAllDone = () => {
+            if (window._isOnlineRailOnewayMobileContext?.()) {
+                const idx = window._onlineRailSelectedGoing;
+                if (idx == null) return false;
+                const row = window._onlineRailGoingRows?.[idx];
+                if (!row) return false;
+                return !!window._onlineFareSelection?.rail?.[`going-${idx}`];
+            }
             const segs = window._multiCitySegments || [];
             const sel = window._onlineRailMultiSelections || [];
             return segs.length > 0 && sel.length === segs.length && sel.every((item) => item && item.row);
@@ -19501,7 +19515,26 @@
                 && !results.classList.contains('hidden')
                 && (trip === 'multiple' || window._onlineFlightIsSequentialRound);
         };
+        window._isOnlineRailOnewayMobileContext = () => {
+            const trip = document.querySelector('input[name="online-rail-trip-type"]:checked')?.value;
+            const railActive = document.querySelector('.online-subtab-card[data-online-mode="rail"].ring-2');
+            const results = document.getElementById('online-rail-results');
+            return window.isMobileBookingViewport?.()
+                && trip === 'oneway'
+                && !window._onlineRailIsSequentialRound
+                && !!railActive
+                && !!results
+                && !results.classList.contains('hidden');
+        };
+        window._getOnlineRailOnewayMobileSegments = () => {
+            const from = document.getElementById('online-rail-from')?.value?.trim() || '';
+            const to = document.getElementById('online-rail-to')?.value?.trim() || '';
+            const date = document.getElementById('online-rail-depart-date')?.value || '';
+            if (!from && !to && !date) return [];
+            return [{ from, to, date }];
+        };
         window.isOnlineRailMobileStepperActive = () => {
+            if (window._isOnlineRailOnewayMobileContext?.()) return true;
             const trip = document.querySelector('input[name="online-rail-trip-type"]:checked')?.value || 'round';
             const railActive = document.querySelector('.online-subtab-card[data-online-mode="rail"].ring-2');
             const results = document.getElementById('online-rail-results');
@@ -19733,6 +19766,31 @@
             }, delay);
         };
         window._getOnlineRailMobileSelectionSummary = (legIndex) => {
+            if (window._isOnlineRailOnewayMobileContext?.() && legIndex === 0) {
+                const segs = window._getOnlineRailOnewayMobileSegments?.() || [];
+                const seg = segs[0];
+                const idx = window._onlineRailSelectedGoing;
+                const row = idx != null ? window._onlineRailGoingRows?.[idx] : null;
+                if (!seg || !row) return null;
+                const fare = window._onlineFareSelection?.rail?.[`going-${idx}`] || {};
+                const timeBits = String(row.time || '').split(/\s*[–—-]\s*/);
+                const dep = (timeBits[0] || '').trim();
+                const arr = (timeBits[1] || timeBits[0] || '').trim();
+                const price = Number(fare.price ?? row.price ?? 0) || 0;
+                return {
+                    legIndex: 0,
+                    tripLabel: window.getWorkflowLegLabel(0),
+                    routeText: `${seg.from || '—'} -> ${seg.to || '—'}`,
+                    airline: row.service || 'Train',
+                    timeLine: `${dep || '—'} - ${arr || '—'}`,
+                    dateLine: window.formatOnlineFlightDateDisplay ? window.formatOnlineFlightDateDisplay(seg.date) : (seg.date || '—'),
+                    durationLine: row.dur || '',
+                    fareName: fare.name || '',
+                    price,
+                    priceText: `¥${price.toLocaleString()}`,
+                    airportLine: `${row.depStation || seg.from || '—'} -> ${row.arrStation || seg.to || '—'}`
+                };
+            }
             const seg = (window._multiCitySegments || [])[legIndex];
             const sel = (window._onlineRailMultiSelections || [])[legIndex];
             if (!seg || !sel || !sel.row) return null;
@@ -20050,6 +20108,13 @@
             window.renderOnlineRailMobileStepper?.();
         };
         window.completeOnlineRailMobileReview = () => {
+            if (window._isOnlineRailOnewayMobileContext?.()) {
+                window._onlineRailMobileReviewOpen = false;
+                window.bookOnlineProvider?.();
+                window.renderOnlineRailMobileStepper?.();
+                window.scrollToBookingStep1ItineraryList?.({ behavior: 'smooth', block: 'nearest' });
+                return;
+            }
             window.bookOnlineProvider();
         };
         window.renderOnlineRailMobileStepper = () => {
@@ -20078,8 +20143,10 @@
                 return;
             }
 
-            const segs = window._multiCitySegments || [];
-            const active = window._onlineRailMultiProgressLeg;
+            const segs = window._isOnlineRailOnewayMobileContext?.()
+                ? (window._getOnlineRailOnewayMobileSegments?.() || [])
+                : (window._multiCitySegments || []);
+            const active = window._isOnlineRailOnewayMobileContext?.() ? 0 : window._onlineRailMultiProgressLeg;
             const allDone = window._onlineRailMobileAllDone();
             const selectedSummaries = segs.map((_, idx) => window._getOnlineRailMobileSelectionSummary(idx)).filter(Boolean);
             const completedCards = selectedSummaries.filter((item) => allDone || item.legIndex !== active);
@@ -23311,6 +23378,12 @@
                     step1Nav?.classList.remove('hidden');
                     const bothRail = window._onlineRailSelectedGoing !== null && window._onlineRailSelectedReturn !== null;
                     if (bothRail) window.enableBookingStepNextButton();
+                    else window.disableBookingStepNextButton();
+                    return;
+                }
+                if (interactiveBookingVisible && railActive && railResultsVisible && onlineRailTrip === 'oneway' && !window._onlineRailIsSequentialRound) {
+                    step1Nav?.classList.remove('hidden');
+                    if ((window.itineraryItems || []).length > 0) window.enableBookingStepNextButton();
                     else window.disableBookingStepNextButton();
                     return;
                 }
