@@ -702,6 +702,33 @@
             border-color: var(--accent-blue);
         }
 
+        .booking-validation-toast {
+            box-shadow: 0 10px 40px rgba(15, 23, 42, 0.12);
+        }
+
+        .booking-validation-toast__text {
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            max-width: 92vw;
+        }
+
+        @media (min-width: 640px) {
+            .booking-validation-toast__text {
+                max-width: none;
+            }
+        }
+
+        #page-booking .booking-mobile-date-icon {
+            color: #94a3b8;
+            z-index: 1;
+        }
+
+        [data-booking-guarded][aria-disabled="true"] {
+            opacity: 0.4;
+            cursor: not-allowed;
+        }
+
         .booking-fieldset {
             border: 1px solid var(--border-gray);
             border-radius: 6px;
@@ -1669,7 +1696,7 @@
                 align-items: baseline;
                 flex-wrap: wrap;
                 gap: 0.35rem;
-                padding-right: 1.5rem;
+                padding-right: 2rem;
                 pointer-events: none;
             }
 
@@ -9801,7 +9828,7 @@
                                                                 <div class="material-date-field w-full">
                                                                     <span id="online-flight-depart-display" class="online-flight-date-display" aria-hidden="true"></span>
                                                                     <input type="date" id="online-flight-depart-date" class="material-date-input"
-                                                                        value="2026-03-25" aria-label="Departure date">
+                                                                        aria-label="Departure date">
                                                                     <i data-lucide="calendar" class="material-date-icon w-4 h-4"></i>
                                                                 </div>
                                                             </div>
@@ -9817,7 +9844,7 @@
                                                                 <div class="material-date-field w-full">
                                                                     <span id="online-flight-return-display" class="online-flight-date-display" aria-hidden="true"></span>
                                                                     <input type="date" id="online-flight-return-date" class="material-date-input"
-                                                                        value="2026-03-27" aria-label="Return date">
+                                                                        aria-label="Return date">
                                                                     <i data-lucide="calendar" class="material-date-icon w-4 h-4"></i>
                                                                 </div>
                                                             </div>
@@ -9854,7 +9881,7 @@
                                                     </div>
                                                 </div>
                                                 <div class="online-flight-search-btn-wrap flex justify-center pt-1 max-md:pt-0">
-                                                    <button type="button" onclick="window.searchOnlineFlight()"
+                                                    <button type="button" id="online-flight-search-btn" data-booking-guarded="true" aria-disabled="false" onclick="window.searchOnlineFlight()"
                                                         class="online-flight-search-submit w-full bg-[#1A62F3] text-white px-10 py-3 rounded-lg font-extrabold text-sm hover:opacity-95 transition-all shadow-sm max-md:min-h-[52px]">
                                                         Search Flights
                                                     </button>
@@ -10054,7 +10081,7 @@
                                                                 <div class="material-date-field w-full">
                                                                     <span id="online-rail-depart-display" class="online-flight-date-display" aria-hidden="true"></span>
                                                                     <input type="date" id="online-rail-depart-date" class="material-date-input"
-                                                                        value="2026-03-25" aria-label="Travel date">
+                                                                        aria-label="Travel date">
                                                                     <i data-lucide="calendar" class="material-date-icon w-4 h-4"></i>
                                                                 </div>
                                                             </div>
@@ -10069,7 +10096,7 @@
                                                                 <div class="material-date-field w-full">
                                                                     <span id="online-rail-return-display" class="online-flight-date-display" aria-hidden="true"></span>
                                                                     <input type="date" id="online-rail-return-date" class="material-date-input"
-                                                                        value="2026-03-27" aria-label="Return date">
+                                                                        aria-label="Return date">
                                                                     <i data-lucide="calendar" class="material-date-icon w-4 h-4"></i>
                                                                 </div>
                                                             </div>
@@ -10091,7 +10118,7 @@
                                                     </div>
                                                 </div>
                                                 <div class="flex justify-center pt-1">
-                                                    <button type="button" onclick="window.searchOnlineRail()"
+                                                    <button type="button" id="online-rail-search-btn" data-booking-guarded="true" aria-disabled="false" onclick="window.searchOnlineRail()"
                                                         class="w-full bg-[#1A62F3] text-white px-10 py-3 rounded-lg font-extrabold text-sm hover:opacity-95 transition-all shadow-sm max-md:min-h-[52px]">
                                                         Search Trains
                                                     </button>
@@ -10242,24 +10269,26 @@
                                                     <div class="grid grid-cols-2 gap-3 w-full md:contents">
                                                         <div class="form-group !mb-0 booking-mobile-date-card flex-1 min-w-0">
                                                             <label for="online-hotel-checkin">Check-in</label>
-                                                            <div class="booking-mobile-date-field">
+                                                            <div class="booking-mobile-date-field relative">
                                                                 <span id="online-hotel-checkin-display" class="booking-mobile-date-display" aria-hidden="true"></span>
                                                                 <input type="date" id="online-hotel-checkin" class="w-full rounded-lg border border-slate-200 px-3 py-2 text-sm booking-mobile-native-date-input"
-                                                                    value="2026-03-25" aria-label="Check-in date">
+                                                                    aria-label="Check-in date">
+                                                                <i data-lucide="calendar" class="booking-mobile-date-icon absolute right-3 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-400 pointer-events-none"></i>
                                                             </div>
                                                         </div>
                                                         <div class="form-group !mb-0 booking-mobile-date-card flex-1 min-w-0">
                                                             <label for="online-hotel-checkout">Check-out</label>
-                                                            <div class="booking-mobile-date-field">
+                                                            <div class="booking-mobile-date-field relative">
                                                                 <span id="online-hotel-checkout-display" class="booking-mobile-date-display" aria-hidden="true"></span>
                                                                 <input type="date" id="online-hotel-checkout" class="w-full rounded-lg border border-slate-200 px-3 py-2 text-sm booking-mobile-native-date-input"
-                                                                    value="2026-03-27" aria-label="Check-out date">
+                                                                    aria-label="Check-out date">
+                                                                <i data-lucide="calendar" class="booking-mobile-date-icon absolute right-3 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-400 pointer-events-none"></i>
                                                             </div>
                                                         </div>
                                                     </div>
                                                 </div>
                                                 <div class="flex justify-center pt-1">
-                                                    <button type="button" onclick="window.searchOnlineHotel()"
+                                                    <button type="button" id="online-hotel-search-btn" data-booking-guarded="true" aria-disabled="false" onclick="window.searchOnlineHotel()"
                                                         class="bg-[#4285F4] text-white px-10 py-2.5 rounded-xl font-bold text-sm hover:bg-[#3367D6] transition-all shadow-sm">
                                                         Search
                                                     </button>
@@ -10433,7 +10462,7 @@
                                                                 <div class="booking-mobile-date-field">
                                                                     <span id="online-car-pickup-display" class="booking-mobile-date-display" aria-hidden="true"></span>
                                                                     <input type="date" id="online-car-pickup-date" class="w-full min-w-0 rounded-lg border border-slate-200 px-3 py-2 text-sm booking-mobile-native-date-input"
-                                                                        value="2026-03-25" aria-label="Pickup date">
+                                                                        aria-label="Pickup date">
                                                                 </div>
                                                             </div>
                                                             <div class="form-group !mb-0 flex-1 min-w-0">
@@ -10445,7 +10474,7 @@
                                                     </div>
                                                 </div>
                                                 <div class="flex justify-center pt-1">
-                                                    <button type="button" onclick="window.searchOnlineCar()"
+                                                    <button type="button" id="online-car-search-btn" data-booking-guarded="true" aria-disabled="false" onclick="window.searchOnlineCar()"
                                                         class="bg-[#4285F4] text-white px-10 py-2.5 rounded-xl font-bold text-sm hover:bg-[#3367D6] transition-all shadow-sm">
                                                         Search
                                                     </button>
@@ -10536,7 +10565,7 @@
                                                     class="hidden shrink-0 bg-[#4285F4] text-white px-8 py-2.5 rounded-xl font-bold text-xs tracking-wide shadow-md hover:bg-[#3367D6] transition-all disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:bg-[#4285F4]">
                                                     Next trip
                                                 </button>
-                                                <button type="button" id="online-add-itinerary-btn" data-footer-action="book" onclick="window.handleOnlineFooterPrimaryClick()"
+                                                <button type="button" id="online-add-itinerary-btn" data-booking-guarded="true" aria-disabled="false" data-footer-action="book" onclick="window.handleOnlineFooterPrimaryClick()"
                                                     class="hidden shrink-0 bg-[#4285F4] text-white px-8 py-2.5 rounded-xl font-bold text-xs tracking-wide shadow-md hover:bg-[#3367D6] transition-all">
                                                     Add to itinerary
                                                 </button>
@@ -10596,8 +10625,8 @@
                                 </div>
 
                                 <div id="booking-step1-nav" class="flex justify-end items-center pt-8 max-md:pt-3 max-md:pb-0 max-md:mt-2 border-t border-slate-200 max-md:border-t-0">
-                                    <button type="button" id="booking-step-next-btn" onclick="window.handleBookingStepNext()" disabled
-                                        class="w-full max-md:w-full sm:w-auto px-12 max-md:px-6 py-3 max-md:min-h-[48px] rounded-xl bg-slate-300 text-slate-500 font-black tracking-widest cursor-not-allowed transition-all">Next</button>
+                                    <button type="button" id="booking-step-next-btn" data-booking-guarded="true" aria-disabled="true" onclick="window.handleBookingStepNext()"
+                                        class="w-full max-md:w-full sm:w-auto px-12 max-md:px-6 py-3 max-md:min-h-[48px] rounded-xl bg-slate-300 text-slate-500 font-black tracking-widest cursor-not-allowed transition-all opacity-40">Next</button>
                                 </div>
                             </div>
                         </div>
@@ -10851,8 +10880,8 @@
                                     <button
                                         class="hidden w-full sm:w-auto px-8 py-3 rounded-xl bg-slate-800 text-white font-bold hover:bg-slate-900 transition-all">Save
                                         Draft</button>
-                                    <button type="button" id="booking-conf-primary-btn" onclick="window.submitBookingRequest()"
-                                        class="w-full sm:w-auto px-12 py-3 rounded-xl bg-[#4285F4] text-white font-black tracking-widest shadow-lg shadow-orange-100 hover:bg-[#3367D6] transition-all">Submit</button>
+                                    <button type="button" id="booking-conf-primary-btn" data-booking-guarded="true" aria-disabled="true" onclick="window.submitBookingRequest()"
+                                        class="w-full sm:w-auto px-12 py-3 rounded-xl bg-slate-300 text-slate-500 font-black tracking-widest shadow-lg shadow-orange-100 transition-all opacity-40 cursor-not-allowed">Submit</button>
                                 </div>
                             </div>
                         </div>
@@ -13358,7 +13387,7 @@
             <div class="p-6 border-t border-slate-200 flex justify-between items-center gap-3 shrink-0 flex-wrap modal-footer-sm-stack">
                 <button type="button" onclick="window.setBookingStep(1)"
                     class="px-6 py-2.5 rounded-xl text-sm font-bold text-slate-600 border-2 border-slate-200 bg-white hover:bg-slate-50 transition-colors">Back</button>
-                <button type="button" id="booking-travel-info-primary-btn" onclick="window.confirmBookingTravelInfo()"
+                <button type="button" id="booking-travel-info-primary-btn" data-booking-guarded="true" aria-disabled="false" onclick="window.confirmBookingTravelInfo()"
                     class="px-6 py-2.5 rounded-xl text-sm font-bold text-white shadow-md hover:opacity-95 transition-opacity"
                     style="background-color: #4285F4;">Submit</button>
             </div>
@@ -15165,6 +15194,395 @@
             el?.scrollIntoView(o);
         };
 
+        window._bookingValidationToastTimer = null;
+        window.showBookingValidationToast = () => {
+            let toast = document.getElementById('booking-validation-toast');
+            if (!toast) {
+                toast = document.createElement('div');
+                toast.id = 'booking-validation-toast';
+                toast.setAttribute('role', 'alert');
+                toast.className = 'booking-validation-toast fixed top-4 left-1/2 -translate-x-1/2 z-[9999] max-w-max px-5 py-3 rounded-xl bg-amber-50 border border-amber-200 text-slate-900 text-sm font-semibold text-center shadow-lg opacity-0 pointer-events-none transition-opacity duration-300';
+                toast.innerHTML = '<span class="booking-validation-toast__text">Fill required fields to proceed</span>';
+                document.body.appendChild(toast);
+            }
+            clearTimeout(window._bookingValidationToastTimer);
+            toast.classList.remove('opacity-0');
+            toast.classList.add('opacity-100');
+            window._bookingValidationToastTimer = setTimeout(() => {
+                toast.classList.remove('opacity-100');
+                toast.classList.add('opacity-0');
+            }, 3000);
+        };
+        if (!window._bookingValidationClickGuardBound) {
+            window._bookingValidationClickGuardBound = true;
+            document.addEventListener('click', (e) => {
+                const btn = e.target.closest('[data-booking-guarded][aria-disabled="true"]');
+                if (!btn) return;
+                e.preventDefault();
+                e.stopPropagation();
+                window.showBookingValidationToast();
+            }, true);
+        }
+        window._BOOKING_GUARD_DIS = ['opacity-40', 'cursor-not-allowed', 'pointer-events-none'];
+        window._setGuardedButton = (btn, enabled, opts) => {
+            if (!btn) return;
+            const o = opts || {};
+            btn.setAttribute('data-booking-guarded', 'true');
+            btn.disabled = false;
+            if (enabled) {
+                btn.setAttribute('aria-disabled', 'false');
+                window._BOOKING_GUARD_DIS.forEach((c) => btn.classList.remove(c));
+                if (o.activeClass) btn.className = o.activeClass;
+            } else {
+                btn.setAttribute('aria-disabled', 'true');
+                window._BOOKING_GUARD_DIS.forEach((c) => btn.classList.add(c));
+                if (o.disabledClass) btn.className = o.disabledClass;
+            }
+        };
+        window._bookingTodayIso = () => {
+            const today = new Date();
+            today.setHours(0, 0, 0, 0);
+            return `${today.getFullYear()}-${String(today.getMonth() + 1).padStart(2, '0')}-${String(today.getDate()).padStart(2, '0')}`;
+        };
+        window._bookingAddDaysIso = (iso, days) => {
+            if (!iso || !/^\d{4}-\d{2}-\d{2}$/.test(iso)) return iso;
+            const p = iso.split('-');
+            const d = new Date(parseInt(p[0], 10), parseInt(p[1], 10) - 1, parseInt(p[2], 10));
+            d.setDate(d.getDate() + (days || 0));
+            return `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, '0')}-${String(d.getDate()).padStart(2, '0')}`;
+        };
+        window._BOOKING_STALE_DEMO_DATES = new Set(['2026-03-25', '2026-03-27']);
+        window._setDefaultDateIfNeeded = (id, defaultIso) => {
+            const el = document.getElementById(id);
+            if (!el || !defaultIso) return;
+            const v = el.value?.trim();
+            if (!v || window._BOOKING_STALE_DEMO_DATES.has(v)) el.value = defaultIso;
+        };
+        window.initOnlineSearchDefaultDates = () => {
+            const today = window._bookingTodayIso();
+            const plus2 = window._bookingAddDaysIso(today, 2);
+            window._setDefaultDateIfNeeded('online-flight-depart-date', today);
+            window._setDefaultDateIfNeeded('online-rail-depart-date', today);
+            window._setDefaultDateIfNeeded('online-hotel-checkin', today);
+            window._setDefaultDateIfNeeded('online-car-pickup-date', today);
+            window._setDefaultDateIfNeeded('online-flight-return-date', plus2);
+            window._setDefaultDateIfNeeded('online-rail-return-date', plus2);
+            window._setDefaultDateIfNeeded('online-hotel-checkout', plus2);
+            window._applyOnlineDateConstraints?.();
+            window.syncOnlineFlightDateDisplays?.();
+            window.syncOnlineRailDateDisplays?.();
+            window.syncOnlineHotelDateDisplays?.();
+            window.syncOnlineCarDateDisplays?.();
+            window.syncOnlineSearchButtonStates?.();
+            lucide.createIcons?.();
+        };
+        window._isBookingDatePastOrInvalid = (iso) => {
+            if (!iso || typeof iso !== 'string') return true;
+            const t = iso.trim();
+            if (!/^\d{4}-\d{2}-\d{2}$/.test(t)) return true;
+            const p = t.split('-');
+            const d = new Date(parseInt(p[0], 10), parseInt(p[1], 10) - 1, parseInt(p[2], 10));
+            if (Number.isNaN(d.getTime())) return true;
+            d.setHours(0, 0, 0, 0);
+            const today = new Date();
+            today.setHours(0, 0, 0, 0);
+            return d.getTime() < today.getTime();
+        };
+        window._isReturnOnOrAfterDepart = (dd, rd) => {
+            if (!dd || !rd) return false;
+            return rd >= dd;
+        };
+        window._isCheckoutAfterCheckin = (ci, co) => {
+            if (!ci || !co) return false;
+            return co > ci;
+        };
+        window._isCarReturnAfterPickup = (pu, pt, rd, rt) => {
+            if (!document.getElementById('online-car-return-date')) return true;
+            if (!pu || !rd) return false;
+            if (rd > pu) return true;
+            if (rd < pu) return false;
+            const pickupTime = pt || '00:00';
+            const returnTime = rt || '00:00';
+            return returnTime >= pickupTime;
+        };
+        window._sanitizeBookingDateInput = (el, opts) => {
+            if (!el || !('value' in el)) return;
+            const o = opts || {};
+            const minIso = o.minIso || window._bookingTodayIso();
+            const v = el.value?.trim();
+            if (!v) return;
+            if (!/^\d{4}-\d{2}-\d{2}$/.test(v) || window._isBookingDatePastOrInvalid(v) || (minIso && v < minIso)) {
+                el.value = '';
+            }
+        };
+        window._applyOnlineDateConstraints = () => {
+            const today = window._bookingTodayIso();
+            const setMin = (id, min) => {
+                const el = document.getElementById(id);
+                if (el) el.min = min || today;
+            };
+            setMin('online-flight-depart-date', today);
+            setMin('online-rail-depart-date', today);
+            setMin('online-hotel-checkin', today);
+            setMin('online-car-pickup-date', today);
+            const fd = document.getElementById('online-flight-depart-date')?.value || today;
+            const rd = document.getElementById('online-rail-depart-date')?.value || today;
+            const ci = document.getElementById('online-hotel-checkin')?.value || today;
+            setMin('online-flight-return-date', fd);
+            setMin('online-rail-return-date', rd);
+            const coMin = window._bookingAddDaysIso(ci, 1);
+            setMin('online-hotel-checkout', coMin);
+            if (document.getElementById('online-car-return-date')) {
+                setMin('online-car-return-date', document.getElementById('online-car-pickup-date')?.value || today);
+            }
+            ['online-flight-multi-segments', 'online-rail-multi-segments'].forEach((hostId) => {
+                document.getElementById(hostId)?.querySelectorAll('[data-mc-field="date"]').forEach((el) => {
+                    el.min = today;
+                });
+            });
+            window._sanitizeBookingDateInput(document.getElementById('online-flight-depart-date'), { minIso: today });
+            window._sanitizeBookingDateInput(document.getElementById('online-rail-depart-date'), { minIso: today });
+            window._sanitizeBookingDateInput(document.getElementById('online-hotel-checkin'), { minIso: today });
+            window._sanitizeBookingDateInput(document.getElementById('online-car-pickup-date'), { minIso: today });
+            window._sanitizeBookingDateInput(document.getElementById('online-flight-return-date'), { minIso: fd });
+            window._sanitizeBookingDateInput(document.getElementById('online-rail-return-date'), { minIso: rd });
+            window._sanitizeBookingDateInput(document.getElementById('online-hotel-checkout'), { minIso: coMin });
+        };
+        window._onOnlineSearchDateFieldChange = () => {
+            window._applyOnlineDateConstraints?.();
+            window.syncOnlineFlightDateDisplays?.();
+            window.syncOnlineRailDateDisplays?.();
+            window.syncOnlineHotelDateDisplays?.();
+            window.syncOnlineCarDateDisplays?.();
+            window.syncOnlineMcDateDisplays?.('flight');
+            window.syncOnlineMcDateDisplays?.('rail');
+            window.syncOnlineSearchButtonStates?.();
+        };
+        window._normalizeLocForCompare = (v) => String(v || '').trim().toUpperCase();
+        window._offlineTravelerConfigOk = () => {
+            const section = document.getElementById('selected-travelers-section');
+            if (!section || section.classList.contains('hidden')) return true;
+            const sel = document.querySelector('input[name="traveler_selection"]:checked')?.value;
+            if (sel === 'existing') {
+                return !!document.getElementById('selected-traveler-area')?.querySelector('.selected-traveler-card');
+            }
+            if (sel === 'new') {
+                const jpLast = document.getElementById('trav-name-jp-last')?.value?.trim();
+                const jpFirst = document.getElementById('trav-name-jp-first')?.value?.trim();
+                return !!(jpLast || jpFirst);
+            }
+            return false;
+        };
+        window._canSearchOnlineFlight = () => {
+            const trip = document.querySelector('input[name="online-flight-trip-type"]:checked')?.value || 'round';
+            if (!document.getElementById('online-flight-class')?.value?.trim()) return false;
+            if (trip === 'multiple') {
+                const segs = typeof window._readOnlineFlightMcFromDom === 'function' ? window._readOnlineFlightMcFromDom() : [];
+                if (segs.length < (window._onlineMcMinSegments || 2)) return false;
+                for (const s of segs) {
+                    const from = window._normalizeLocForCompare(s.from);
+                    const to = window._normalizeLocForCompare(s.to);
+                    if (!from || !to || !s.date) return false;
+                    if (from === to) return false;
+                    if (window._isBookingDatePastOrInvalid(s.date)) return false;
+                }
+                return true;
+            }
+            const from = window._normalizeLocForCompare(window.getFlightLocIata?.('online-flight-from'));
+            const to = window._normalizeLocForCompare(window.getFlightLocIata?.('online-flight-to'));
+            const dd = document.getElementById('online-flight-depart-date')?.value;
+            const rd = document.getElementById('online-flight-return-date')?.value;
+            if (!from || !to || !dd) return false;
+            if (from === to) return false;
+            if (window._isBookingDatePastOrInvalid(dd)) return false;
+            if (trip !== 'oneway' && (!rd || window._isBookingDatePastOrInvalid(rd) || !window._isReturnOnOrAfterDepart(dd, rd))) return false;
+            return true;
+        };
+        window._canSearchOnlineRail = () => {
+            const trip = document.querySelector('input[name="online-rail-trip-type"]:checked')?.value || 'round';
+            if (!document.getElementById('online-rail-class')?.value?.trim()) return false;
+            if (trip === 'multiple') {
+                const segs = typeof window._readOnlineRailMcFromDom === 'function' ? window._readOnlineRailMcFromDom() : [];
+                if (segs.length < (window._onlineMcMinSegments || 2)) return false;
+                for (const s of segs) {
+                    const from = window._normalizeLocForCompare(s.from);
+                    const to = window._normalizeLocForCompare(s.to);
+                    if (!from || !to || !s.date) return false;
+                    if (from === to) return false;
+                    if (window._isBookingDatePastOrInvalid(s.date)) return false;
+                }
+                return true;
+            }
+            const from = window._normalizeLocForCompare(document.getElementById('online-rail-from')?.value);
+            const to = window._normalizeLocForCompare(document.getElementById('online-rail-to')?.value);
+            const dd = document.getElementById('online-rail-depart-date')?.value;
+            const rd = document.getElementById('online-rail-return-date')?.value;
+            if (!from || !to || !dd) return false;
+            if (from === to) return false;
+            if (window._isBookingDatePastOrInvalid(dd)) return false;
+            if (trip !== 'oneway' && (!rd || window._isBookingDatePastOrInvalid(rd) || !window._isReturnOnOrAfterDepart(dd, rd))) return false;
+            return true;
+        };
+        window._canSearchOnlineHotel = () => {
+            const dest = document.getElementById('online-hotel-destination')?.value?.trim();
+            const ci = document.getElementById('online-hotel-checkin')?.value;
+            const co = document.getElementById('online-hotel-checkout')?.value;
+            if (!dest || !ci || !co) return false;
+            if (!window._isCheckoutAfterCheckin(ci, co)) return false;
+            if (window._isBookingDatePastOrInvalid(ci)) return false;
+            return true;
+        };
+        window._canSearchOnlineCar = () => {
+            const loc = document.getElementById('online-car-pickup')?.value?.trim();
+            const drop = document.getElementById('online-car-dropoff')?.value?.trim();
+            const pu = document.getElementById('online-car-pickup-date')?.value;
+            const pt = document.getElementById('online-car-pickup-time')?.value;
+            const crd = document.getElementById('online-car-return-date')?.value;
+            const crt = document.getElementById('online-car-return-time')?.value;
+            if (!loc || !drop || !pu || !pt) return false;
+            if (window._isBookingDatePastOrInvalid(pu)) return false;
+            if (crd && !window._isCarReturnAfterPickup(pu, pt, crd, crt)) return false;
+            return true;
+        };
+        window._SEARCH_BTN_ACTIVE = {
+            flight: 'online-flight-search-submit w-full bg-[#1A62F3] text-white px-10 py-3 rounded-lg font-extrabold text-sm hover:opacity-95 transition-all shadow-sm max-md:min-h-[52px]',
+            rail: 'w-full bg-[#1A62F3] text-white px-10 py-3 rounded-lg font-extrabold text-sm hover:opacity-95 transition-all shadow-sm max-md:min-h-[52px]',
+            hotel: 'bg-[#4285F4] text-white px-10 py-2.5 rounded-xl font-bold text-sm hover:bg-[#3367D6] transition-all shadow-sm',
+            car: 'bg-[#4285F4] text-white px-10 py-2.5 rounded-xl font-bold text-sm hover:bg-[#3367D6] transition-all shadow-sm'
+        };
+        window._SEARCH_BTN_DISABLED = {
+            flight: 'online-flight-search-submit w-full bg-slate-300 text-slate-500 px-10 py-3 rounded-lg font-extrabold text-sm transition-all shadow-sm max-md:min-h-[52px] opacity-40 cursor-not-allowed',
+            rail: 'w-full bg-slate-300 text-slate-500 px-10 py-3 rounded-lg font-extrabold text-sm transition-all shadow-sm max-md:min-h-[52px] opacity-40 cursor-not-allowed',
+            hotel: 'bg-slate-300 text-slate-500 px-10 py-2.5 rounded-xl font-bold text-sm transition-all shadow-sm opacity-40 cursor-not-allowed',
+            car: 'bg-slate-300 text-slate-500 px-10 py-2.5 rounded-xl font-bold text-sm transition-all shadow-sm opacity-40 cursor-not-allowed'
+        };
+        window.syncOnlineSearchButtonStates = () => {
+            const offlineOk = window._offlineTravelerConfigOk();
+            const activeMode = window._getActiveOnlineMode?.() || '';
+            const modes = [
+                { mode: 'flight', id: 'online-flight-search-btn', check: window._canSearchOnlineFlight },
+                { mode: 'rail', id: 'online-rail-search-btn', check: window._canSearchOnlineRail },
+                { mode: 'hotel', id: 'online-hotel-search-btn', check: window._canSearchOnlineHotel },
+                { mode: 'car', id: 'online-car-search-btn', check: window._canSearchOnlineCar }
+            ];
+            modes.forEach(({ mode, id, check }) => {
+                const btn = document.getElementById(id);
+                if (!btn) return;
+                const panel = document.getElementById(`online-${mode}-search-panel`);
+                const panelVisible = panel && !panel.classList.contains('hidden');
+                const enabled = panelVisible && mode === activeMode && check() && offlineOk;
+                window._setGuardedButton(btn, enabled, {
+                    activeClass: window._SEARCH_BTN_ACTIVE[mode],
+                    disabledClass: window._SEARCH_BTN_DISABLED[mode]
+                });
+            });
+        };
+        window._BOOKING_NEXT_ACTIVE = 'w-full max-md:w-full sm:w-auto px-12 max-md:px-6 py-3 max-md:min-h-[48px] rounded-xl bg-[#4285F4] text-white font-black tracking-widest transition-all hover:bg-[#3367D6] cursor-pointer';
+        window._BOOKING_NEXT_DISABLED = 'w-full max-md:w-full sm:w-auto px-12 max-md:px-6 py-3 max-md:min-h-[48px] rounded-xl bg-slate-300 text-slate-500 font-black tracking-widest cursor-not-allowed transition-all opacity-40';
+        window.enableBookingStepNextButton = () => {
+            window._setGuardedButton(document.getElementById('booking-step-next-btn'), true, { activeClass: window._BOOKING_NEXT_ACTIVE });
+        };
+        window.disableBookingStepNextButton = () => {
+            window._setGuardedButton(document.getElementById('booking-step-next-btn'), false, { disabledClass: window._BOOKING_NEXT_DISABLED });
+        };
+        window._canFlightOnewayReviewContinue = () => {
+            const idx = window._onlineFlightSelectedGoing;
+            if (idx == null) return false;
+            return !!window._onlineFareSelection?.flight?.[`going-${idx}`];
+        };
+        window.syncDynamicReviewButtonStates = (module) => {
+            const guardDynamic = (el, enabled, activeCls, disCls) => {
+                if (!el) return;
+                window._setGuardedButton(el, enabled, { activeClass: activeCls, disabledClass: disCls });
+            };
+            if (module === 'flight' || !module) {
+                document.querySelectorAll('#online-flight-mobile-stepper-prompt-overlay-body .online-flight-mobile-stepper__prompt-cta').forEach((btn) => {
+                    guardDynamic(btn, !!window._onlineFlightMobileAllDone?.(), 'online-flight-mobile-stepper__prompt-cta', 'online-flight-mobile-stepper__prompt-cta opacity-40 cursor-not-allowed');
+                });
+                document.querySelectorAll('#online-flight-mobile-review-overlay-body .online-flight-mobile-review__done').forEach((btn) => {
+                    guardDynamic(btn, !!window._onlineFlightMobileAllDone?.(), 'online-flight-mobile-review__done', 'online-flight-mobile-review__done opacity-40 cursor-not-allowed');
+                });
+                document.querySelectorAll('#online-oneway-flight-review-body .online-flight-mobile-review__done').forEach((btn) => {
+                    guardDynamic(btn, window._canFlightOnewayReviewContinue(), 'online-flight-mobile-review__done', 'online-flight-mobile-review__done opacity-40 cursor-not-allowed');
+                });
+            }
+            if (module === 'rail' || !module) {
+                if (window._isOnlineRailOnewayMobileContext?.()) {
+                    const allDone = !!window._onlineRailMobileAllDone?.();
+                    document.querySelectorAll('#online-rail-mobile-stepper .online-flight-mobile-stepper__prompt-cta').forEach((btn) => {
+                        guardDynamic(btn, allDone, 'online-flight-mobile-stepper__prompt-cta', 'online-flight-mobile-stepper__prompt-cta opacity-40 cursor-not-allowed');
+                    });
+                    document.querySelectorAll('#online-rail-mobile-review .online-flight-mobile-review__done').forEach((btn) => {
+                        guardDynamic(btn, allDone, 'online-flight-mobile-review__done', 'online-flight-mobile-review__done opacity-40 cursor-not-allowed');
+                    });
+                }
+            }
+            if (module === 'car' || !module) {
+                document.querySelectorAll('.online-car-prompt-cta').forEach((btn) => {
+                    guardDynamic(btn, window._onlineCarSelectedIndex != null, 'online-car-prompt-cta', 'online-car-prompt-cta opacity-40 cursor-not-allowed');
+                });
+            }
+        };
+        window.syncHotelReviewNextState = () => {
+            const modal = document.getElementById('hotel-selection-review-modal');
+            if (!modal || modal.classList.contains('hidden')) return;
+            const roomEl = document.getElementById('online-hotel-room-type');
+            const roomLabel = window._onlineHotelModalRoomLabel || roomEl?.selectedOptions?.[0]?.textContent?.trim();
+            const enabled = window._onlineHotelSelectedIndex != null && !!roomLabel;
+            if (enabled) window.enableBookingStepNextButton();
+            else window.disableBookingStepNextButton();
+        };
+        window._canSubmitBookingTravelInfo = () => {
+            const emp = document.getElementById('booking-travel-info-employee-display')?.value?.trim();
+            return !!emp;
+        };
+        window._TRAVEL_SUBMIT_ACTIVE = 'px-6 py-2.5 rounded-xl text-sm font-bold text-white shadow-md hover:opacity-95 transition-opacity';
+        window._TRAVEL_SUBMIT_DISABLED = 'px-6 py-2.5 rounded-xl text-sm font-bold text-white shadow-md transition-opacity opacity-40 cursor-not-allowed';
+        window.syncBookingTravelInfoSubmitState = () => {
+            const btn = document.getElementById('booking-travel-info-primary-btn');
+            window._setGuardedButton(btn, window._canSubmitBookingTravelInfo(), {
+                activeClass: window._TRAVEL_SUBMIT_ACTIVE,
+                disabledClass: window._TRAVEL_SUBMIT_DISABLED
+            });
+        };
+        window._canConfirmBooking = () => {
+            const name = document.getElementById('conf-trav-name-passport')?.textContent?.trim();
+            if (!name || name === '-') return false;
+            const cb = document.getElementById('conf-provider-terms-checkbox');
+            return !!(cb && cb.checked);
+        };
+        window._CONF_SUBMIT_ACTIVE = 'w-full sm:w-auto px-12 py-3 rounded-xl bg-[#4285F4] text-white font-black tracking-widest shadow-lg shadow-orange-100 hover:bg-[#3367D6] transition-all';
+        window._CONF_SUBMIT_DISABLED = 'w-full sm:w-auto px-12 py-3 rounded-xl bg-slate-300 text-slate-500 font-black tracking-widest shadow-lg shadow-orange-100 transition-all opacity-40 cursor-not-allowed';
+        window.syncBookingConfirmButtonState = () => {
+            window._setGuardedButton(document.getElementById('booking-conf-primary-btn'), window._canConfirmBooking(), {
+                activeClass: window._CONF_SUBMIT_ACTIVE,
+                disabledClass: window._CONF_SUBMIT_DISABLED
+            });
+        };
+        window.initBookingValidationGuards = () => {
+            if (window._bookingValidationGuardsInit) return;
+            window._bookingValidationGuardsInit = true;
+            const page = document.getElementById('page-booking');
+            if (!page) return;
+            const syncAll = () => {
+                window.syncOnlineSearchButtonStates?.();
+                window.syncBookingTravelInfoSubmitState?.();
+                window.syncBookingConfirmButtonState?.();
+            };
+            page.addEventListener('input', syncAll);
+            page.addEventListener('change', syncAll);
+            document.querySelectorAll('input[name="online-flight-trip-type"], input[name="online-rail-trip-type"], input[name="traveler_selection"]').forEach((el) => {
+                el.addEventListener('change', syncAll);
+            });
+            document.getElementById('booking-travel-info-employee-display')?.addEventListener('input', () => {
+                window.syncBookingTravelInfoSubmitState?.();
+            });
+            document.getElementById('conf-provider-terms-checkbox')?.addEventListener('change', () => {
+                window.syncBookingConfirmButtonState?.();
+            });
+            syncAll();
+        };
+
         window._onlineSearchAccordionState = { flight: false, rail: false, hotel: false, car: false };
         window.isMobileBookingViewport = () => window.matchMedia('(max-width: 767px)').matches;
         window._mobileSummaryEsc = (value) => String(value ?? '').replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
@@ -15365,6 +15783,11 @@
             return false;
         };
         window.handleBookingStepNext = () => {
+            const nextBtn = document.getElementById('booking-step-next-btn');
+            if (nextBtn?.getAttribute('aria-disabled') === 'true') {
+                window.showBookingValidationToast?.();
+                return;
+            }
             if (window._isOnlineRailOnewayMobileContext?.() && !(window.itineraryItems || []).length) {
                 return;
             }
@@ -17655,6 +18078,7 @@
             window.refreshFlightAirportCombo?.(a);
             window.refreshFlightAirportCombo?.(b);
             lucide.createIcons();
+            window.syncOnlineSearchButtonStates?.();
         };
 
         window.formatOnlineSearchDateLabel = (isoYmd) => {
@@ -17711,14 +18135,13 @@
         window.wireOnlineSearchDateDisplays = () => {
             if (window._onlineSearchDatesWired) return;
             window._onlineSearchDatesWired = true;
-            ['online-flight-depart-date', 'online-flight-return-date', 'online-rail-depart-date', 'online-rail-return-date', 'online-hotel-checkin', 'online-hotel-checkout', 'online-car-pickup-date'].forEach((id) => {
-                document.getElementById(id)?.addEventListener('change', () => {
-                    window.syncOnlineFlightDateDisplays?.();
-                    window.syncOnlineRailDateDisplays?.();
-                    window.syncOnlineHotelDateDisplays?.();
-                    window.syncOnlineCarDateDisplays?.();
-                });
+            ['online-flight-depart-date', 'online-flight-return-date', 'online-rail-depart-date', 'online-rail-return-date', 'online-hotel-checkin', 'online-hotel-checkout', 'online-car-pickup-date', 'online-car-return-date', 'online-car-return-time', 'online-car-pickup-time'].forEach((id) => {
+                const el = document.getElementById(id);
+                if (!el) return;
+                el.addEventListener('change', window._onOnlineSearchDateFieldChange);
+                el.addEventListener('input', window._onOnlineSearchDateFieldChange);
             });
+            window._applyOnlineDateConstraints?.();
             window.syncOnlineFlightDateDisplays?.();
             window.syncOnlineRailDateDisplays?.();
             window.syncOnlineHotelDateDisplays?.();
@@ -17782,7 +18205,9 @@
                 }
             }
             window.wireOnlineSearchDateDisplays?.();
+            window.initOnlineSearchDefaultDates?.();
             window.syncOnlineFlightDateDisplays?.();
+            window.syncOnlineSearchButtonStates?.();
             window.updateOnlineBookingFooterButtons?.();
             window.updateBookingStepNextButtonState?.();
             window.renderOnlineFlightMobileStepper?.();
@@ -17796,6 +18221,7 @@
             a.value = b.value;
             b.value = t;
             lucide.createIcons();
+            window.syncOnlineSearchButtonStates?.();
         };
 
         window.updateOnlineRailTripTypeUI = () => {
@@ -17830,7 +18256,9 @@
                 }
             }
             window.wireOnlineSearchDateDisplays?.();
+            window.initOnlineSearchDefaultDates?.();
             window.syncOnlineRailDateDisplays?.();
+            window.syncOnlineSearchButtonStates?.();
             window.updateOnlineBookingFooterButtons?.();
             window.updateBookingStepNextButtonState?.();
             window.renderOnlineRailMobileStepper?.();
@@ -18720,6 +19148,7 @@
             window.updateBookingStepNextButtonState?.();
             window.renderOnlineFlightMobileStepper?.();
             window.renderOnlineRailMobileStepper?.();
+            window.syncDynamicReviewButtonStates?.();
         };
 
         window._onlineHotelRows = [];
@@ -18731,6 +19160,7 @@
         window._onlineHotelSelectedNightPrice = null;
         window._onlineCarRows = [];
         window._onlineCarSelectedIndex = null;
+        window._onlineCarReviewConfirmed = false;
         window._onlineHotelPriceSortAsc = true;
         window._onlineCarPriceSortAsc = true;
 
@@ -18835,6 +19265,7 @@
                     if (!Number.isNaN(idx)) window._chainOnlineMcNextOrigin('flight', idx);
                 }
             }
+            window.syncOnlineSearchButtonStates?.();
         };
 
         window._flightComboCodeCity = (iataOrText) => {
@@ -19201,12 +19632,15 @@
             if (!host || host.children.length) return;
             const from = window.getFlightLocIata?.('online-flight-from') || '';
             const to = window.getFlightLocIata?.('online-flight-to') || '';
-            const d1 = document.getElementById('online-flight-depart-date')?.value || '';
+            const today = window._bookingTodayIso?.() || '';
+            const plus2 = window._bookingAddDaysIso?.(today, 2) || today;
+            const d1 = document.getElementById('online-flight-depart-date')?.value || today;
             const d2 = document.getElementById('online-flight-return-date')?.value || '';
             window.renderOnlineFlightMultiSegments([
-                { from, to, date: d1 || '2026-03-25' },
-                { from: to, to: '', date: d2 || d1 || '2026-03-27' }
+                { from, to, date: d1 || today },
+                { from: to, to: '', date: d2 || d1 || plus2 }
             ]);
+            window._applyOnlineDateConstraints?.();
         };
 
         window.ensureOnlineRailMultiSegmentsRendered = () => {
@@ -19214,12 +19648,15 @@
             if (!host || host.children.length) return;
             const from = document.getElementById('online-rail-from')?.value?.trim() || '';
             const to = document.getElementById('online-rail-to')?.value?.trim() || '';
-            const d1 = document.getElementById('online-rail-depart-date')?.value || '';
+            const today = window._bookingTodayIso?.() || '';
+            const plus2 = window._bookingAddDaysIso?.(today, 2) || today;
+            const d1 = document.getElementById('online-rail-depart-date')?.value || today;
             const d2 = document.getElementById('online-rail-return-date')?.value || '';
             window.renderOnlineRailMultiSegments([
-                { from, to, date: d1 || '2026-03-25' },
-                { from: to, to: '', date: d2 || d1 || '2026-03-27' }
+                { from, to, date: d1 || today },
+                { from: to, to: '', date: d2 || d1 || plus2 }
             ]);
+            window._applyOnlineDateConstraints?.();
         };
 
         window.addOnlineFlightMcSegment = () => {
@@ -19680,6 +20117,7 @@
 
             const focusable = panel.querySelector('button, [href], input, select, textarea, [tabindex]:not([tabindex="-1"])');
             focusable?.focus?.();
+            window.syncDynamicReviewButtonStates?.('flight');
 
             if (window._onlineFlightMobileReviewKeydown) {
                 document.removeEventListener('keydown', window._onlineFlightMobileReviewKeydown, true);
@@ -19904,6 +20342,7 @@
 
             body.innerHTML = innerHtml || '';
             lucide.createIcons?.();
+            window.syncDynamicReviewButtonStates?.('flight');
 
             requestAnimationFrame(() => {
                 panel.classList.remove('opacity-0', 'translate-y-3', 'md:scale-95');
@@ -20101,6 +20540,7 @@
                 window.closeOnlineFlightMobileReviewModal({ popHistory: false });
             }
             lucide.createIcons();
+            window.syncDynamicReviewButtonStates?.('flight');
         };
 
         window.openOnlineRailMobileReview = () => {
@@ -20132,6 +20572,7 @@
             window.renderOnlineRailMobileStepper?.();
         };
         window.completeOnlineRailMobileReview = () => {
+            if (window._isOnlineRailOnewayMobileContext?.() && !window._onlineRailMobileAllDone?.()) return;
             if (window._isOnlineRailOnewayMobileContext?.()) {
                 window._onlineRailMobileReviewOpen = false;
                 window.bookOnlineProvider?.();
@@ -20272,6 +20713,7 @@
                 review.innerHTML = '';
             }
             lucide.createIcons();
+            window.syncDynamicReviewButtonStates?.('rail');
         };
 
         window._buildMockOnlineFlights = (originCode, destCode, reverse) => {
@@ -20940,6 +21382,11 @@
         };
 
         window.searchOnlineRail = () => {
+            const searchBtn = document.getElementById('online-rail-search-btn');
+            if (searchBtn?.getAttribute('aria-disabled') === 'true') {
+                window.showBookingValidationToast?.();
+                return;
+            }
             const trip = document.querySelector('input[name="online-rail-trip-type"]:checked')?.value || 'round';
             if (trip === 'multiple') {
                 window.ensureOnlineRailMultiSegmentsRendered();
@@ -21154,6 +21601,7 @@
             window.closeHotelMapModal();
             window.selectOnlineHotelRow(idx, true);
             window.openHotelSelectionReviewModal?.();
+            window.syncHotelReviewNextState?.();
         };
 
         window.closeHotelMapModal = () => {
@@ -21317,11 +21765,9 @@
             };
 
             slot.appendChild(nextBtn);
-            nextBtn.disabled = false;
             nextBtn.setAttribute('type', 'button');
             nextBtn.setAttribute('onclick', 'window.proceedOnlineHotelFromReview?.()');
-            // Extracted styling from Step-1 Next (full width, sizing) but kept design tokens
-            nextBtn.className = 'w-full max-md:w-full sm:w-auto px-12 max-md:px-6 py-3 max-md:min-h-[48px] rounded-xl bg-[#4285F4] text-white font-black tracking-widest transition-all hover:bg-[#3367D6] cursor-pointer';
+            window.syncHotelReviewNextState?.();
         };
 
         window._upsertOnlineHotelItineraryFromSelection = () => {
@@ -21607,6 +22053,11 @@
         };
 
         window.searchOnlineHotel = () => {
+            const searchBtn = document.getElementById('online-hotel-search-btn');
+            if (searchBtn?.getAttribute('aria-disabled') === 'true') {
+                window.showBookingValidationToast?.();
+                return;
+            }
             const dest = document.getElementById('online-hotel-destination')?.value?.trim();
             const ci = document.getElementById('online-hotel-checkin')?.value;
             const co = document.getElementById('online-hotel-checkout')?.value;
@@ -21819,6 +22270,7 @@
                     <button type="button" class="online-car-prompt-cta" onclick="window.openOnlineCarReviewDetail?.()">Review Your Selected Car</button>
                 </div>`;
             lucide.createIcons?.();
+            window.syncDynamicReviewButtonStates?.('car');
 
             requestAnimationFrame(() => {
                 panel.classList.remove('opacity-0', 'translate-y-3', 'md:scale-95');
@@ -22056,6 +22508,7 @@
 
             window._bindOnlineOnewayFlightOverlayKeydown(panel);
             panel.querySelector('button')?.focus?.();
+            window.syncDynamicReviewButtonStates?.('flight');
         };
 
         window.closeOnlineOnewayFlightReviewModals = () => {
@@ -22082,6 +22535,10 @@
         };
 
         window.proceedOnlineOnewayFlightFromReview = () => {
+            if (!window._canFlightOnewayReviewContinue?.()) {
+                window.showBookingValidationToast?.();
+                return;
+            }
             window.closeOnlineOnewayFlightReviewModals?.();
             window.bookOnlineProvider?.();
         };
@@ -22091,6 +22548,7 @@
             const card = document.getElementById('online-car-review-card');
             if (!reviewRoot || !card || window._onlineCarSelectedIndex == null) return;
 
+            window._onlineCarReviewConfirmed = true;
             window.closeOnlineCarSelectionPromptOverlay?.();
             card.innerHTML = window._onlineCarSelectionReviewBuildHtml();
             reviewRoot.classList.remove('hidden');
@@ -22099,9 +22557,12 @@
             requestAnimationFrame(() => {
                 reviewRoot.scrollIntoView({ behavior: 'smooth', block: 'start' });
             });
+            window.updateBookingStepNextButtonState?.();
+            window.syncOnlineAddItineraryButtonState?.();
         };
 
         window.selectOnlineCarRow = (idx) => {
+            window._onlineCarReviewConfirmed = false;
             window._onlineCarSelectedIndex = idx;
             window.refreshOnlineCarRowBodies();
             window.updateOnlineBookingFooterButtons?.();
@@ -22110,6 +22571,11 @@
         };
 
         window.searchOnlineCar = () => {
+            const searchBtn = document.getElementById('online-car-search-btn');
+            if (searchBtn?.getAttribute('aria-disabled') === 'true') {
+                window.showBookingValidationToast?.();
+                return;
+            }
             const loc = document.getElementById('online-car-pickup')?.value?.trim();
             const drop = document.getElementById('online-car-dropoff')?.value?.trim();
             const pu = document.getElementById('online-car-pickup-date')?.value;
@@ -22134,6 +22600,7 @@
             window._onlineCarPriceSortAsc = true;
             window._applyOnlineCarSort();
             window._onlineCarSelectedIndex = null;
+            window._onlineCarReviewConfirmed = false;
             window.closeOnlineCarSelectionPromptOverlay?.();
             document.getElementById('online-car-review-detail')?.classList.add('hidden');
             const reviewCard = document.getElementById('online-car-review-card');
@@ -22213,7 +22680,10 @@
            Prompt: Fix updateOnlineBookingFooterButtons for trip-by-trip flow */
         window.handleOnlineFooterPrimaryClick = () => {
             const addBtn = document.getElementById('online-add-itinerary-btn');
-            if (!addBtn || addBtn.disabled || addBtn.classList.contains('hidden')) return;
+            if (!addBtn || addBtn.getAttribute('aria-disabled') === 'true' || addBtn.classList.contains('hidden')) {
+                if (addBtn?.getAttribute('aria-disabled') === 'true') window.showBookingValidationToast?.();
+                return;
+            }
             if (document.querySelector('.online-subtab-card[data-online-mode="hotel"].ring-2')) return;
             const mode = addBtn.getAttribute('data-footer-action') || 'book';
             if (mode === 'next') {
@@ -22402,7 +22872,10 @@
             if (!addBtn) return;
             const hiddenPrefix = addBtn.classList.contains('hidden') ? 'hidden ' : '';
             const activeCls = 'shrink-0 bg-[#4285F4] text-white px-8 py-2.5 rounded-xl font-bold text-xs tracking-wide shadow-md hover:bg-[#3367D6] transition-all';
-            const disCls = 'shrink-0 bg-slate-300 text-slate-500 px-8 py-2.5 rounded-xl font-bold text-xs tracking-wide cursor-not-allowed transition-all';
+            const disCls = 'shrink-0 bg-slate-300 text-slate-500 px-8 py-2.5 rounded-xl font-bold text-xs tracking-wide cursor-not-allowed transition-all opacity-40';
+            const guardAdd = (enabled, cls) => {
+                window._setGuardedButton(addBtn, enabled, { activeClass: cls, disabledClass: cls });
+            };
             const interactiveBookingVisible = window._isInteractiveBookingTabVisible?.() === true;
             const flightActive = interactiveBookingVisible && document.querySelector('.online-subtab-card[data-online-mode="flight"].ring-2');
             const railActive = interactiveBookingVisible && document.querySelector('.online-subtab-card[data-online-mode="rail"].ring-2');
@@ -22416,13 +22889,11 @@
             const flightResultsVisible = flightResultsEl && !flightResultsEl.classList.contains('hidden');
             const railResultsVisible = railResultsEl && !railResultsEl.classList.contains('hidden');
             if (flightActive && flightResultsVisible && flightTrip === 'oneway' && !flightIsMultiLeg) {
-                addBtn.disabled = false;
-                addBtn.className = 'hidden ' + activeCls;
+                guardAdd(true, 'hidden ' + activeCls);
                 return;
             }
             if (railActive && railResultsVisible && railTrip === 'oneway' && !railIsMultiLeg) {
-                addBtn.disabled = false;
-                addBtn.className = 'hidden ' + activeCls;
+                guardAdd(true, 'hidden ' + activeCls);
                 return;
             }
             if (flightActive && flightResultsVisible && flightIsMultiLeg) {
@@ -22432,8 +22903,7 @@
                 const curSel = n > 0 && k >= 0 && k < sel.length && legHasRowSync(sel[k]);
                 const allDone = n > 0 && sel.length === n && sel.every((s) => legHasRowSync(s));
                 const needDis = !allDone && !curSel;
-                addBtn.disabled = needDis;
-                addBtn.className = hiddenPrefix + (needDis ? disCls : activeCls);
+                guardAdd(!needDis, hiddenPrefix + (needDis ? disCls : activeCls));
                 return;
             }
             if (railActive && railResultsVisible && railIsMultiLeg) {
@@ -22443,35 +22913,32 @@
                 const curSel = n > 0 && k >= 0 && k < sel.length && legHasRowSync(sel[k]);
                 const allDone = n > 0 && sel.length === n && sel.every((s) => legHasRowSync(s));
                 const needDis = !allDone && !curSel;
-                addBtn.disabled = needDis;
-                addBtn.className = hiddenPrefix + (needDis ? disCls : activeCls);
+                guardAdd(!needDis, hiddenPrefix + (needDis ? disCls : activeCls));
                 return;
             }
             const hotelActive = document.querySelector('.online-subtab-card[data-online-mode="hotel"].ring-2');
             const hotelResultsEl = document.getElementById('online-hotel-results');
             const hotelResultsVisible = hotelResultsEl && !hotelResultsEl.classList.contains('hidden');
             if (hotelActive && hotelResultsVisible) {
-                addBtn.disabled = false;
-                addBtn.className = 'hidden ' + activeCls;
+                guardAdd(true, 'hidden ' + activeCls);
                 return;
             }
             if (hotelActive) {
-                addBtn.disabled = true;
-                addBtn.className = hiddenPrefix + disCls;
+                guardAdd(false, hiddenPrefix + disCls);
                 return;
             }
             const carActive = document.querySelector('.online-subtab-card[data-online-mode="car"].ring-2');
             const carResultsEl = document.getElementById('online-car-results');
             const carResultsVisible = carResultsEl && !carResultsEl.classList.contains('hidden');
             if (carActive) {
-                if (!carResultsVisible || window._onlineCarSelectedIndex === null) {
-                    addBtn.disabled = true;
-                    addBtn.className = hiddenPrefix + disCls;
+                const reviewVisible = document.getElementById('online-car-review-detail') && !document.getElementById('online-car-review-detail').classList.contains('hidden');
+                const carReady = carResultsVisible && window._onlineCarSelectedIndex !== null && (window._onlineCarReviewConfirmed || reviewVisible);
+                if (!carReady) {
+                    guardAdd(false, hiddenPrefix + disCls);
                     return;
                 }
             }
-            addBtn.disabled = false;
-            addBtn.className = hiddenPrefix + activeCls;
+            guardAdd(true, hiddenPrefix + activeCls);
         };
 
         window.goToOnlineReturnLeg = () => {
@@ -22679,6 +23146,11 @@
         };
 
         window.searchOnlineFlight = () => {
+            const searchBtn = document.getElementById('online-flight-search-btn');
+            if (searchBtn?.getAttribute('aria-disabled') === 'true') {
+                window.showBookingValidationToast?.();
+                return;
+            }
             window.closeOnlineOnewayFlightReviewModals?.();
             const trip = document.querySelector('input[name="online-flight-trip-type"]:checked')?.value || 'round';
             if (trip === 'multiple') {
@@ -22992,7 +23464,9 @@
             if (mode !== 'flight') window.closeOnlineOnewayFlightReviewModals?.();
             if (mode !== 'rail') window._onlineRailMobileReviewOpen = false;
             window.wireOnlineSearchDateDisplays?.();
+            window.initOnlineSearchDefaultDates?.();
             window.setOnlineSearchCollapsed?.(mode, window._onlineSearchAccordionState?.[mode] === true);
+            window.syncOnlineSearchButtonStates?.();
             window.updateOnlineBookingFooterButtons?.();
             window.updateBookingStepNextButtonState?.();
             window.renderOnlineFlightMobileStepper?.();
@@ -23402,22 +23876,6 @@
         finishOnlineAdd();
     }
 };
-        window.enableBookingStepNextButton = () => {
-            const nextBtn = document.getElementById('booking-step-next-btn');
-            if (nextBtn) {
-                nextBtn.disabled = false;
-                nextBtn.className = 'px-12 py-3 rounded-xl bg-[#4285F4] text-white font-black tracking-widest transition-all hover:bg-[#3367D6] cursor-pointer';
-            }
-        };
-
-        window.disableBookingStepNextButton = () => {
-            const nextBtn = document.getElementById('booking-step-next-btn');
-            if (nextBtn) {
-                nextBtn.disabled = true;
-                nextBtn.className = 'px-12 py-3 rounded-xl bg-slate-300 text-slate-500 font-black tracking-widest cursor-not-allowed transition-all';
-            }
-        };
-
         window.updateBookingStepNextButtonState = () => {
             const step1 = document.getElementById('booking-step-1');
             if (!step1 || step1.classList.contains('hidden')) {
@@ -23488,7 +23946,9 @@
                 const carResultsVisible = carResultsEl && !carResultsEl.classList.contains('hidden');
                 if (interactiveBookingVisible && carActive && carResultsVisible) {
                     step1Nav?.classList.remove('hidden');
-                    if (window._onlineCarSelectedIndex !== null) window.enableBookingStepNextButton();
+                    const reviewVisible = document.getElementById('online-car-review-detail') && !document.getElementById('online-car-review-detail').classList.contains('hidden');
+                    const carReady = window._onlineCarSelectedIndex !== null && (window._onlineCarReviewConfirmed || reviewVisible);
+                    if (carReady) window.enableBookingStepNextButton();
                     else window.disableBookingStepNextButton();
                     return;
                 }
@@ -23499,11 +23959,15 @@
                 const hasReturnInItinerary = (window.itineraryItems || []).some(i => i.title === 'Flight (Return)' || i.rawData?.tripType === 'return');
                 if (isAirlinesReturn && !hasReturnInItinerary) {
                     window.disableBookingStepNextButton();
+                } else if (!(window.itineraryItems || []).length && !window._hasActiveOnlineSelection?.()) {
+                    window.disableBookingStepNextButton();
                 } else {
                     window.enableBookingStepNextButton();
                 }
             } finally {
                 window.syncOnlineAddItineraryButtonState?.();
+                window.syncHotelReviewNextState?.();
+                window.syncDynamicReviewButtonStates?.();
             }
         };
 
@@ -23515,6 +23979,7 @@
             const travelPrimary = document.getElementById('booking-travel-info-primary-btn');
             /* Step-2 travel popup: always Submit (main confirmation footer still uses Book vs Submit by host). */
             if (travelPrimary) travelPrimary.textContent = 'Submit';
+            window.syncBookingTravelInfoSubmitState?.();
             const empEl = document.getElementById('booking-travel-info-employee-display');
             if (empEl && !empEl.value.trim()) {
                 const fromConf = document.getElementById('conf-trav-name-passport')?.textContent?.trim();
@@ -23526,6 +23991,7 @@
                     empEl.value = name && name !== '-' ? name : 'JOHN WICK';
                 }
             }
+            window.syncBookingTravelInfoSubmitState?.();
             lucide.createIcons?.();
         };
 
@@ -23583,7 +24049,7 @@
             const airSec = gid('conf-air-checkout-section');
             const offlineGeneralSec = gid('conf-offline-general-checkout-section');
             if (paySec) paySec.classList.toggle('hidden', !hasHotel);
-            if (airSec) airSec.classList.toggle('hidden', !hasAir);
+            if (airSec) airSec.classList.toggle('hidden', !(hasAny && !offlineHost));
             const showOfflineGeneral = offlineHost && hasAny && !hasAir;
             if (offlineGeneralSec) offlineGeneralSec.classList.toggle('hidden', !showOfflineGeneral);
             const carrierFromItem = (it) => {
@@ -23596,6 +24062,7 @@
             if (lab) {
                 lab.textContent = `I have read and agree to the ${carrierLabel} Terms and Conditions, including fare rules and restrictions.`;
             }
+            if (!p) window.syncBookingConfirmButtonState?.();
         };
 
         window.populateConfirmationTravelerDetails = (idPrefix) => {
@@ -23657,6 +24124,7 @@
                 if ('value' in empEl) empEl.value = name;
                 else empEl.textContent = name;
             }
+            if (!p) window.syncBookingConfirmButtonState?.();
         };
 
         window._bookingStep2Mounted = false;
@@ -23693,6 +24161,10 @@
         };
 
         window.confirmBookingTravelInfo = () => {
+            if (!window._canSubmitBookingTravelInfo?.()) {
+                window.showBookingValidationToast?.();
+                return;
+            }
             const empName = document.getElementById('booking-travel-info-employee-display')?.value?.trim() || 'JOHN WICK';
             ['conf-trav-name-jp', 'conf-trav-name-passport'].forEach((id) => {
                 const el = document.getElementById(id);
@@ -23732,6 +24204,7 @@
                     /* Domestic/International: online host → Book; offline host → Submit */
                     confPrimary.textContent = window._bookingStep2PrimaryLabel();
                 }
+                window.syncBookingConfirmButtonState?.();
             }
             document.querySelectorAll('#booking-steps-indicator .step-container').forEach(c => {
                 const s = parseInt(c.getAttribute('data-step'), 10);
@@ -23875,36 +24348,10 @@
         /* AI-ADDED: Validate hotel card + flight terms; open success modal (no step-3 navigation)
            Prompt: Book button all flows */
         window.submitBookingRequest = () => {
-            const crPage = document.getElementById('page-change-request');
-            const isChange = !!(crPage && !crPage.classList.contains('hidden'));
-            const p = isChange ? 'change-' : '';
-            const gid = (id) => document.getElementById(p + id);
-            const paySec = gid('conf-hotel-payment-section');
-            if (paySec && !paySec.classList.contains('hidden')) {
-                const n = gid('conf-hotel-cc-name')?.value?.trim();
-                const num = gid('conf-hotel-cc-number')?.value?.trim();
-                const exp = gid('conf-hotel-cc-expiry')?.value?.trim();
-                const cvv = gid('conf-hotel-cc-cvv')?.value?.trim();
-                if (!n || !num || !exp || !cvv) {
-                    alert('Please complete all hotel payment fields.');
-                    return;
-                }
-            }
-            const airSec = gid('conf-air-checkout-section');
-            if (airSec && !airSec.classList.contains('hidden')) {
-                const cb = gid('conf-provider-terms-checkbox');
-                if (!cb || !cb.checked) {
-                    alert('Please accept the carrier terms and conditions to continue.');
-                    return;
-                }
-            }
-            const offlineGenSec = gid('conf-offline-general-checkout-section');
-            if (offlineGenSec && !offlineGenSec.classList.contains('hidden')) {
-                const ocb = gid('conf-offline-general-terms-checkbox');
-                if (!ocb || !ocb.checked) {
-                    alert('Please confirm the offline booking acknowledgment to continue.');
-                    return;
-                }
+            const confBtn = document.getElementById('booking-conf-primary-btn');
+            if (confBtn?.getAttribute('aria-disabled') === 'true' || !window._canConfirmBooking?.()) {
+                window.showBookingValidationToast?.();
+                return;
             }
             window.openBookingSuccessModal();
         };
@@ -25860,6 +26307,11 @@
         requestAnimationFrame(() => {
             window.normalizeAppDatesInSubtree?.(document.body);
             window.initAllFlightAirportCombos?.();
+            window.initOnlineSearchDefaultDates?.();
+            window.initBookingValidationGuards?.();
+            window.syncOnlineSearchButtonStates?.();
+            window.syncBookingTravelInfoSubmitState?.();
+            window.updateBookingStepNextButtonState?.();
         });
     </script>
 </body>
