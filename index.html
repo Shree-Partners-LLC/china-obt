@@ -2452,53 +2452,6 @@
                 box-shadow: 0 18px 32px rgba(66, 133, 244, 0.26);
             }
 
-            /* Flight prompt overlay (Task 3): scoped premium styling, no logic changes */
-            #online-flight-mobile-stepper-prompt-overlay-body .online-flight-mobile-stepper__prompt--overlay {
-                border: 1px solid rgba(226, 232, 240, 1);
-                border-radius: 1.5rem;
-                background: #fff;
-                box-shadow: 0 28px 60px rgba(15, 23, 42, 0.18);
-                padding: 1.25rem 1.25rem 1.35rem;
-                position: relative;
-            }
-            #online-flight-mobile-stepper-prompt-overlay-body .online-flight-prompt-handle {
-                width: 64px;
-                height: 6px;
-                border-radius: 9999px;
-                background: rgba(148, 163, 184, 0.45);
-                margin: 0 auto 1rem;
-            }
-            #online-flight-mobile-stepper-prompt-overlay-body .online-flight-mobile-stepper__prompt-illustration {
-                width: 88px;
-                height: 88px;
-                border-radius: 9999px;
-                background: radial-gradient(circle at 30% 30%, rgba(66, 133, 244, 0.28), rgba(66, 133, 244, 0.06));
-                border: 1px solid rgba(66, 133, 244, 0.22);
-                box-shadow: 0 18px 40px rgba(66, 133, 244, 0.22);
-                color: #2563eb;
-                margin-bottom: 1.1rem;
-            }
-            #online-flight-mobile-stepper-prompt-overlay-body .online-flight-mobile-stepper__prompt-title {
-                font-size: 1.125rem;
-                font-weight: 800;
-                color: #0f172a;
-            }
-            #online-flight-mobile-stepper-prompt-overlay-body .online-flight-mobile-stepper__prompt-subtitle {
-                font-size: 0.875rem;
-                color: #64748b;
-            }
-            #online-flight-mobile-stepper-prompt-overlay-body .online-flight-mobile-stepper__prompt-cta {
-                background: #4F46E5;
-                box-shadow: 0 20px 44px rgba(79, 70, 229, 0.24);
-                font-size: 0.875rem;
-                letter-spacing: 0.02em;
-            }
-            #online-flight-mobile-stepper-prompt-overlay-body .online-flight-mobile-stepper__prompt-cta::after {
-                content: ' \u203A';
-                font-weight: 900;
-                margin-left: 0.35rem;
-            }
-
             /* Flight mobile review modal (overlay only — never inline) */
             #online-flight-mobile-review-overlay {
                 background-color: rgba(0, 0, 0, 0.5);
@@ -2527,49 +2480,6 @@
             #page-booking .online-car-pickup-datetime-row > .form-group {
                 flex: 1;
                 min-width: 0;
-            }
-
-            #online-car-selection-prompt-overlay-body .online-car-prompt--overlay {
-                border: 1px solid rgba(226, 232, 240, 1);
-                border-radius: 1.5rem;
-                background: #fff;
-                padding: 1.25rem 1.25rem 1.35rem;
-                position: relative;
-                text-align: center;
-            }
-
-            #online-car-selection-prompt-overlay-body .online-car-prompt-handle {
-                width: 64px;
-                height: 6px;
-                border-radius: 9999px;
-                background: rgba(148, 163, 184, 0.45);
-                margin: 0 auto 1rem;
-            }
-
-            #online-car-selection-prompt-overlay-body .online-car-prompt-illustration {
-                width: 88px;
-                height: 88px;
-                border-radius: 9999px;
-                background: radial-gradient(circle at 30% 30%, rgba(66, 133, 244, 0.28), rgba(66, 133, 244, 0.06));
-                border: 1px solid rgba(66, 133, 244, 0.22);
-                box-shadow: 0 18px 40px rgba(66, 133, 244, 0.22);
-                color: #2563eb;
-                margin: 0 auto 1.1rem;
-                display: flex;
-                align-items: center;
-                justify-content: center;
-            }
-
-            #online-car-selection-prompt-overlay-body .online-car-prompt-title {
-                font-size: 1.125rem;
-                font-weight: 800;
-                color: #0f172a;
-            }
-
-            #online-car-selection-prompt-overlay-body .online-car-prompt-subtitle {
-                font-size: 0.875rem;
-                color: #64748b;
-                margin-top: 0.35rem;
             }
 
             /* One-way flight: review specification overlay (direct on fare select) */
@@ -2717,22 +2627,6 @@
                 .online-oneway-flight-review__subdeck {
                     grid-template-columns: 1fr;
                 }
-            }
-
-            #online-car-selection-prompt-overlay-body .online-car-prompt-cta {
-                display: block;
-                width: 100%;
-                margin-top: 1.25rem;
-                padding: 0.85rem 1rem;
-                border-radius: 0.875rem;
-                border: none;
-                background: #4F46E5;
-                color: #fff;
-                font-weight: 800;
-                font-size: 0.875rem;
-                letter-spacing: 0.02em;
-                box-shadow: 0 20px 44px rgba(79, 70, 229, 0.24);
-                cursor: pointer;
             }
 
             .online-flight-mobile-review {
@@ -9930,7 +9824,6 @@
                                                             <div id="online-flight-mobile-stepper-tabs" class="online-flight-mobile-stepper__tabs" role="tablist" aria-label="Selected flight trips"></div>
                                                             <div id="online-flight-mobile-stepper-summaries" class="online-flight-mobile-stepper__summaries"></div>
                                                         </div>
-                                                        <div id="online-flight-mobile-stepper-prompt" class="online-flight-mobile-stepper__prompt hidden"></div>
                                                         <div id="online-flight-mobile-review" class="online-flight-mobile-review hidden"></div>
                                                     </div>
 
@@ -10167,7 +10060,6 @@
                                                             <div id="online-rail-mobile-stepper-tabs" class="online-flight-mobile-stepper__tabs" role="tablist" aria-label="Selected rail trips"></div>
                                                             <div id="online-rail-mobile-stepper-summaries" class="online-flight-mobile-stepper__summaries"></div>
                                                         </div>
-                                                        <div id="online-rail-mobile-stepper-prompt" class="online-flight-mobile-stepper__prompt hidden"></div>
                                                         <div id="online-rail-mobile-review" class="online-flight-mobile-review hidden"></div>
                                                     </div>
 
@@ -12555,31 +12447,6 @@
         </div>
     </div>
 
-    <!-- Online Flight Mobile Stepper Prompt Overlay (Task 3: fixed overlay, not inline) -->
-    <div id="online-flight-mobile-stepper-prompt-overlay"
-        class="hidden fixed inset-0 z-50 bg-black/50 backdrop-blur-sm"
-        role="dialog" aria-modal="true" aria-labelledby="online-flight-prompt-title"
-        onclick="if(event.target===this)window.closeOnlineFlightMobilePromptOverlay?.()">
-        <div class="absolute inset-0 flex items-end md:items-center justify-center p-3 md:p-6">
-            <div id="online-flight-mobile-stepper-prompt-panel"
-                class="w-full md:max-w-lg bg-white rounded-t-2xl md:rounded-2xl shadow-2xl border border-slate-200 overflow-hidden max-h-[85vh] md:max-h-[90vh] flex flex-col opacity-0 translate-y-3 md:translate-y-0 md:scale-95 transition duration-200 ease-out"
-                style="padding-bottom: env(safe-area-inset-bottom);" onclick="event.stopPropagation()">
-                <div class="px-5 py-4 border-b border-slate-200 flex items-center justify-between gap-3 shrink-0">
-                    <div class="min-w-0 text-left">
-                        <p id="online-flight-prompt-title" class="text-sm font-black tracking-tight text-slate-900" style="font-family: var(--font-heading);">Review Selected Flights</p>
-                        <p class="text-[11px] font-medium text-slate-500 mt-0.5">All trips completed</p>
-                    </div>
-                    <button type="button" onclick="window.closeOnlineFlightMobilePromptOverlay?.()"
-                        class="inline-flex items-center justify-center w-10 h-10 rounded-xl border border-slate-200 text-slate-500 hover:bg-slate-50 hover:text-slate-800 transition-colors"
-                        aria-label="Close flight prompt">
-                        <i data-lucide="x" class="w-5 h-5"></i>
-                    </button>
-                </div>
-                <div id="online-flight-mobile-stepper-prompt-overlay-body" class="flex-1 min-h-0 overflow-y-auto"></div>
-            </div>
-        </div>
-    </div>
-
     <!-- Online Flight Mobile Review Overlay (modal — not inline in stepper) -->
     <div id="online-flight-mobile-review-overlay"
         class="hidden fixed inset-0 z-[60] bg-black/50 backdrop-blur-sm"
@@ -12592,7 +12459,7 @@
                 <div class="px-5 py-4 border-b border-slate-200 flex items-center justify-between gap-3 shrink-0">
                     <div class="min-w-0 text-left">
                         <p id="online-flight-mobile-review-title" class="text-sm font-black tracking-tight text-slate-900" style="font-family: var(--font-heading);">Review Your Selected Flights</p>
-                        <p class="text-[11px] font-medium text-slate-500 mt-0.5">Confirm selections before continuing</p>
+                        <p id="online-flight-mobile-review-subtitle" class="text-[11px] font-medium text-slate-500 mt-0.5">Confirm selections before continuing</p>
                     </div>
                     <button type="button" onclick="window.closeOnlineFlightMobileReviewModal?.()"
                         class="inline-flex items-center justify-center w-10 h-10 rounded-xl border border-slate-200 text-slate-500 hover:bg-slate-50 hover:text-slate-800 transition-colors"
@@ -12615,31 +12482,6 @@
             class="flex flex-col opacity-0 scale-95 transition duration-200 ease-out bg-white border border-slate-200 shadow-2xl overflow-hidden"
             onclick="event.stopPropagation()">
             <div id="online-oneway-flight-review-body" class="online-flight-mobile-review flex-1 min-h-0 overflow-y-auto"></div>
-        </div>
-    </div>
-
-    <!-- Car Selection Completion Prompt Overlay (Car rental only) -->
-    <div id="online-car-selection-prompt-overlay"
-        class="hidden fixed inset-0 z-50 bg-black/50 backdrop-blur-sm"
-        role="dialog" aria-modal="true" aria-labelledby="online-car-prompt-title"
-        onclick="if(event.target===this)window.closeOnlineCarSelectionPromptOverlay?.()">
-        <div class="absolute inset-0 flex items-end md:items-center justify-center p-3 md:p-6">
-            <div id="online-car-selection-prompt-panel"
-                class="w-full md:max-w-lg bg-white rounded-t-[24px] md:rounded-[24px] shadow-2xl border border-slate-200 overflow-hidden max-h-[85vh] md:max-h-[90vh] flex flex-col opacity-0 translate-y-3 md:translate-y-0 md:scale-95 transition duration-200 ease-out"
-                style="padding-bottom: env(safe-area-inset-bottom);" onclick="event.stopPropagation()">
-                <div class="px-5 py-4 border-b border-slate-200 flex items-center justify-between gap-3 shrink-0">
-                    <div class="min-w-0 text-left">
-                        <p id="online-car-prompt-title" class="text-sm font-black tracking-tight text-slate-900" style="font-family: var(--font-heading);">Review Your Selected Car</p>
-                        <p class="text-[11px] font-medium text-slate-500 mt-0.5">All details completed</p>
-                    </div>
-                    <button type="button" onclick="window.closeOnlineCarSelectionPromptOverlay?.()"
-                        class="inline-flex items-center justify-center w-10 h-10 rounded-xl border border-slate-200 text-slate-500 hover:bg-slate-50 hover:text-slate-800 transition-colors"
-                        aria-label="Close car selection prompt">
-                        <i data-lucide="x" class="w-5 h-5"></i>
-                    </button>
-                </div>
-                <div id="online-car-selection-prompt-overlay-body" class="flex-1 min-h-0 overflow-y-auto p-4 sm:p-5"></div>
-            </div>
         </div>
     </div>
 
@@ -15550,31 +15392,18 @@
                 if (!el) return;
                 window._setGuardedButton(el, enabled, { activeClass: activeCls, disabledClass: disCls });
             };
-            if (module === 'flight' || !module) {
-                document.querySelectorAll('#online-flight-mobile-stepper-prompt-overlay-body .online-flight-mobile-stepper__prompt-cta').forEach((btn) => {
-                    guardDynamic(btn, !!window._onlineFlightMobileAllDone?.(), 'online-flight-mobile-stepper__prompt-cta', 'online-flight-mobile-stepper__prompt-cta opacity-40 cursor-not-allowed');
-                });
+            if (module === 'flight' || module === 'rail' || !module) {
                 document.querySelectorAll('#online-flight-mobile-review-overlay-body .online-flight-mobile-review__done').forEach((btn) => {
-                    guardDynamic(btn, !!window._onlineFlightMobileAllDone?.(), 'online-flight-mobile-review__done', 'online-flight-mobile-review__done opacity-40 cursor-not-allowed');
+                    const activeMod = window._onlineMobileReviewActiveModule;
+                    const enabled = activeMod === 'rail'
+                        ? !!window._onlineRailMobileAllDone?.()
+                        : !!window._onlineFlightMobileAllDone?.();
+                    guardDynamic(btn, enabled, 'online-flight-mobile-review__done', 'online-flight-mobile-review__done opacity-40 cursor-not-allowed');
                 });
+            }
+            if (module === 'flight' || !module) {
                 document.querySelectorAll('#online-oneway-flight-review-body .online-flight-mobile-review__done').forEach((btn) => {
                     guardDynamic(btn, window._canFlightOnewayReviewContinue(), 'online-flight-mobile-review__done', 'online-flight-mobile-review__done opacity-40 cursor-not-allowed');
-                });
-            }
-            if (module === 'rail' || !module) {
-                if (window._isOnlineRailOnewayMobileContext?.()) {
-                    const allDone = !!window._onlineRailMobileAllDone?.();
-                    document.querySelectorAll('#online-rail-mobile-stepper .online-flight-mobile-stepper__prompt-cta').forEach((btn) => {
-                        guardDynamic(btn, allDone, 'online-flight-mobile-stepper__prompt-cta', 'online-flight-mobile-stepper__prompt-cta opacity-40 cursor-not-allowed');
-                    });
-                    document.querySelectorAll('#online-rail-mobile-review .online-flight-mobile-review__done').forEach((btn) => {
-                        guardDynamic(btn, allDone, 'online-flight-mobile-review__done', 'online-flight-mobile-review__done opacity-40 cursor-not-allowed');
-                    });
-                }
-            }
-            if (module === 'car' || !module) {
-                document.querySelectorAll('.online-car-prompt-cta').forEach((btn) => {
-                    guardDynamic(btn, window._onlineCarSelectedIndex != null, 'online-car-prompt-cta', 'online-car-prompt-cta opacity-40 cursor-not-allowed');
                 });
             }
         };
@@ -20180,15 +20009,66 @@
                 </div>`;
         };
 
+        window._buildOnlineRailMobileReviewHtml = (selectedSummaries, segs) => {
+            const total = selectedSummaries.reduce((sum, item) => sum + item.price, 0);
+            return `<div class="online-flight-mobile-review">
+                    <div class="online-flight-mobile-review__header">
+                        <p class="online-flight-mobile-review__title">Review Your Selected Trains</p>
+                        <p class="online-flight-mobile-review__subtitle">${selectedSummaries.length} of ${segs.length} trips selected</p>
+                    </div>
+                    <div class="online-flight-mobile-review__list">
+                        ${selectedSummaries.map((item) => `
+                            <div class="online-flight-mobile-review__card">
+                                <div class="online-flight-mobile-review__card-top">
+                                    <div class="min-w-0">
+                                        <p class="online-flight-mobile-review__label">${window._onlineUiEsc(item.tripLabel)}</p>
+                                        <p class="online-flight-mobile-review__route">${window._onlineUiEsc(item.routeText)}</p>
+                                    </div>
+                                    <button type="button" class="online-flight-mobile-stepper__summary-edit" data-module="rail" onclick="window.editOnlineRailMobileLeg(event, ${item.legIndex})">Edit</button>
+                                </div>
+                                <div class="online-flight-mobile-review__meta obt-density-badge-row">
+                                    ${window._densityBadgeHtml('calendar', item.dateLine)}
+                                    ${window._densityBadgeHtml('train-front', item.airline)}
+                                    ${window._densityBadgeHtml('clock-3', item.timeLine)}
+                                    ${window._densityBadgeHtml('route', item.durationLine)}
+                                    ${window._densityBadgeHtml('map-pin', item.airportLine)}
+                                    ${window._densityBadgeHtml('wallet', item.priceText)}
+                                    ${item.fareName ? window._densityBadgeHtml('tag', item.fareName) : ''}
+                                </div>
+                            </div>`).join('')}
+                    </div>
+                    <div class="online-flight-mobile-review__fare">
+                        <p class="online-flight-mobile-review__fare-label">Total Fare</p>
+                        <p class="online-flight-mobile-review__fare-amount">¥${total.toLocaleString()}</p>
+                        <p class="online-flight-mobile-review__fare-note">Includes taxes and fees</p>
+                    </div>
+                    <div class="online-flight-mobile-review__actions">
+                        <button type="button" class="online-flight-mobile-review__done" onclick="window.completeOnlineRailMobileReview()">Done</button>
+                        <button type="button" class="online-flight-mobile-review__reset" onclick="window.startOverOnlineRailMobileSelection()">Start Over</button>
+                    </div>
+                </div>`;
+        };
+
+        window._onlineMobileReviewActiveModule = null;
+
         window.openOnlineFlightMobileReviewModal = (innerHtml, opts) => {
             const options = opts || {};
             const pushHistory = options.pushHistory !== false;
+            const module = options.module === 'rail' ? 'rail' : 'flight';
             const overlay = document.getElementById('online-flight-mobile-review-overlay');
             const panel = document.getElementById('online-flight-mobile-review-panel');
             const body = document.getElementById('online-flight-mobile-review-overlay-body');
             if (!overlay || !panel || !body) return;
 
-            window.closeOnlineFlightMobilePromptOverlay?.();
+            window._onlineMobileReviewActiveModule = module;
+            const titleEl = document.getElementById('online-flight-mobile-review-title');
+            const subtitleEl = document.getElementById('online-flight-mobile-review-subtitle');
+            if (titleEl) {
+                titleEl.textContent = module === 'rail' ? 'Review Your Selected Trains' : 'Review Your Selected Flights';
+            }
+            if (subtitleEl) {
+                subtitleEl.textContent = 'Confirm selections before continuing';
+            }
             window._onlineFlightMobileReviewLastActiveEl = document.activeElement;
             body.innerHTML = innerHtml || '';
             overlay.classList.remove('hidden');
@@ -20212,7 +20092,7 @@
 
             const focusable = panel.querySelector('button, [href], input, select, textarea, [tabindex]:not([tabindex="-1"])');
             focusable?.focus?.();
-            window.syncDynamicReviewButtonStates?.('flight');
+            window.syncDynamicReviewButtonStates?.(module);
 
             if (window._onlineFlightMobileReviewKeydown) {
                 document.removeEventListener('keydown', window._onlineFlightMobileReviewKeydown, true);
@@ -20260,13 +20140,23 @@
             }
 
             const wasOpen = window._onlineFlightMobileReviewModalOpen;
+            const closedModule = window._onlineMobileReviewActiveModule;
             window._onlineFlightMobileReviewModalOpen = false;
-            window._onlineFlightMobileReviewOpen = false;
-
-            const inlineReview = document.getElementById('online-flight-mobile-review');
-            if (inlineReview) {
-                inlineReview.classList.add('hidden');
-                inlineReview.innerHTML = '';
+            window._onlineMobileReviewActiveModule = null;
+            if (closedModule === 'rail') {
+                window._onlineRailMobileReviewOpen = false;
+                const inlineRailReview = document.getElementById('online-rail-mobile-review');
+                if (inlineRailReview) {
+                    inlineRailReview.classList.add('hidden');
+                    inlineRailReview.innerHTML = '';
+                }
+            } else {
+                window._onlineFlightMobileReviewOpen = false;
+                const inlineReview = document.getElementById('online-flight-mobile-review');
+                if (inlineReview) {
+                    inlineReview.classList.add('hidden');
+                    inlineReview.innerHTML = '';
+                }
             }
 
             document.body.classList.remove('ts-overlay-open');
@@ -20288,7 +20178,11 @@
                 try { history.back(); } catch (e) { /* ignore */ }
             }
 
-            window.renderOnlineFlightMobileStepper?.();
+            if (closedModule === 'rail') {
+                window.renderOnlineRailMobileStepper?.();
+            } else {
+                window.renderOnlineFlightMobileStepper?.();
+            }
         };
 
         window._onlineFlightMobileReviewOnPopState = () => {
@@ -20373,8 +20267,6 @@
         };
         window.openOnlineFlightMobileReview = () => {
             if (!window._onlineFlightMobileAllDone()) return;
-            // Defensive: ensure the success/prompt overlay unmounts before switching view.
-            window.closeOnlineFlightMobilePromptOverlay?.();
             const isFlightDrawerOpen = window.isOnlineFlightMobileStepperActive?.() && window._obtFilterDrawer?.vertical === 'flight';
             if (isFlightDrawerOpen) {
                 window.closeObtFilterDrawer?.();
@@ -20392,7 +20284,6 @@
         window.editOnlineFlightMobileLeg = (eventOrLeg, legIndexMaybe) => {
             const event = (typeof eventOrLeg === 'object' && eventOrLeg?.currentTarget) ? eventOrLeg : null;
             const legIndex = event ? legIndexMaybe : eventOrLeg;
-            window.closeOnlineFlightMobilePromptOverlay?.();
             window.closeOnlineFlightMobileReview();
             window._onlineFlightMobileEditingLeg = legIndex;
             document.getElementById('online-flight-results-shell')?.classList.remove('hidden');
@@ -20421,84 +20312,6 @@
             window.bookOnlineProvider();
         };
 
-        // Task 3: Online Flight mobile stepper prompt as a true fixed overlay layer (not inline).
-        window._onlineFlightPromptOverlayLastActiveEl = null;
-        window._onlineFlightPromptOverlayKeydown = null;
-
-        window.openOnlineFlightMobilePromptOverlay = (innerHtml) => {
-            const overlay = document.getElementById('online-flight-mobile-stepper-prompt-overlay');
-            const panel = document.getElementById('online-flight-mobile-stepper-prompt-panel');
-            const body = document.getElementById('online-flight-mobile-stepper-prompt-overlay-body');
-            if (!overlay || !panel || !body) return;
-
-            window._onlineFlightPromptOverlayLastActiveEl = document.activeElement;
-            overlay.classList.remove('hidden');
-            document.body.classList.add('ts-overlay-open');
-
-            body.innerHTML = innerHtml || '';
-            lucide.createIcons?.();
-            window.syncDynamicReviewButtonStates?.('flight');
-
-            requestAnimationFrame(() => {
-                panel.classList.remove('opacity-0', 'translate-y-3', 'md:scale-95');
-                panel.classList.add('opacity-100', 'translate-y-0', 'md:scale-100');
-            });
-
-            const focusable = panel.querySelector('button, [href], input, select, textarea, [tabindex]:not([tabindex="-1"])');
-            focusable?.focus?.();
-
-            if (window._onlineFlightPromptOverlayKeydown) {
-                document.removeEventListener('keydown', window._onlineFlightPromptOverlayKeydown, true);
-                window._onlineFlightPromptOverlayKeydown = null;
-            }
-
-            window._onlineFlightPromptOverlayKeydown = (e) => {
-                if (e.key === 'Escape') {
-                    e.preventDefault();
-                    window.closeOnlineFlightMobilePromptOverlay?.();
-                    return;
-                }
-                if (e.key !== 'Tab') return;
-                const list = Array.from(panel.querySelectorAll('button, [href], input, select, textarea, [tabindex]:not([tabindex="-1"])'))
-                    .filter((el) => !el.hasAttribute('disabled') && el.getAttribute('aria-hidden') !== 'true' && el.offsetParent !== null);
-                if (!list.length) return;
-                const first = list[0];
-                const last = list[list.length - 1];
-                if (e.shiftKey && document.activeElement === first) {
-                    e.preventDefault();
-                    last.focus();
-                } else if (!e.shiftKey && document.activeElement === last) {
-                    e.preventDefault();
-                    first.focus();
-                }
-            };
-            document.addEventListener('keydown', window._onlineFlightPromptOverlayKeydown, true);
-        };
-
-        window.closeOnlineFlightMobilePromptOverlay = () => {
-            const overlay = document.getElementById('online-flight-mobile-stepper-prompt-overlay');
-            const panel = document.getElementById('online-flight-mobile-stepper-prompt-panel');
-            const body = document.getElementById('online-flight-mobile-stepper-prompt-overlay-body');
-            if (!overlay || !panel || !body) return;
-
-            panel.classList.add('opacity-0', 'translate-y-3', 'md:scale-95');
-            panel.classList.remove('opacity-100', 'translate-y-0', 'md:scale-100');
-
-            if (window._onlineFlightPromptOverlayKeydown) {
-                document.removeEventListener('keydown', window._onlineFlightPromptOverlayKeydown, true);
-                window._onlineFlightPromptOverlayKeydown = null;
-            }
-
-            document.body.classList.remove('ts-overlay-open');
-
-            setTimeout(() => {
-                overlay.classList.add('hidden');
-                body.innerHTML = '';
-            }, 200);
-
-            try { window._onlineFlightPromptOverlayLastActiveEl?.focus?.(); } catch (e) { /* ignore */ }
-            window._onlineFlightPromptOverlayLastActiveEl = null;
-        };
         window._syncOnlineFlightResultsCompleteUi = (allDone) => {
             const resultsRoot = document.getElementById('online-flight-results');
             const shell = document.getElementById('online-flight-results-shell');
@@ -20521,23 +20334,22 @@
             const sticky = document.getElementById('online-flight-mobile-stepper-sticky');
             const tabs = document.getElementById('online-flight-mobile-stepper-tabs');
             const summaries = document.getElementById('online-flight-mobile-stepper-summaries');
-            const prompt = document.getElementById('online-flight-mobile-stepper-prompt');
             const review = document.getElementById('online-flight-mobile-review');
             const shell = document.getElementById('online-flight-results-shell');
             const resultsRoot = document.getElementById('online-flight-results');
             const legTabs = document.getElementById('online-flight-leg-tabs');
             const multiTabs = document.getElementById('online-flight-multi-leg-tabs');
-            if (!root || !sticky || !tabs || !summaries || !prompt || !review || !shell) return;
+            if (!root || !sticky || !tabs || !summaries || !review || !shell) return;
             if (!window.isOnlineFlightMobileStepperActive()) {
                 const trip = document.querySelector('input[name="online-flight-trip-type"]:checked')?.value || 'round';
                 const showMultiTabs = trip === 'multiple' || window._onlineFlightIsSequentialRound;
                 root.classList.add('hidden');
                 sticky.classList.remove('hidden');
-                prompt.classList.add('hidden');
                 review.classList.add('hidden');
                 review.innerHTML = '';
-                window.closeOnlineFlightMobilePromptOverlay?.();
-                window.closeOnlineFlightMobileReviewModal?.({ popHistory: true });
+                if (window._onlineMobileReviewActiveModule !== 'rail') {
+                    window.closeOnlineFlightMobileReviewModal?.({ popHistory: true });
+                }
                 shell.classList.remove('hidden');
                 resultsRoot?.classList.remove('online-results-complete');
                 legTabs?.classList.toggle('hidden', showMultiTabs);
@@ -20551,12 +20363,17 @@
             const editing = window._onlineFlightMobileEditingLeg != null;
             window._syncOnlineFlightResultsCompleteUi(allDone && !editing);
             const isFlightDrawerOpen = window._obtFilterDrawer?.vertical === 'flight';
-            if (allDone && window.isOnlineFlightMobileStepperActive?.() && isFlightDrawerOpen) {
-                window.closeObtFilterDrawer?.();
-                if (window._onlineFlightMobileReviewOpen && !window._onlineFlightMobileReviewPending) {
+            if (allDone && !editing && !window._onlineFlightMobileReviewOpen && !window._onlineFlightMobileReviewPending) {
+                if (isFlightDrawerOpen) {
+                    window.closeObtFilterDrawer?.();
                     window.deferOnlineFlightMobileReviewOpen();
-                    return;
+                } else {
+                    window._onlineFlightMobileReviewOpen = true;
                 }
+            } else if (allDone && !editing && window.isOnlineFlightMobileStepperActive?.() && isFlightDrawerOpen && window._onlineFlightMobileReviewOpen && !window._onlineFlightMobileReviewPending) {
+                window.closeObtFilterDrawer?.();
+                window.deferOnlineFlightMobileReviewOpen();
+                return;
             }
             const selectedSummaries = segs.map((_, idx) => window._getOnlineFlightMobileSelectionSummary(idx)).filter(Boolean);
             const completedCards = selectedSummaries.filter((item) => allDone || item.legIndex !== active);
@@ -20597,28 +20414,10 @@
                 </div>`).join('');
 
             const showReview = allDone && window._onlineFlightMobileReviewOpen && !editing;
-            const showPrompt = allDone && !showReview && !editing;
             // Review renders in overlay modal only — keep stepper summaries visible behind backdrop.
             sticky.classList.remove('hidden');
-            // Task 3: prompt is no longer an inline/flow element; keep it hidden always.
-            prompt.classList.add('hidden');
             review.classList.add('hidden');
             review.innerHTML = '';
-
-            if (showPrompt) {
-                const html = `
-                    <div class="online-flight-mobile-stepper__prompt online-flight-mobile-stepper__prompt--overlay">
-                        <div class="online-flight-prompt-handle" aria-hidden="true"></div>
-                        <div class="online-flight-mobile-stepper__prompt-illustration"><i data-lucide="check" class="w-8 h-8"></i></div>
-                        <p class="online-flight-mobile-stepper__prompt-title">All trips completed!</p>
-                        <p class="online-flight-mobile-stepper__prompt-subtitle">Every selected leg has been collapsed into a compact summary card. Review your chosen flights before you continue.</p>
-                        <button type="button" class="online-flight-mobile-stepper__prompt-cta" onclick="window.openOnlineFlightMobileReview()">Review Selected Flights</button>
-                    </div>`;
-                window.openOnlineFlightMobilePromptOverlay?.(html);
-            } else {
-                prompt.innerHTML = '';
-                window.closeOnlineFlightMobilePromptOverlay?.();
-            }
 
             if (showReview) {
                 const reviewHtml = window._buildOnlineFlightMobileReviewHtml(selectedSummaries, segs);
@@ -20647,6 +20446,7 @@
             const event = (typeof eventOrLeg === 'object' && eventOrLeg?.currentTarget) ? eventOrLeg : null;
             const legIndex = event ? legIndexMaybe : eventOrLeg;
             window._onlineRailMobileReviewOpen = false;
+            window.closeOnlineFlightMobileReviewModal?.({ popHistory: false });
             document.getElementById('online-rail-results-shell')?.classList.remove('hidden');
             window.switchOnlineRailMultiLegTab(legIndex);
             const detected = window._getMobileStepperModuleFromButton(event?.currentTarget);
@@ -20657,6 +20457,7 @@
             const segs = window._multiCitySegments || [];
             if (!segs.length) return;
             window._onlineRailMobileReviewOpen = false;
+            window.closeOnlineFlightMobileReviewModal?.({ popHistory: true });
             window._onlineRailMultiSelections = segs.map(() => null);
             const fareStore = window._onlineFareSelection.rail || {};
             Object.keys(fareStore).filter((key) => key.startsWith('mc-')).forEach((key) => { delete fareStore[key]; });
@@ -20670,6 +20471,7 @@
             if (window._isOnlineRailOnewayMobileContext?.() && !window._onlineRailMobileAllDone?.()) return;
             if (window._isOnlineRailOnewayMobileContext?.()) {
                 window._onlineRailMobileReviewOpen = false;
+                window.closeOnlineFlightMobileReviewModal?.({ popHistory: false });
                 window.bookOnlineProvider?.();
                 window.renderOnlineRailMobileStepper?.();
                 window.scrollToBookingStep1ItineraryList?.({ behavior: 'smooth', block: 'nearest' });
@@ -20682,20 +20484,23 @@
             const sticky = document.getElementById('online-rail-mobile-stepper-sticky');
             const tabs = document.getElementById('online-rail-mobile-stepper-tabs');
             const summaries = document.getElementById('online-rail-mobile-stepper-summaries');
-            const prompt = document.getElementById('online-rail-mobile-stepper-prompt');
             const review = document.getElementById('online-rail-mobile-review');
             const shell = document.getElementById('online-rail-results-shell');
             const resultsRoot = document.getElementById('online-rail-results');
             const legTabs = document.getElementById('online-rail-leg-tabs');
             const multiTabs = document.getElementById('online-rail-multi-leg-tabs');
-            if (!root || !sticky || !tabs || !summaries || !prompt || !review || !shell) return;
+            if (!root || !sticky || !tabs || !summaries || !review || !shell) return;
             if (!window.isOnlineRailMobileStepperActive()) {
                 const trip = document.querySelector('input[name="online-rail-trip-type"]:checked')?.value || 'round';
                 const showMultiTabs = trip === 'multiple' || window._onlineRailIsSequentialRound;
                 root.classList.add('hidden');
                 sticky.classList.remove('hidden');
-                prompt.classList.add('hidden');
                 review.classList.add('hidden');
+                review.innerHTML = '';
+                if (window._onlineMobileReviewActiveModule === 'rail' || window._onlineRailMobileReviewOpen) {
+                    window.closeOnlineFlightMobileReviewModal?.({ popHistory: true });
+                }
+                window._onlineRailMobileReviewOpen = false;
                 shell.classList.remove('hidden');
                 resultsRoot?.classList.remove('online-results-complete');
                 legTabs?.classList.toggle('hidden', showMultiTabs);
@@ -20746,66 +20551,32 @@
                     </div>
                 </div>`).join('');
 
+            if (allDone && !window._onlineRailMobileReviewOpen) {
+                window._onlineRailMobileReviewOpen = true;
+            }
             const showReview = allDone && window._onlineRailMobileReviewOpen;
-            const showPrompt = allDone && !showReview;
             resultsRoot?.classList.toggle('online-results-complete', allDone);
             legTabs?.classList.toggle('hidden', allDone);
             multiTabs?.classList.toggle('hidden', allDone);
             if (allDone) window._setOnlineMultiResultsHint('rail', '', false);
-            sticky.classList.toggle('hidden', showReview);
-            prompt.classList.toggle('hidden', !showPrompt);
-            review.classList.toggle('hidden', !showReview);
+            sticky.classList.remove('hidden');
+            review.classList.add('hidden');
+            review.innerHTML = '';
             shell.classList.toggle('hidden', allDone);
 
-            if (showPrompt) {
-                prompt.innerHTML = `
-                    <div class="online-flight-mobile-stepper__prompt-illustration"><i data-lucide="badge-check" class="w-8 h-8"></i></div>
-                    <p class="online-flight-mobile-stepper__prompt-title">All trips completed!</p>
-                    <p class="online-flight-mobile-stepper__prompt-subtitle">Every selected leg has been collapsed into a compact summary card. Review your chosen trains before you continue.</p>
-                    <button type="button" class="online-flight-mobile-stepper__prompt-cta" onclick="window.openOnlineRailMobileReview()">Review Selected Trains</button>`;
-            } else {
-                prompt.innerHTML = '';
-            }
-
             if (showReview) {
-                const total = selectedSummaries.reduce((sum, item) => sum + item.price, 0);
-                review.innerHTML = `
-                    <div class="online-flight-mobile-review__header">
-                        <p class="online-flight-mobile-review__title">Review Your Selected Trains</p>
-                        <p class="online-flight-mobile-review__subtitle">${selectedSummaries.length} of ${segs.length} trips selected</p>
-                    </div>
-                    <div class="online-flight-mobile-review__list">
-                        ${selectedSummaries.map((item) => `
-                            <div class="online-flight-mobile-review__card">
-                                <div class="online-flight-mobile-review__card-top">
-                                    <div class="min-w-0">
-                                        <p class="online-flight-mobile-review__label">${window._onlineUiEsc(item.tripLabel)}</p>
-                                        <p class="online-flight-mobile-review__route">${window._onlineUiEsc(item.routeText)}</p>
-                                    </div>
-                                    <button type="button" class="online-flight-mobile-stepper__summary-edit" data-module="rail" onclick="window.editOnlineRailMobileLeg(event, ${item.legIndex})">Edit</button>
-                                </div>
-                                <div class="online-flight-mobile-review__meta obt-density-badge-row">
-                                    ${window._densityBadgeHtml('calendar', item.dateLine)}
-                                    ${window._densityBadgeHtml('train-front', item.airline)}
-                                    ${window._densityBadgeHtml('clock-3', item.timeLine)}
-                                    ${window._densityBadgeHtml('route', item.durationLine)}
-                                    ${window._densityBadgeHtml('map-pin', item.airportLine)}
-                                    ${window._densityBadgeHtml('wallet', item.priceText)}
-                                    ${item.fareName ? window._densityBadgeHtml('tag', item.fareName) : ''}
-                                </div>
-                            </div>`).join('')}
-                    </div>
-                    <div class="online-flight-mobile-review__fare">
-                        <p class="online-flight-mobile-review__fare-label">Total Fare</p>
-                        <p class="online-flight-mobile-review__fare-amount">¥${total.toLocaleString()}</p>
-                        <p class="online-flight-mobile-review__fare-note">Includes taxes and fees</p>
-                    </div>
-                    <div class="online-flight-mobile-review__actions">
-                        <button type="button" class="online-flight-mobile-review__done" onclick="window.completeOnlineRailMobileReview()">Done</button>
-                        <button type="button" class="online-flight-mobile-review__reset" onclick="window.startOverOnlineRailMobileSelection()">Start Over</button>
-                    </div>`;
-            } else {
-                review.innerHTML = '';
+                const reviewHtml = window._buildOnlineRailMobileReviewHtml(selectedSummaries, segs);
+                if (window._onlineFlightMobileReviewModalOpen && window._onlineMobileReviewActiveModule === 'rail') {
+                    const modalBody = document.getElementById('online-flight-mobile-review-overlay-body');
+                    if (modalBody) {
+                        modalBody.innerHTML = reviewHtml;
+                        lucide.createIcons?.();
+                    }
+                } else {
+                    window.openOnlineFlightMobileReviewModal(reviewHtml, { pushHistory: true, module: 'rail' });
+                }
+            } else if (window._onlineFlightMobileReviewModalOpen && window._onlineMobileReviewActiveModule === 'rail') {
+                window.closeOnlineFlightMobileReviewModal({ popHistory: false });
             }
             lucide.createIcons();
             window.syncDynamicReviewButtonStates?.('rail');
@@ -22273,10 +22044,7 @@
             lucide.createIcons();
         };
 
-        // --- Car rental: selection completion prompt + in-section review (scoped to car only) ---
-        window._onlineCarPromptOverlayLastActiveEl = null;
-        window._onlineCarPromptOverlayKeydown = null;
-
+        // --- Car rental: in-section review (scoped to car only) ---
         window._onlineCarSelectionReviewBuildHtml = () => {
             const idx = window._onlineCarSelectedIndex;
             const row = (idx != null && (window._onlineCarRows || [])[idx]) ? window._onlineCarRows[idx] : null;
@@ -22343,75 +22111,6 @@
                         </div>
                     </div>
                 </div>`;
-        };
-
-        window.openOnlineCarSelectionPromptOverlay = () => {
-            const overlay = document.getElementById('online-car-selection-prompt-overlay');
-            const panel = document.getElementById('online-car-selection-prompt-panel');
-            const body = document.getElementById('online-car-selection-prompt-overlay-body');
-            if (!overlay || !panel || !body) return;
-            if (window._onlineCarSelectedIndex == null) return;
-
-            window._onlineCarPromptOverlayLastActiveEl = document.activeElement;
-            overlay.classList.remove('hidden');
-            document.body.classList.add('ts-overlay-open');
-
-            body.innerHTML = `
-                <div class="online-car-prompt--overlay">
-                    <div class="online-car-prompt-handle" aria-hidden="true"></div>
-                    <div class="online-car-prompt-illustration"><i data-lucide="check" class="w-8 h-8"></i></div>
-                    <p class="online-car-prompt-title">All set!</p>
-                    <p class="online-car-prompt-subtitle">Your selected car details have been saved. Review everything below before you continue to the next step.</p>
-                    <button type="button" class="online-car-prompt-cta" onclick="window.openOnlineCarReviewDetail?.()">Review Your Selected Car</button>
-                </div>`;
-            lucide.createIcons?.();
-            window.syncDynamicReviewButtonStates?.('car');
-
-            requestAnimationFrame(() => {
-                panel.classList.remove('opacity-0', 'translate-y-3', 'md:scale-95');
-                panel.classList.add('opacity-100', 'translate-y-0', 'md:scale-100');
-            });
-
-            const focusable = panel.querySelector('button, [href], input, select, textarea, [tabindex]:not([tabindex="-1"])');
-            focusable?.focus?.();
-
-            if (window._onlineCarPromptOverlayKeydown) {
-                document.removeEventListener('keydown', window._onlineCarPromptOverlayKeydown, true);
-                window._onlineCarPromptOverlayKeydown = null;
-            }
-
-            window._onlineCarPromptOverlayKeydown = (e) => {
-                if (e.key === 'Escape') {
-                    e.preventDefault();
-                    window.closeOnlineCarSelectionPromptOverlay?.();
-                }
-            };
-            document.addEventListener('keydown', window._onlineCarPromptOverlayKeydown, true);
-        };
-
-        window.closeOnlineCarSelectionPromptOverlay = () => {
-            const overlay = document.getElementById('online-car-selection-prompt-overlay');
-            const panel = document.getElementById('online-car-selection-prompt-panel');
-            const body = document.getElementById('online-car-selection-prompt-overlay-body');
-            if (!overlay || !panel || !body) return;
-
-            panel.classList.add('opacity-0', 'translate-y-3', 'md:scale-95');
-            panel.classList.remove('opacity-100', 'translate-y-0', 'md:scale-100');
-
-            if (window._onlineCarPromptOverlayKeydown) {
-                document.removeEventListener('keydown', window._onlineCarPromptOverlayKeydown, true);
-                window._onlineCarPromptOverlayKeydown = null;
-            }
-
-            document.body.classList.remove('ts-overlay-open');
-
-            setTimeout(() => {
-                overlay.classList.add('hidden');
-                body.innerHTML = '';
-            }, 200);
-
-            try { window._onlineCarPromptOverlayLastActiveEl?.focus?.(); } catch (e) { /* ignore */ }
-            window._onlineCarPromptOverlayLastActiveEl = null;
         };
 
         /* One-way flight: review modal opens directly on fare selection */
@@ -22644,7 +22343,6 @@
             if (!reviewRoot || !card || window._onlineCarSelectedIndex == null) return;
 
             window._onlineCarReviewConfirmed = true;
-            window.closeOnlineCarSelectionPromptOverlay?.();
             card.innerHTML = window._onlineCarSelectionReviewBuildHtml();
             reviewRoot.classList.remove('hidden');
             lucide.createIcons?.();
@@ -22662,7 +22360,7 @@
             window.refreshOnlineCarRowBodies();
             window.updateOnlineBookingFooterButtons?.();
             window.updateBookingStepNextButtonState?.();
-            window.openOnlineCarSelectionPromptOverlay?.();
+            window.openOnlineCarReviewDetail?.();
         };
 
         window.searchOnlineCar = () => {
@@ -22696,7 +22394,6 @@
             window._applyOnlineCarSort();
             window._onlineCarSelectedIndex = null;
             window._onlineCarReviewConfirmed = false;
-            window.closeOnlineCarSelectionPromptOverlay?.();
             document.getElementById('online-car-review-detail')?.classList.add('hidden');
             const reviewCard = document.getElementById('online-car-review-card');
             if (reviewCard) reviewCard.innerHTML = '';
