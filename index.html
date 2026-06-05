@@ -13301,8 +13301,8 @@
             <div class="p-6 overflow-y-auto flex-1 min-h-0 space-y-4">
                 <div class="form-group !mb-0 w-full min-w-0">
                     <label for="booking-travel-info-employee-display">Employee Name</label>
-                    <input type="text" id="booking-travel-info-employee-display" class="w-full bg-slate-50" readonly
-                        value="">
+                    <input type="text" id="booking-travel-info-employee-display" class="w-full" autocomplete="name"
+                        placeholder="Enter employee name" value="">
                 </div>
                 <p class="text-xs font-medium text-slate-500 pt-2 border-t border-slate-100">Remarks</p>
                 <div class="form-group !mb-0 w-full min-w-0">
@@ -15180,6 +15180,14 @@
             };
             return `<div class="booking-mobile-summary-route">${part(from)}<span class="booking-mobile-summary-sep">→</span>${part(to)}</div>`;
         };
+        window._mobileSummaryPlainRouteHtml = (from, to) => {
+            const label = (text) => window._mobileSummaryEsc(text?.trim() || 'Select location');
+            return `<div class="booking-mobile-summary-route">
+                <span class="booking-mobile-summary-name text-sm font-black text-slate-900">${label(from)}</span>
+                <span class="booking-mobile-summary-sep">→</span>
+                <span class="booking-mobile-summary-name text-sm font-black text-slate-900">${label(to)}</span>
+            </div>`;
+        };
         window._mobileSummaryDateText = (iso) => {
             if (!iso) return 'Select date';
             return typeof window.formatOnlineFlightDateDisplay === 'function'
@@ -15233,7 +15241,7 @@
                 return `
                     <div class="booking-mobile-summary-banner__body">
                         <p class="booking-mobile-summary-banner__eyebrow">Rail search</p>
-                        ${window._mobileSummaryRouteHtml(from, to)}
+                        ${window._mobileSummaryPlainRouteHtml(from, to)}
                         <p class="booking-mobile-summary-banner__meta">${window._mobileSummaryEsc(window._mobileSummaryDateText(dd))}${trip === 'oneway' ? '' : ` · ${window._mobileSummaryEsc(window._mobileSummaryDateText(rd))}`}</p>
                     </div>`;
             }
@@ -15241,22 +15249,38 @@
                 const dest = document.getElementById('online-hotel-destination')?.value?.trim() || '';
                 const ci = document.getElementById('online-hotel-checkin')?.value || '';
                 const co = document.getElementById('online-hotel-checkout')?.value || '';
+                let selectedLine = '';
+                const hIdx = window._onlineHotelSelectedIndex;
+                if (hIdx != null && (window._onlineHotelRows || [])[hIdx]) {
+                    const h = window._onlineHotelRows[hIdx];
+                    const roomEl = document.getElementById('online-hotel-room-type');
+                    const roomLabel = window._onlineHotelModalRoomLabel
+                        || roomEl?.selectedOptions?.[0]?.textContent?.trim()
+                        || 'Standard Room';
+                    selectedLine = `<p class="booking-mobile-summary-banner__meta mt-1 text-[#0A3266] font-bold">Selected: ${window._mobileSummaryEsc(h.name)} · ${window._mobileSummaryEsc(roomLabel)}</p>`;
+                }
                 return `
                     <div class="booking-mobile-summary-banner__body">
                         <p class="booking-mobile-summary-banner__eyebrow">Hotel search</p>
                         <p class="booking-mobile-summary-banner__title">${window._mobileSummaryEsc(dest || 'Choose destination')}</p>
                         <p class="booking-mobile-summary-banner__meta">${window._mobileSummaryEsc(window._mobileSummaryDateText(ci))} · ${window._mobileSummaryEsc(window._mobileSummaryDateText(co))}</p>
+                        ${selectedLine}
                     </div>`;
             }
             const pickup = document.getElementById('online-car-pickup')?.value?.trim() || '';
             const dropoff = document.getElementById('online-car-dropoff')?.value?.trim() || '';
             const pu = document.getElementById('online-car-pickup-date')?.value || '';
             const pt = document.getElementById('online-car-pickup-time')?.value || '';
+            const rd = document.getElementById('online-car-return-date')?.value || '';
+            const rt = document.getElementById('online-car-return-time')?.value || '';
+            const pickupMeta = [window._mobileSummaryDateText(pu), pt || ''].filter(Boolean).join(' · ');
+            const returnMeta = [rd ? window._mobileSummaryDateText(rd) : '', rt || ''].filter(Boolean).join(' · ');
+            const metaLine = [pickupMeta, returnMeta].filter(Boolean).join(' · ');
             return `
                 <div class="booking-mobile-summary-banner__body">
                     <p class="booking-mobile-summary-banner__eyebrow">Car search</p>
-                    ${window._mobileSummaryRouteHtml(pickup, dropoff)}
-                    <p class="booking-mobile-summary-banner__meta">${window._mobileSummaryEsc(window._mobileSummaryDateText(pu))}${pt ? ` · ${window._mobileSummaryEsc(pt)}` : ''}</p>
+                    ${window._mobileSummaryPlainRouteHtml(pickup, dropoff)}
+                    <p class="booking-mobile-summary-banner__meta">${window._mobileSummaryEsc(metaLine)}</p>
                 </div>`;
         };
         window.renderOnlineSearchSummary = (mode) => {
@@ -21201,6 +21225,7 @@
                                 ${h.includeBreakfast ? badge('coffee', 'Breakfast included') : badge('utensils-crossed', 'Room only')}
                             </div>
                         </div>
+                        <button type="button" class="online-flight-mobile-stepper__summary-edit shrink-0" onclick="window.editHotelSelectionFromReview?.()">Edit</button>
                     </div>
 
                     <div class="mt-4 rounded-2xl border border-slate-200 overflow-hidden">
@@ -21299,7 +21324,68 @@
             nextBtn.className = 'w-full max-md:w-full sm:w-auto px-12 max-md:px-6 py-3 max-md:min-h-[48px] rounded-xl bg-[#4285F4] text-white font-black tracking-widest transition-all hover:bg-[#3367D6] cursor-pointer';
         };
 
+        window._upsertOnlineHotelItineraryFromSelection = () => {
+            const idx = window._onlineHotelSelectedIndex;
+            if (idx == null) return;
+            const dest = document.getElementById('online-hotel-destination')?.value?.trim() || '';
+            const roomEl = document.getElementById('online-hotel-room-type');
+            const roomLabel = window._onlineHotelModalRoomLabel
+                || roomEl?.selectedOptions?.[0]?.textContent?.trim()
+                || 'Standard Room';
+            const h = window._onlineHotelRows?.[idx] || { name: 'Hotel', area: dest, price: 0 };
+            const nightPrice = window._onlineHotelSelectedNightPrice != null ? window._onlineHotelSelectedNightPrice : (h.price || 0);
+            const newItem = {
+                id: Date.now(),
+                type: 'hotel',
+                isOnline: true,
+                title: 'Hotel Stay',
+                icon: 'building',
+                primary: h.name,
+                secondary: dest,
+                detail: `${roomLabel} · ¥${nightPrice.toLocaleString()} / night · Online Rate`
+            };
+            const items = window.itineraryItems || (window.itineraryItems = []);
+            const existingIx = items.findIndex((it) => it.type === 'hotel');
+            if (existingIx >= 0) {
+                newItem.id = items[existingIx].id;
+                items[existingIx] = newItem;
+            } else {
+                items.push(newItem);
+            }
+            window.renderItinerarySummary?.();
+            window.updateConfirmationTotalAmount?.('');
+            window.updateConfirmationTotalAmount?.('change-');
+        };
+
+        window.editHotelSelectionFromReview = () => {
+            window.closeHotelSelectionReviewModal?.();
+            const hotelCard = document.querySelector('.online-subtab-card[data-online-mode="hotel"]');
+            if (hotelCard) window.switchOnlineSubTab?.('hotel', hotelCard);
+            const master = window._onlineHotelMasterRows || [];
+            const rows = window._onlineHotelRows || [];
+            if (!rows.length && master.length) {
+                window._onlineHotelRows = [...master];
+            }
+            if ((window._onlineHotelRows || []).length) {
+                document.getElementById('online-hotel-results')?.classList.remove('hidden');
+                window.collapseOnlineSearchPanel?.('hotel');
+                window.renderOnlineSearchSummary?.('hotel');
+                window.switchOnlineHotelResultsTab?.('results');
+                window.refreshOnlineHotelRowBodies?.();
+                const selIdx = window._onlineHotelSelectedIndex;
+                if (selIdx != null) {
+                    requestAnimationFrame(() => {
+                        document.querySelector(`[data-hotel-idx="${selIdx}"]`)?.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+                    });
+                }
+            }
+            window.updateOnlineBookingFooterButtons?.();
+            window.updateBookingStepNextButtonState?.();
+            lucide.createIcons?.();
+        };
+
         window.proceedOnlineHotelFromReview = () => {
+            window._upsertOnlineHotelItineraryFromSelection?.();
             window.closeHotelSelectionReviewModal?.();
             window.openBookingTravelInfoModal?.();
         };
@@ -23429,6 +23515,17 @@
             const travelPrimary = document.getElementById('booking-travel-info-primary-btn');
             /* Step-2 travel popup: always Submit (main confirmation footer still uses Book vs Submit by host). */
             if (travelPrimary) travelPrimary.textContent = 'Submit';
+            const empEl = document.getElementById('booking-travel-info-employee-display');
+            if (empEl && !empEl.value.trim()) {
+                const fromConf = document.getElementById('conf-trav-name-passport')?.textContent?.trim();
+                if (fromConf && fromConf !== '-') {
+                    empEl.value = fromConf;
+                } else {
+                    const card = document.getElementById('selected-traveler-area')?.querySelector('.selected-traveler-card');
+                    const name = card?.querySelector('p.font-black')?.innerText?.trim();
+                    empEl.value = name && name !== '-' ? name : 'JOHN WICK';
+                }
+            }
             lucide.createIcons?.();
         };
 
@@ -23596,6 +23693,11 @@
         };
 
         window.confirmBookingTravelInfo = () => {
+            const empName = document.getElementById('booking-travel-info-employee-display')?.value?.trim() || 'JOHN WICK';
+            ['conf-trav-name-jp', 'conf-trav-name-passport'].forEach((id) => {
+                const el = document.getElementById(id);
+                if (el) el.textContent = empName;
+            });
             window.closeBookingTravelInfoModal();
             window.setBookingStep(2);
         };
