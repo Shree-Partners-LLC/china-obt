@@ -4182,11 +4182,28 @@
                 padding-right: 0.375rem;
             }
 
-            #app-header.is-search-minimized:not(.is-search-expanded) {
+            #app-header.is-search-minimized:not(.is-search-expanded):not(.is-profile-menu-open) {
                 height: auto;
                 min-height: 4rem;
                 max-height: 4rem;
                 overflow: hidden;
+            }
+
+            #app-header.is-profile-menu-open {
+                overflow: visible !important;
+                max-height: none !important;
+            }
+
+            .mobile-app-header-bar .header-profile-dropdown-wrap {
+                position: relative;
+                z-index: 42;
+            }
+
+            .mobile-app-header-bar [data-profile-dropdown-trigger] {
+                position: relative;
+                z-index: 42;
+                pointer-events: auto;
+                touch-action: manipulation;
             }
 
             #app-header.is-search-minimized.is-search-expanded {
@@ -13845,6 +13862,44 @@
     </div>
 
     <script>
+        /* Profile dropdown — pinned on window early for inline onclick handlers */
+        window.closeProfileDropdowns = function () {
+            document.querySelectorAll('[data-profile-dropdown]').forEach((el) => el.classList.add('hidden'));
+            document.querySelectorAll('[data-profile-dropdown-trigger]').forEach((el) => el.setAttribute('aria-expanded', 'false'));
+            document.getElementById('app-header')?.classList.remove('is-profile-menu-open');
+        };
+        window.toggleProfileDropdown = function (trigger) {
+            const el = trigger && trigger.nodeType === 1 ? trigger : null;
+            const wrap = el?.closest?.('.header-profile-dropdown-wrap');
+            const menu = wrap?.querySelector?.('[data-profile-dropdown]');
+            if (!wrap || !menu || !el) return;
+            const isOpen = !menu.classList.contains('hidden');
+            window.closeProfileDropdowns();
+            if (!isOpen) {
+                menu.classList.remove('hidden');
+                el.setAttribute('aria-expanded', 'true');
+                document.getElementById('app-header')?.classList.add('is-profile-menu-open');
+            }
+        };
+        window._initProfileDropdownBindings = function () {
+            if (window._profileDropdownBindingsInit) return;
+            window._profileDropdownBindingsInit = true;
+            document.addEventListener('pointerdown', (e) => {
+                const trigger = e.target.closest?.('[data-profile-dropdown-trigger]');
+                if (trigger) return;
+                const openWrap = Array.from(document.querySelectorAll('.header-profile-dropdown-wrap')).find((wrap) => {
+                    const menu = wrap.querySelector('[data-profile-dropdown]');
+                    return menu && !menu.classList.contains('hidden');
+                });
+                if (!openWrap || openWrap.contains(e.target)) return;
+                window.closeProfileDropdowns();
+            });
+            document.addEventListener('keydown', (e) => {
+                if (e.key === 'Escape') window.closeProfileDropdowns();
+            });
+        };
+        window._initProfileDropdownBindings();
+
         /* AI-ADDED: Price threshold for booking process fee popup
            Prompt: Fee notice when flight/rail selection exceeds limit */
         const PRICE_FEE_THRESHOLD = 5000;
@@ -15545,16 +15600,53 @@
                 disabledClass: window._TRAVEL_SUBMIT_DISABLED
             });
         };
-        window._canConfirmBooking = () => {
-            const name = document.getElementById('conf-trav-name-passport')?.textContent?.trim();
+        window._bookingTermsAcceptedForConfirm = (idPrefix) => {
+            const p = idPrefix || '';
+            const gid = (id) => document.getElementById(p + id);
+            const airSec = gid('conf-air-checkout-section');
+            const offlineSec = gid('conf-offline-general-checkout-section');
+            const providerVisible = airSec && !airSec.classList.contains('hidden');
+            const offlineVisible = offlineSec && !offlineSec.classList.contains('hidden');
+            if (providerVisible) return !!gid('conf-provider-terms-checkbox')?.checked;
+            if (offlineVisible) return !!gid('conf-offline-general-terms-checkbox')?.checked;
+            return !!(gid('conf-provider-terms-checkbox')?.checked || gid('conf-offline-general-terms-checkbox')?.checked);
+        };
+        window._applyConfirmationTravelerNameFromModal = (idPrefix) => {
+            const p = idPrefix || '';
+            const gid = (id) => document.getElementById(p + id);
+            const empName = (window._pendingConfirmationTravelerName || document.getElementById('booking-travel-info-employee-display')?.value?.trim() || '').trim();
+            if (!empName) return;
+            const passportEl = gid('conf-trav-name-passport');
+            const current = passportEl?.textContent?.trim();
+            if (!passportEl || (current && current !== '-')) return;
+            passportEl.textContent = empName;
+            const jpEl = gid('conf-trav-name-jp');
+            const jpCurrent = jpEl?.textContent?.trim();
+            if (jpEl && (!jpCurrent || jpCurrent === '-')) jpEl.textContent = empName;
+            window._pendingConfirmationTravelerName = '';
+        };
+        window._wireBookingStep2ConfirmListeners = (idPrefix) => {
+            const p = idPrefix || '';
+            [p + 'conf-provider-terms-checkbox', p + 'conf-offline-general-terms-checkbox'].forEach((id) => {
+                const el = document.getElementById(id);
+                if (!el || el.dataset.confirmTermsWired === '1') return;
+                el.dataset.confirmTermsWired = '1';
+                el.addEventListener('change', () => window.syncBookingConfirmButtonState?.(p));
+            });
+        };
+        window._canConfirmBooking = (idPrefix) => {
+            const p = idPrefix || '';
+            const name = document.getElementById(p + 'conf-trav-name-passport')?.textContent?.trim();
             if (!name || name === '-') return false;
-            const cb = document.getElementById('conf-provider-terms-checkbox');
-            return !!(cb && cb.checked);
+            return window._bookingTermsAcceptedForConfirm(p);
         };
         window._CONF_SUBMIT_ACTIVE = 'w-full sm:w-auto px-12 py-3 rounded-xl bg-[#4285F4] text-white font-black tracking-widest shadow-lg shadow-orange-100 hover:bg-[#3367D6] transition-all';
         window._CONF_SUBMIT_DISABLED = 'w-full sm:w-auto px-12 py-3 rounded-xl bg-slate-300 text-slate-500 font-black tracking-widest shadow-lg shadow-orange-100 transition-all opacity-40 cursor-not-allowed';
-        window.syncBookingConfirmButtonState = () => {
-            window._setGuardedButton(document.getElementById('booking-conf-primary-btn'), window._canConfirmBooking(), {
+        window.syncBookingConfirmButtonState = (idPrefix) => {
+            const p = idPrefix || '';
+            const btn = document.getElementById(p + 'booking-conf-primary-btn');
+            if (!btn) return;
+            window._setGuardedButton(btn, window._canConfirmBooking(p), {
                 activeClass: window._CONF_SUBMIT_ACTIVE,
                 disabledClass: window._CONF_SUBMIT_DISABLED
             });
@@ -17982,16 +18074,19 @@
             if (step === 2) {
                 window.renderItinerarySummary();
                 window.populateConfirmationTravelerDetails('change-');
+                window._applyConfirmationTravelerNameFromModal?.('change-');
                 window.updateConfirmationTotalAmount?.('change-');
                 window.populateConfirmationCheckoutUI?.('change-');
                 const termsC = document.getElementById('change-conf-provider-terms-checkbox');
                 if (termsC) termsC.checked = false;
                 const offlineGenC = document.getElementById('change-conf-offline-general-terms-checkbox');
                 if (offlineGenC) offlineGenC.checked = false;
+                window._wireBookingStep2ConfirmListeners?.('change-');
                 const confPrimaryCr = document.getElementById('change-booking-conf-primary-btn');
                 if (confPrimaryCr) {
                     confPrimaryCr.textContent = window._bookingStep2PrimaryLabel();
                 }
+                window.syncBookingConfirmButtonState?.('change-');
             }
         };
         window.startChangeRequest = (type) => {
@@ -24166,10 +24261,7 @@
                 return;
             }
             const empName = document.getElementById('booking-travel-info-employee-display')?.value?.trim() || 'JOHN WICK';
-            ['conf-trav-name-jp', 'conf-trav-name-passport'].forEach((id) => {
-                const el = document.getElementById(id);
-                if (el) el.textContent = empName;
-            });
+            window._pendingConfirmationTravelerName = empName;
             window.closeBookingTravelInfoModal();
             window.setBookingStep(2);
         };
@@ -24193,12 +24285,14 @@
                 window._mountBookingStep2();
                 window.renderItinerarySummary();
                 window.populateConfirmationTravelerDetails('');
+                window._applyConfirmationTravelerNameFromModal?.('');
                 window.updateConfirmationTotalAmount?.('');
                 window.populateConfirmationCheckoutUI?.('');
                 const terms = document.getElementById('conf-provider-terms-checkbox');
                 if (terms) terms.checked = false;
                 const offlineGen = document.getElementById('conf-offline-general-terms-checkbox');
                 if (offlineGen) offlineGen.checked = false;
+                window._wireBookingStep2ConfirmListeners?.('');
                 const confPrimary = document.getElementById('booking-conf-primary-btn');
                 if (confPrimary) {
                     /* Domestic/International: online host → Book; offline host → Submit */
@@ -25786,33 +25880,13 @@
             window.openApprovalsActionModal(card.getAttribute('data-approval-id') || '');
         });
 
-        window.closeProfileDropdowns = () => {
-            document.querySelectorAll('[data-profile-dropdown]').forEach((el) => el.classList.add('hidden'));
-            document.querySelectorAll('[data-profile-dropdown-trigger]').forEach((el) => el.setAttribute('aria-expanded', 'false'));
-        };
-        window.toggleProfileDropdown = (trigger) => {
-            const wrap = trigger?.closest?.('.header-profile-dropdown-wrap');
-            const menu = wrap?.querySelector?.('[data-profile-dropdown]');
-            if (!wrap || !menu) return;
-            const isOpen = !menu.classList.contains('hidden');
-            window.closeProfileDropdowns();
-            menu.classList.toggle('hidden', isOpen);
-            trigger.setAttribute('aria-expanded', isOpen ? 'false' : 'true');
-        };
+        /* Re-pin profile dropdown globals after full script parse (inline handlers + late init) */
+        window.closeProfileDropdowns = window.closeProfileDropdowns;
+        window.toggleProfileDropdown = window.toggleProfileDropdown;
+        window._initProfileDropdownBindings?.();
         window.toggleLangDropdown = () => {
             document.querySelectorAll('[data-lang-dropdown]').forEach((el) => el.classList.toggle('hidden'));
         };
-        document.addEventListener('pointerdown', (e) => {
-            const openWrap = Array.from(document.querySelectorAll('.header-profile-dropdown-wrap')).find((wrap) => {
-                const menu = wrap.querySelector('[data-profile-dropdown]');
-                return menu && !menu.classList.contains('hidden');
-            });
-            if (!openWrap || openWrap.contains(e.target)) return;
-            window.closeProfileDropdowns();
-        });
-        document.addEventListener('keydown', (e) => {
-            if (e.key === 'Escape') window.closeProfileDropdowns();
-        });
 
         window.toggleApprovalsFiltersPanel = () => {
             const body = document.getElementById('approvals-filters-body');
